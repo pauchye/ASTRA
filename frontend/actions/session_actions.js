@@ -31,13 +31,19 @@ export const signup = formUser => dispatch => (
     )
 )
 
-export const login = formUser => dispatch => (
-    logIn(formUser).then(user => (
-        dispatch(receiveCurrentUser(user))
-    )), error => (
+export const login = formUser => dispatch => {
+    // debugger
+    console.log(logIn(formUser))
+    return logIn(formUser).then(user => {
+        // debugger
+        return dispatch(receiveCurrentUser(user)) 
+    }
+    ), error => (
         dispatch(receiveSessionError(error.responseJSON))
     )
-)
+}
+    
+
 
 export const logout = () => dispatch => (
     logOut().then(user => (

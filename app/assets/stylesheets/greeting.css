@@ -1,0 +1,110 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+
+
+/* greeting */
+
+
+.header-greeting{
+    display: flex;
+    background-color: white;
+    justify-content: space-between;
+    border-bottom: 1px solid lightgray;
+    height: 55px;
+}
+
+.greeting-logo-cont{
+    /* position: absolute;
+    left: 35px; */
+ 
+}
+
+
+.greeting-logo{
+    height: 50px;
+}
+
+.greeting-right{
+    position: absolute;
+    right: 20px;
+    width: 200px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 55px;
+}
+
+.greeting-button button{
+    background-color: white;
+    border-radius: 4px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 600;
+    padding: 5px;
+    border: 1px solid rgb(175, 174, 174);
+    font-size: 14px;
+    text-decoration: none;
+    color: black;
+}
+
+.greeting-link{
+    background-color: #FC4C02;
+    border-radius: 4px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 600;
+    padding: 5px;
+    font-size: 14px;
+    text-decoration: none;
+    color: white;
+}
+
+.greeting-button:hover{
+    cursor: pointer;
+    background-color: lightgray;
+}
+
+
+
+.greeting-left{
+    display: flex;
+    /* justify-content: space-around; */
+}
+
+.greeting-drop-cont{
+    /* max-width: 500px; */
+    /* width: 50%; */
+    /* position: absolute;
+    left: 300px; */
+    height: 55px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.greeting-left-drop{
+    /* padding: 10px; */
+}
+
+.greeting-drop-cont div{
+    margin: 10px;
+    font-family: Arial, Helvetica, sans-serif;
+    /* font-weight: 600; */
+    font-size: 14px;
+}
+
+/* form */
+
+

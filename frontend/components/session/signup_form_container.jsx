@@ -5,13 +5,15 @@ import { signup } from '../../actions/session_actions'
 const mapStateToProps = (state) => {
     return {
         errors: state.errors.session,
-        formType: 'signup'
+        formType: 'Sign Up',
+        otherFormType: 'Log In',
+        otherFormLink: '/login'
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        processForm: (user) => dispatch(signup(user))
+        processForm: (user) => dispatch(signup(user)) //smth else
     }
 }
 

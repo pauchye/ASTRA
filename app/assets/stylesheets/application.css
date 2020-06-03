@@ -13,3 +13,11 @@
  *= require_tree .
  *= require_self
  */
+
+ .header-signup{
+     background-color: aquamarine;
+ }
+ .header-main{
+    background-color: gray;
+}
+
