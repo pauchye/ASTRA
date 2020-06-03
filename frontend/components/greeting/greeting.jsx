@@ -6,7 +6,7 @@ export default ({currentUser, logout}) => {
   const currentRoute = useLocation().pathname;
   const showLogin = currentRoute !== '/login';
   const showSignup = currentRoute !== '/signup';
-  console.log(currentUser);
+  // console.log(currentUser);
  
   const display = currentUser ? (
     <div className ='header-greeting'>

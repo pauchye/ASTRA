@@ -13,7 +13,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        processForm: (user) => dispatch(signup(user)) //smth else
+        processForm: (user) => dispatch(signup(user)) //smth else (user) => dispatch(checkEmail(user))
     }
 }
 
