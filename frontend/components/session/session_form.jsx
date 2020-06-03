@@ -5,11 +5,11 @@ class SessionForm extends React.Component {
     constructor(props) {
       super(props);
       this.state = {
-        password: "Password",
+        password: "",
         first_name: "",
         last_name: "",
         gender: "",
-        email: "Your email"
+        email: ""
       };
       this.demoUser = {
         password: "123456",
@@ -72,12 +72,14 @@ class SessionForm extends React.Component {
                         <input type="text" className='form-input'
                           value={this.state.email}
                           onChange={this.update('email')}
+                          placeholder="Your Email"
                         />
                     </label>
                     <label>
                         <input type="password" className='form-input'
                           value={this.state.password}
                           onChange={this.update('password')}
+                          placeholder="Your Password"
                         />
                     </label>
                     <button type="submit">{this.props.formType}</button>

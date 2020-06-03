@@ -595,11 +595,11 @@ var SessionForm = /*#__PURE__*/function (_React$Component) {
 
     _this = _super.call(this, props);
     _this.state = {
-      password: "Password",
+      password: "",
       first_name: "",
       last_name: "",
       gender: "",
-      email: "Your email"
+      email: ""
     };
     _this.demoUser = {
       password: "123456",
@@ -662,12 +662,14 @@ var SessionForm = /*#__PURE__*/function (_React$Component) {
         type: "text",
         className: "form-input",
         value: this.state.email,
-        onChange: this.update('email')
+        onChange: this.update('email'),
+        placeholder: "Your Email"
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "password",
         className: "form-input",
         value: this.state.password,
-        onChange: this.update('password')
+        onChange: this.update('password'),
+        placeholder: "Your Password"
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         type: "submit"
       }, this.props.formType)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {

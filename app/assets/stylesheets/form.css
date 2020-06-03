@@ -30,6 +30,7 @@
     background-color: rgba(0, 0, 0, 0.5);
     width: 400px;
     height: 500px;
+    border-radius: 4px;
 }
 
 .form1{
@@ -40,6 +41,8 @@
     font-family: Arial, Helvetica, sans-serif;
     color: white;
     background-color: rgba(0, 0, 0, 0.5);
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
 }
 
 .form2{
@@ -64,6 +67,12 @@
     color: white;
     background-color: rgb(39, 39, 39);
 }
+.form-input:focus{
+    background-color: ghostwhite;
+    box-shadow: 0px 0px 10px white;
+    outline:none;
+    color: black;
+}
 
 .form2 button{
     width: 300px;
@@ -73,6 +82,18 @@
     /* border: 1px solid rgb(177, 176, 176); */
     color: white;
     background-color: #FC4C02;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    border: none;
+}
+
+.form2 button:hover{
+    cursor: pointer;
+}
+
+::placeholder{
+    color: white;
     font-family: Arial, Helvetica, sans-serif;
 }
 
