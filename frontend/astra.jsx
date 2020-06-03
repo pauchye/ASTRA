@@ -4,9 +4,11 @@ import { signup, login, logout } from './actions/session_actions'
 import configureStore from './store/store'
 import Root from './components/root'
 
+
 window.login = login;
 window.signup = signup;
 window.logout = logout;
+
 
 // document.addEventListener("DOMContentLoaded", () => {
 //   const root = document.getElementById("root");
@@ -16,6 +18,7 @@ window.logout = logout;
 document.addEventListener("DOMContentLoaded", () => {
 
   let store;
+  
   if (window.currentUser) {
   const preloadedState = {
       entities: {
@@ -28,7 +31,7 @@ document.addEventListener("DOMContentLoaded", () => {
   } else {
   store = configureStore();
   }
-
+  window.getState = store.getState;
 const root = document.getElementById("root");
 ReactDOM.render(<Root store={store}/>, root);
 });

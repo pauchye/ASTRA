@@ -9,7 +9,7 @@ class SessionForm extends React.Component {
         first_name: "",
         last_name: "",
         gender: "",
-        email: "    Your email"
+        email: "Your email"
       };
       this.demoUser = {
         password: "123456",
@@ -18,7 +18,8 @@ class SessionForm extends React.Component {
         gender: "", 
         email: "rick@deckard"
       }
-      this.handleSubmit = this.handleSubmit.bind(this)
+      this.handleSubmit = this.handleSubmit.bind(this);
+      this.renderErrors = this.renderErrors.bind(this)
     }
 
     update(field) {
@@ -27,10 +28,23 @@ class SessionForm extends React.Component {
         })
     }
 
+    renderErrors() {
+      // debugger
+      return(
+        <ul>
+          {this.props.errors.map((error, i) => (
+            <li key={`error-${i}`}>
+              {error}
+            </li>
+          ))}
+        </ul>
+      );
+    }   
+
     handleSubmit(e) {
         e.preventDefault();
         const user = Object.assign({}, this.state);
-        this.props.processForm(user);
+        this.props.processForm(user);//change processForm for signup
     }
 
     render() {
@@ -67,8 +81,18 @@ class SessionForm extends React.Component {
                         />
                     </label>
                     <button type="submit">{this.props.formType}</button>
+                
                 </form>
+                <div className='form-error' >{this.renderErrors()}</div>
+                {/* <ul>
+                    {this.props.errors.map((error, i) => (
+                      <li key={`error-${i}`}>
+                        {error}
+                      </li>
+                    ))}
+                 </ul> */}
                 </div>
+                
                 </div>
             </div>
         )
