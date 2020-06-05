@@ -68,23 +68,58 @@
     justify-content: center;
     padding: 10px;
     margin: 20px;
+    margin-top: 200px;
 
 }
 
 .button-splash{
-    font-size: 36px;
+    font-size: 18px;
     font-family: Arial, Helvetica, sans-serif;
-    font-weight: 700;
-    color: white;
-    /* border: 1px solid gray; */
-    border-radius: 10px;
-    background-color: #FC4C02;
-    padding: 20px;
-    box-shadow: 0px 0px 5px black;
+    font-weight: 500;
+    color: rgb(0, 0, 0);
+    border: 1px solid gray;
+    /* border-radius: 10px; */
+    background-color: rgb(255, 255, 255);
+    /* width: 258px;
+    height: 20px; */
+    padding-left: 100px;
+    padding-right: 100px;
+    padding-top: 16px;
+    padding-bottom: 16px;
+    /* padding: 20px; */
+    box-shadow: 0px 0px 1px black;
     border-width: 0px;
+    text-decoration: none;
 }
 
 .button-splash:hover{
     cursor: pointer;
+    border: 1px solid black;
+    background-color: rgb(243, 243, 243);
+}
+.line-or{
+    font-size: 12px;
+    text-align: center;
+    margin-top: 24px;
+    margin-bottom: 24px;
+    border-top: 1px solid #e0e0e7;
+    height: 1px;
+}
+.text-or {
+    background-color: #fff;
+    color: #6d6d78;
+    display: inline-block;
+    padding: 0 12px;
+    position: relative;
+    bottom: 8px;
+    font-size: 14px;
 }
 
+@media (max-width: 768px) {
+    [class*="body-splash"] {
+        flex-direction: column;
+    }
+    [class*="button-splash-cont"]{
+        margin-top: 20px;
+    }
+}

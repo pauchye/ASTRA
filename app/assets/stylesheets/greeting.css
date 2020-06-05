@@ -22,19 +22,31 @@
     display: flex;
     background-color: white;
     justify-content: space-between;
-    border-bottom: 1px solid lightgray;
-    height: 55px;
+    border-bottom: 1px solid rgb(233, 233, 233);
+    height: 50px;
 }
 
-.greeting-logo-cont{
-    /* position: absolute;
-    left: 35px; */
- 
+.footer-greeting{
+    display: flex;
+    background-color: white;
+    justify-content: space-between;
+    border-top: 1px solid rgb(233, 233, 233);
+    height: 50px;
+    position: fixed;
+    width: 100%;
+    bottom: 0px;
+    padding-top: 6px;
 }
+/* .greeting-logo-cont{
+    position: absolute;
+    left: 100px;
+ 
+} */
 
 
 .greeting-logo{
-    height: 50px;
+    height: 40px;
+    padding-left: 100px;
 }
 
 .greeting-right{
@@ -44,7 +56,7 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
-    height: 55px;
+    height: 50px;
 }
 
 .greeting-button button{
@@ -57,6 +69,7 @@
     font-size: 14px;
     text-decoration: none;
     color: black;
+
 }
 
 .greeting-link{
@@ -87,7 +100,7 @@
     /* width: 50%; */
     /* position: absolute;
     left: 300px; */
-    height: 55px;
+    height: 50px;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
@@ -103,6 +116,27 @@
     font-family: Arial, Helvetica, sans-serif;
     /* font-weight: 600; */
     font-size: 14px;
+}
+
+
+@media (max-width: 768px) {
+    [class*="greeting-logo"] {
+        padding-left: 0px;
+    }
+}
+
+@media (min-width: 768px) {
+    [class*="greeting-button-q"]  {
+        margin-right: 100px;
+    }
+}
+
+@media (max-width: 768px) {
+    [class*="greeting-button-q"] {
+        position: absolute;
+        right: 4px;
+        top: 5px;
+    }
 }
 
 /* form */

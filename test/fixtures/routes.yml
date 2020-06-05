@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user_id: 1
+  route_name: MyString
+  description: MyText
+  activity: MyString
+  road_type: MyString
+  distance: MyString
+  estimated_duration: 1
+  elevation: 1
+  route_data: MyString
+
+two:
+  user_id: 1
+  route_name: MyString
+  description: MyText
+  activity: MyString
+  road_type: MyString
+  distance: MyString
+  estimated_duration: 1
+  elevation: 1
+  route_data: MyString

@@ -38,8 +38,15 @@ class Splash extends React.Component {
               <img src={window.splash} className='img-splash'/>
             </div>
                 {/* <img src="assets/running-alone-front.jpg" /> */}
-            <div className ='button-splash-cont' >
-              <button className ='button-splash' onClick={this.loginDemo} >Demo User</button>
+              <div>
+                
+                <div className ='button-splash-cont' >
+                  <Link to='/signup' className ='button-splash' >Sign up with email</Link>
+                  <div className='line-or'>
+                    <div className ='text-or'>or</div>
+                  </div>
+                  <button className ='button-splash'className ='button-splash' onClick={this.loginDemo} >Demo User</button>
+              </div>
             </div>
           </div>
         </div>

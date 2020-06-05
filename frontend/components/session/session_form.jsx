@@ -65,7 +65,7 @@ class SessionForm extends React.Component {
               <div className='black-form-container'>
               <div className='black-form'>
                 <h3 className='form1'>
-                    {this.props.formType}
+                    {this.props.formHeader}
                 </h3>
                 <form onSubmit={this.handleSubmit} className='form2'>
                     <label >
