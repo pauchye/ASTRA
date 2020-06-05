@@ -1,24 +1,14 @@
 import { connect } from 'react-redux';
-import RouteForm from './route_form';
+import SaveRoute from './save_route';
 import { createRoute } from '../../actions/route_actions'
 import { openModal, closeModal, closeAndSaveModal } from '../../actions/modal_actions'
 
 const mapStateToProps = state => {
-    // debugger
+    debugger
     const userId = state.session.id;
     return {
       userId,
-      route: {
-        // user_id: null,
-        route_name: '',
-        description: '',
-        activity: '',
-        road_type: '',
-        distance: '',
-        estimated_duration: '',
-        elevation: '',
-        route_data: '{"lat": "", "lng": "", "zoom":"", "route_coord":"", "path":[]}' // "path":[{"lat":0,"lng":0},{"lat":0,"lng":0}]
-      }
+      errors: state.errors.routes //to add!!
     }
   }
   
@@ -32,4 +22,4 @@ const mapDispatchToProps = dispatch => {
     }
 }
   
-export default connect(mapStateToProps, mapDispatchToProps)(RouteForm);
+export default connect(mapStateToProps, mapDispatchToProps)(SaveRoute);

@@ -9,12 +9,14 @@ import DashboardContainer from './dashboard/dashboard_container';
 import RoutesIndexContainer from './route/route_index_container';
 import RoutesCreateContainer from './route/route_create_container';
 import Footer from './greeting/footer'
+import Modal from './modal/modal.jsx'
 
 
 
 const App = () => (
   <div>
       <GreetingContainer />
+      <Modal/>
       <Switch>
         <AuthRoute exact path="/login" component={LoginFormContainer} />
         <AuthRoute exact path="/signup" component={SignupFormContainer} />
