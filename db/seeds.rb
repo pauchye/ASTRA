@@ -10,9 +10,9 @@ User.delete_all
 
 u1 = User.create!(
   password: '123456',
-  first_name: 'firstname1',
-  last_name: 'lastname1',
-  email: 'email@first'
+  first_name: 'Zev',
+  last_name: 'Bellringer',
+  email: 'zev@bellringer'
 )
 
 u2 = User.create!(
@@ -29,4 +29,31 @@ demoUser = User.create!(
   gender: "", 
   email: "rick@deckard" 
 )
+
+Route.delete_all
+
+route1 = Route.create!(
+  user_id: demoUser.id,
+  route_name: 'firstroute',
+  description: 'some',
+  activity: 'biking',
+  road_type: '',
+  distance: '',
+  estimated_duration: '',
+  elevation: '',
+  route_data: '{"lat":40.770040, "lng":-73.977047, "zoom":13}'
+)
+
+route2 = Route.create!(
+  user_id: demoUser.id,
+  route_name: 'secondroute',
+  description: 'some other',
+  activity: 'biking',
+  road_type: '',
+  distance: '',
+  estimated_duration: '',
+  elevation: '',
+  route_data: '{"lat":40.661665, "lng":-73.972143, "zoom":13}'
+)
+
             

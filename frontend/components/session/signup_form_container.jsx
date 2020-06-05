@@ -7,7 +7,8 @@ const mapStateToProps = (state) => {
         errors: state.errors.session,
         formType: 'Sign Up',
         otherFormType: 'Log In',
-        otherFormLink: '/login'
+        otherFormLink: '/login',
+        formHeader: "Join Astra today, it's Free!"
     }
 }
 

@@ -3,12 +3,14 @@ import ReactDOM from "react-dom";
 import { signup, login, logout } from './actions/session_actions'
 import configureStore from './store/store'
 import Root from './components/root'
+import { fetchRoutes, fetchUsersRoutes } from './util/routes_api_util'
 
 
 window.login = login;
 window.signup = signup;
 window.logout = logout;
-
+window.fetchRoutes = fetchRoutes;
+window.fetchUsersRoutes = fetchUsersRoutes;
 
 // document.addEventListener("DOMContentLoaded", () => {
 //   const root = document.getElementById("root");
@@ -31,7 +33,11 @@ document.addEventListener("DOMContentLoaded", () => {
   } else {
   store = configureStore();
   }
+
   window.getState = store.getState;
+  window.dispatch = store.dispatch;
+
+  
 const root = document.getElementById("root");
 ReactDOM.render(<Root store={store}/>, root);
 });

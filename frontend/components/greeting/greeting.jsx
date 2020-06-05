@@ -6,6 +6,7 @@ export default ({currentUser, logout}) => {
   const currentRoute = useLocation().pathname;
   const showLogin = currentRoute !== '/login';
   const showSignup = currentRoute !== '/signup';
+  const showDemo = currentRoute !== '/'
   // console.log(currentUser);
  
   const display = currentUser ? (
@@ -18,7 +19,7 @@ export default ({currentUser, logout}) => {
             <div className='greeting-drop-cont'>
                 <div >Hello {currentUser.first_name}!! </div>
                 <div className='greeting-left-drop'>
-                    Routes  
+                  <Link to='/routes'> Routes </Link> 
                 </div>
                 <div className='greeting-left-drop'>
                     Workouts
@@ -28,7 +29,7 @@ export default ({currentUser, logout}) => {
         </div>
         <div className='greeting-right' >
             <div className='greeting-button' >
-              <button onClick={logout}>Logout</button>   
+              <button className='greeting-button-q' onClick={logout}>Logout</button>   
             </div>  
 
         </div>
@@ -49,7 +50,7 @@ export default ({currentUser, logout}) => {
                 <Link to="/login" className='greeting-link'>Log In</Link>
             </div>
           }
-             { showSignup &&
+             { showSignup && showDemo &&
             <div className='greeting-button' >
                 <Link to="/signup" className='greeting-link'>Sign Up</Link> 
             </div> 

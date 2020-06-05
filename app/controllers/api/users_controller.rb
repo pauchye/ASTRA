@@ -34,7 +34,7 @@ class Api::UsersController < ApplicationController
         @user.destroy
         render :show
       else
-        render ['Could not find user']
+        render json: ['Could not find user']
       end
     end
     
@@ -47,4 +47,4 @@ class Api::UsersController < ApplicationController
     def user_params
       params.require(:user).permit(:email, :password)
     end
-  end
+end

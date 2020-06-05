@@ -1,4 +1,5 @@
 import { RECEIVE_CURRENT_USER } from "../../actions/session_actions";
+import { RECEIVE_ROUTES } from '../../actions/route_actions'
 
 
 const usersReducer = (state = {}, action) => {
