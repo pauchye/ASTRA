@@ -39,11 +39,13 @@ export const fetchRoute = (routeId) => dispatch => (
     ))
 );
 
-export const createRoute = (route) => dispatch => (
-    APIUtil.createRoute(route).then(res => ( 
-      dispatch(receiveRoute(res))
-    ))
-);
+export const createRoute = (route) => dispatch => {
+    debugger
+    return APIUtil.createRoute(route).then(res => { 
+      debugger
+      return dispatch(receiveRoute(res))
+    })
+  };
 
 export const updateRoute = (route) => dispatch => (
     APIUtil.updateRoute(route).then(res => ( 

@@ -6,7 +6,7 @@ import SaveRouteContainer from '../route/save_route_container';
 class Modal extends React.Component {
   constructor(props){
     super(props);
-    debugger
+    // debugger
   }
   render(){
     const { closeModal, modal, routeData, routeInfo } = this.props;

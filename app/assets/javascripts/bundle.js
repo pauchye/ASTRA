@@ -195,7 +195,9 @@ var fetchRoute = function fetchRoute(routeId) {
 };
 var createRoute = function createRoute(route) {
   return function (dispatch) {
+    debugger;
     return _util_routes_api_util__WEBPACK_IMPORTED_MODULE_0__["createRoute"](route).then(function (res) {
+      debugger;
       return dispatch(receiveRoute(res));
     });
   };
@@ -402,7 +404,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var App = function App() {
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_greeting_greeting_container__WEBPACK_IMPORTED_MODULE_1__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_modal_modal_jsx__WEBPACK_IMPORTED_MODULE_11__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Switch"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_3__["AuthRoute"], {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_greeting_greeting_container__WEBPACK_IMPORTED_MODULE_1__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Switch"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_3__["AuthRoute"], {
     exact: true,
     path: "/login",
     component: _session_login_form_container__WEBPACK_IMPORTED_MODULE_5__["default"]
@@ -725,13 +727,9 @@ var Modal = /*#__PURE__*/function (_React$Component) {
   var _super = _createSuper(Modal);
 
   function Modal(props) {
-    var _this;
-
     _classCallCheck(this, Modal);
 
-    _this = _super.call(this, props);
-    debugger;
-    return _this;
+    return _super.call(this, props); // debugger
   }
 
   _createClass(Modal, [{
@@ -940,6 +938,8 @@ var RouteForm = /*#__PURE__*/function (_React$Component) {
 
     _this.dist = 0;
     _this.dur = 0;
+    _this.custTravelMode = 'WALKING'; // this.custBasemap = 'roadmap'
+
     _this.routeInfo = {
       route_name: _this.props.route.route_name,
       description: _this.props.route.description,
@@ -951,6 +951,8 @@ var RouteForm = /*#__PURE__*/function (_React$Component) {
     };
     _this.calculateAndDisplayRoute = _this.calculateAndDisplayRoute.bind(_assertThisInitialized(_this));
     _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
+    _this.updateMapFilter = _this.updateMapFilter.bind(_assertThisInitialized(_this));
+    _this.updateFilter = _this.updateFilter.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -968,11 +970,12 @@ var RouteForm = /*#__PURE__*/function (_React$Component) {
       }) || []; // console.log(wayPoints)
 
       if (this.markers.length > 1) {
+        console.log('travel mode:', this.custTravelMode);
         directionsService.route({
           origin: this.markers[0].position,
           waypoints: wayPoints,
           destination: this.markers[this.markers.length - 1].position,
-          travelMode: 'WALKING'
+          travelMode: this.custTravelMode
         }, function (response, status) {
           console.log('this is response', response);
 
@@ -1021,7 +1024,8 @@ var RouteForm = /*#__PURE__*/function (_React$Component) {
           lng: -73.970519
         },
         // this is NYC
-        zoom: 13
+        zoom: 13,
+        mapTypeId: 'roadmap'
       };
       this.directionsService = new google.maps.DirectionsService(); //???
 
@@ -1034,39 +1038,16 @@ var RouteForm = /*#__PURE__*/function (_React$Component) {
       }); //???
 
       this.map = new google.maps.Map(this.refs.mapNode, mapOptions);
-      this.directionsDisplay.setMap(this.map); // call place orig mark
-
+      this.directionsDisplay.setMap(this.map);
+      window.googleMap = this.map;
       google.maps.event.addListener(this.map, 'click', function (event) {
-        // debugger
         _this3.placeMarker(event.latLng);
 
         _this3.calculateAndDisplayRoute(_this3.directionsService, _this3.directionsDisplay);
 
         console.log(_this3.markers);
-      }); // let marker = new google.maps.Marker({position: {lat: 40.779914, lng: -73.970519}});
-      // let route = null; // [ (x,y), (x,y) ]
-      // this.map.drawLine(route);
-      // marker.setMap(this.map);
-      // this.markers.forEach(marker =>{
-      //     marker.setMap(this.map)
-      // })
-    } // function calculateAndDisplayRoute(directionsService, directionsDisplay) {
-    //     directionsService.route({
-    //       origin: document.getElementById('start').value,
-    //       destination: document.getElementById('end').value,
-    //       travelMode: 'DRIVING'
-    //     }, function(response, status) {
-    //       if (status === 'OK') {
-    //         directionsDisplay.setDirections(response);
-    //       } else {
-    //         window.alert('Directions request failed due to ' + status);
-    //       }
-    //     });
-    //   }
-    // google.maps.event.addListener(map, 'click', function(event) {
-    //     placeMarker(event.latLng);
-    //  });
-
+      });
+    }
   }, {
     key: "placeMarker",
     value: function placeMarker(location) {
@@ -1084,14 +1065,52 @@ var RouteForm = /*#__PURE__*/function (_React$Component) {
       this.props.openModal('save');
     }
   }, {
+    key: "updateFilter",
+    value: function updateFilter(input) {
+      this.custTravelMode = input;
+
+      if (input === 'WALKING') {
+        this.routeInfo = 'running';
+      } else {
+        this.routeInfo = 'biking';
+      }
+    }
+  }, {
+    key: "updateMapFilter",
+    value: function updateMapFilter(input) {
+      var _this4 = this;
+
+      // debugger
+      return function () {
+        return _this4.map.setMapTypeId(input);
+      }; // debugger
+      // this.custBasemap = input;
+    }
+  }, {
     key: "render",
     value: function render() {
+      var _this5 = this;
+
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_modal_modal__WEBPACK_IMPORTED_MODULE_1__["default"], {
         routeData: this.routeData,
         routeInfo: this.routeInfo
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         onClick: this.handleSubmit
-      }, "save"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "this is mapform"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, "save"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "this is mapform"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Routing preferences"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        onClick: function onClick() {
+          _this5.updateFilter('BICYCLING');
+        },
+        value: "Biking"
+      }, "Biking"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        onClick: function onClick() {
+          _this5.updateFilter('WALKING');
+        },
+        value: "Running"
+      }, "Running"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Map preferences"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        onClick: this.updateMapFilter('roadmap')
+      }, " Standard "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        onClick: this.updateMapFilter('satellite')
+      }, " Satellite ")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "routeform-container",
         ref: "mapNode"
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, " Distance"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, " Estimated"));
@@ -1367,6 +1386,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -1402,25 +1423,52 @@ var SaveRoute = /*#__PURE__*/function (_React$Component) {
     _this = _super.call(this, props);
     console.log(props);
     _this.state = {
-      distance: _this.props.routeData.distance,
-      duration: _this.props.routeData.duration,
-      route_name: _this.props.routeData.route_name,
-      description: _this.props.routeData.description
+      distance: _this.props.routeInfo.distance,
+      duration: _this.props.routeInfo.duration,
+      route_name: _this.props.routeInfo.route_name,
+      description: _this.props.routeInfo.description,
+      user_id: _this.props.userId
     };
+    console.log(_this.state); // debugger
+
+    _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
     return _this;
   }
 
   _createClass(SaveRoute, [{
+    key: "update",
+    value: function update(field) {
+      var _this2 = this;
+
+      return function (event) {
+        return _this2.setState(_defineProperty({}, field, event.target.value));
+      };
+    }
+  }, {
+    key: "handleSubmit",
+    value: function handleSubmit(e) {
+      e.preventDefault; // debugger
+
+      this.props.action(this.state);
+      this.props.closeAndSaveModal();
+    }
+  }, {
     key: "render",
     value: function render() {
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "this is the modal"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, " Route name:", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "this is the modal"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+        onSubmit: this.handleSubmit
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, " Route name:", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "text",
         value: this.state.route_name,
-        placeholder: "Route name"
+        placeholder: "Route name",
+        onChange: this.update('route_name')
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, " Description:", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", {
         value: this.state.description,
-        placeholder: "Description"
-      }))));
+        placeholder: "Description",
+        onChange: this.update('description')
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        type: "submit"
+      }, "submit")));
     }
   }]);
 
@@ -1450,7 +1498,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var mapStateToProps = function mapStateToProps(state) {
-  debugger;
+  // debugger
   var userId = state.session.id;
   return {
     userId: userId,
@@ -1962,7 +2010,7 @@ var routesReducer = function routesReducer() {
       return Object.assign({}, state, action.routes);
 
     case _actions_route_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_ROUTE"]:
-      return Object.assign({}, state, _defineProperty({}, action.post.id, action.post));
+      return Object.assign({}, state, _defineProperty({}, action.route.id, action.route));
 
     case _actions_route_actions__WEBPACK_IMPORTED_MODULE_0__["REMOVE_ROUTE"]:
       var newState = Object.assign({}, state);

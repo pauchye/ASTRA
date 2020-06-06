@@ -12,6 +12,8 @@ class RouteForm extends React.Component{
         this.route_path = this.routeData.path; //"path":[{"lat":0,"lng":0},{"lat":0,"lng":0}]
         this.dist = 0;
         this.dur = 0;
+        this.custTravelMode = 'WALKING'
+        // this.custBasemap = 'roadmap'
         this.routeInfo = {
             route_name: this.props.route.route_name, 
             description: this.props.route.description,
@@ -23,6 +25,8 @@ class RouteForm extends React.Component{
         }
         this.calculateAndDisplayRoute = this.calculateAndDisplayRoute.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
+        this.updateMapFilter = this.updateMapFilter.bind(this)
+        this.updateFilter = this.updateFilter.bind(this)
     }
 
     calculateAndDisplayRoute(directionsService, directionsDisplay) {
@@ -30,11 +34,13 @@ class RouteForm extends React.Component{
         let wayPoints = this.markers.slice(1, this.markers.length - 1 ).map(marker => ({location: marker.position, stopover: false})) || [];
         // console.log(wayPoints)
         if(this.markers.length > 1) {
+            console.log('travel mode:', this.custTravelMode);
+
             directionsService.route({
                 origin: this.markers[0].position,
                 waypoints: wayPoints,
                 destination: this.markers[this.markers.length - 1].position,
-                travelMode: 'WALKING'
+                travelMode: this.custTravelMode
             }, (response, status) => {
                 console.log('this is response',response)
                 if (status === 'OK') {  
@@ -72,7 +78,8 @@ class RouteForm extends React.Component{
     componentDidMount() {
         const mapOptions = {
           center: { lat: 40.779914, lng: -73.970519 }, // this is NYC
-          zoom: 13
+          zoom: 13,
+          mapTypeId: 'roadmap'
         };
 
         this.directionsService = new google.maps.DirectionsService(); //???
@@ -83,46 +90,20 @@ class RouteForm extends React.Component{
             ); //???
 
         this.map = new google.maps.Map(this.refs.mapNode, mapOptions);
-        this.directionsDisplay.setMap(this.map)
-        // call place orig mark
+        this.directionsDisplay.setMap(this.map);
+        window.googleMap = this.map;
+
         google.maps.event.addListener(this.map, 'click', (event) => {
-            // debugger
+ 
             this.placeMarker(event.latLng);
             this.calculateAndDisplayRoute(this.directionsService, this.directionsDisplay);
             console.log(this.markers)
         });
-        // let marker = new google.maps.Marker({position: {lat: 40.779914, lng: -73.970519}});
-        // let route = null; // [ (x,y), (x,y) ]
-        // this.map.drawLine(route);
 
-        // marker.setMap(this.map);
-
-        // this.markers.forEach(marker =>{
-        //     marker.setMap(this.map)
-        // })
         
     }
 
-    
 
-    // function calculateAndDisplayRoute(directionsService, directionsDisplay) {
-    //     directionsService.route({
-    //       origin: document.getElementById('start').value,
-    //       destination: document.getElementById('end').value,
-    //       travelMode: 'DRIVING'
-    //     }, function(response, status) {
-    //       if (status === 'OK') {
-    //         directionsDisplay.setDirections(response);
-    //       } else {
-    //         window.alert('Directions request failed due to ' + status);
-    //       }
-    //     });
-    //   }
-
-    // google.maps.event.addListener(map, 'click', function(event) {
-    //     placeMarker(event.latLng);
-    //  });
-     
      placeMarker(location) {
          let marker = new google.maps.Marker({
              position: location, 
@@ -137,6 +118,23 @@ class RouteForm extends React.Component{
         this.props.openModal('save')
     }
 
+    updateFilter(input) {
+        this.custTravelMode = input;
+        if(input === 'WALKING'){
+          this.routeInfo = 'running'  
+        } else {
+          this.routeInfo = 'biking'
+        }
+        
+    }
+
+    updateMapFilter(input) {
+        // debugger
+        return () => this.map.setMapTypeId(input)
+        // debugger
+        // this.custBasemap = input;
+    }
+
     render(){
 
         return(
@@ -144,6 +142,24 @@ class RouteForm extends React.Component{
                 <Modal routeData={this.routeData} routeInfo={this.routeInfo}/>
                 <div onClick={this.handleSubmit}>save</div>
                 <div>this is mapform</div>
+                <h3>Routing preferences</h3>
+                <div>
+                    <select >
+                        <option onClick={() => {this.updateFilter('BICYCLING')}} value="Biking">Biking</option>
+                        <option onClick={() => {this.updateFilter('WALKING')}} value="Running">Running</option>
+                    </select>
+                    {/* <button onClick={() => {this.updateFilter('BICYCLING')}}> Biking </button>
+                    <button onClick={this.updateFilter('WALKING')}> Running </button> */}
+                </div>
+                <h3>Map preferences</h3>
+                <div>
+                    {/* <select >
+                        <option onClick={() => {this.updateMapFilter('roadmap')}} value="roadmap">Standard</option>
+                        <option onClick={() => {this.updateMapFilter('satellite')}} value="satellite">Satellite</option>
+                    </select> */}
+                    <button onClick={this.updateMapFilter('roadmap')}> Standard </button>
+                    <button onClick={this.updateMapFilter('satellite')}> Satellite </button>
+                </div>
                 <div className='routeform-container' ref='mapNode'></div>
                 <label> Distance 
 
