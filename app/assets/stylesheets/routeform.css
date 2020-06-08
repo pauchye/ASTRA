@@ -1,5 +1,141 @@
+.routeform-main {
+    height: 100%;
+    display: grid;
+    grid-template-columns: 280px auto;
+    grid-template-rows: 48px 45px auto 50px;
+}
+
+.routeform-header{
+    grid-column-start: 1;
+    grid-column-end: span 2;
+    grid-row-start: 1;
+    display: flex;
+    background-color: white;
+    justify-content: space-between;
+    border-bottom: 1px solid rgb(233, 233, 233);
+    /* height: 50px; */
+}
+
+.routeform-header h3 {
+    margin-top: 10px;
+}
+
+.routeform-header-link{
+    text-decoration: none;
+    font-size: 13px;
+    color: #007fb6;
+}
+
+.routeform-header-link:hover{
+    text-decoration: underline;
+    cursor: pointer;    
+}
+.routeform-logo{
+    height: 40px;
+    padding-left: -5px;
+}
+
+
+
 .routeform-container{
-    width: 80%;
-    height: 600px;
-    border: 5px solid red;
+    grid-column-start: 1;
+    grid-column-start: span 2;
+    grid-row-start: 3;
+    height: calc(100vh - 140px);
+}
+
+.routeform-sidebar-inner{
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
+    color: crimson;
+    width: 240px;
+    padding: 10px;
+}
+
+.hidden{
+    display: none;
+}
+
+.routeform-sidebar-arrow {
+    padding: 7px;
+}
+
+.routeform-sidebar{
+    /* grid-column-start: 1;
+    grid-row-start: 2;
+    grid-row-end: span 2; */
+    position: absolute;
+    left: 0px;
+    top: 50px;
+    bottom: 50px;
+    height: calc(100vh - 100px);
+    background-color: white;
+    display: flex;
+    justify-content: space-between;
+    z-index: 2;
+    padding: 10px;   
+}
+
+.routeform-sidebar h3 {
+    font-size: 16px;
+    line-height: 21px;
+    font-weight: 600;
+    color: #000;
+}
+
+.routeform-sidebar select {
+    font-size: 14px;
+    line-height: 18px;
+    width: 100%;
+    padding: 10px 0px;
+    padding-left: 20px;
+    border: none;
+    border-top: 1px solid rgb(241, 241, 241);
+    border-bottom: 1px solid rgb(241, 241, 241);
+}
+
+.routeform-option{
+    min-height: 30px;
+    font-size: 14px;
+    line-height: 18px;
+    width: 100%;
+    padding: 10px;
+    margin: 10px;
+    border: none;
+    border-top: 1px solid rgb(241, 241, 241);
+    border-bottom: 1px solid rgb(241, 241, 241);
+}
+
+
+.routeform-search{
+    grid-column-start: 1;
+    grid-column-end: span 2;
+    grid-row-start: 2;
+    display: flex;
+    justify-content: flex-end;
+    border-bottom: 1px solid rgb(233, 233, 233);
+    background-color: #f7f7fa;
+    min-height: 36px;
+}
+
+.routeform-search button {
+    margin: 5px 10px;
+    padding: 0px 10px;
+}
+
+.routeform-footer{
+    grid-column-start: 1;
+    grid-column-end: span 2;
+    grid-row-start: 4;
+    display: flex;
+    padding: 10px;
+    background-color: white;
+    justify-content: space-around;
+    border-top: 1px solid rgb(233, 233, 233);
+    position: fixed;
+    bottom: 0px;
+    z-index: 3;
+    width: 100%;
+    min-height: 50px;
 }

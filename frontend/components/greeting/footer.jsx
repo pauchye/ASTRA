@@ -6,9 +6,10 @@ export default ({currentUser, logout}) => {
   const currentRoute = useLocation().pathname;
   const showLogin = currentRoute !== '/login';
   const showSignup = currentRoute !== '/signup';
+  const noNewRoute = currentRoute !== '/routes/new'
   // console.log(currentUser);
  
-  const display = showLogin && showSignup ? (
+  const display = showLogin && showSignup && noNewRoute ? (
     <div className ='footer-greeting'>
         <div className='greeting-left'>
             <div className='greeting-logo-cont'>

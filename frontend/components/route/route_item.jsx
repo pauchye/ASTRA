@@ -14,8 +14,9 @@ class RouteItem extends React.Component{
 
         const mapOptions = {
           center: { lat: parseFloat(this.routeData.lat, 10), lng: parseFloat(this.routeData.lng, 10) }, 
-          zoom: parseFloat(this.routeData.zoom, 10)
-
+          zoom: parseFloat(this.routeData.zoom, 10),
+          gestureHandling: 'none',
+          zoomControl: false
         };
         this.directionsService = new google.maps.DirectionsService(); 
         this.directionsDisplay = new google.maps.DirectionsRenderer(
@@ -71,21 +72,28 @@ class RouteItem extends React.Component{
     render(){
         // debugger
         let data = this.props.route.created_at.split("T")[0]// 2020-06-04T15:37:57.143Z
+        let showDuration;
+        if(this.props.route.estimated_duration/60 > 60){
+            showDuration = (Math.floor(this.props.route.estimated_duration/60/60).toString()) + ' h ' + Math.floor((this.props.route.estimated_duration/60%60)).toString() + ' m'
+        } else {
+            showDuration = Math.floor((this.props.route.estimated_duration/60)).toString() + ' m';
+        }
         return(
-            <div  >
-                <div></div>
+            <div className='route-ind-li' >
                 <div className='routeitem-container' ref='mapNode' onClick={this.handleClick}></div>
-                <div>{this.props.route.route_name}</div>
-                <label>
-                    <div>{this.props.route.distance} </div>
-                    Distance
-                </label>
-
-                <label>
-                    Est.moving time
-                    <div>{this.props.route.estimated_duration}</div>
-                </label>
-                <div>Created at {data}</div>
+                <div className='route-ind-li-data'>
+                    <Link to={`/routes/${this.props.route.id}`} className="route-ind-showlink">{this.props.route.route_name}</Link>
+                    <label>
+                        <div>{this.props.route.distance} </div>
+                        Distance
+                    </label>
+                    <label>
+                        <div>{showDuration}</div>
+                        Est.moving time
+                    </label>
+                     
+                </div>
+                <div className="route-it-timestamp">Created at {data}</div>
             </div>           
         )
     }

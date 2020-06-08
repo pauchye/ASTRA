@@ -160,7 +160,7 @@ var receiveRoutes = function receiveRoutes(routes) {
   };
 };
 var receiveRoute = function receiveRoute(route) {
-  debugger;
+  // debugger
   return {
     type: RECEIVE_ROUTE,
     route: route
@@ -182,18 +182,18 @@ var fetchRoutes = function fetchRoutes() {
 };
 var fetchUsersRoutes = function fetchUsersRoutes(userId) {
   return function (dispatch) {
-    debugger;
+    // debugger
     return _util_routes_api_util__WEBPACK_IMPORTED_MODULE_0__["fetchUsersRoutes"](userId).then(function (routes) {
-      debugger;
+      // debugger
       return dispatch(receiveRoutes(routes));
     });
   };
 };
 var fetchRoute = function fetchRoute(routeId) {
   return function (dispatch) {
-    debugger;
+    // debugger
     return _util_routes_api_util__WEBPACK_IMPORTED_MODULE_0__["fetchRoute"](routeId).then(function (route) {
-      debugger;
+      // debugger
       return dispatch(receiveRoute(route));
     });
   };
@@ -559,9 +559,10 @@ __webpack_require__.r(__webpack_exports__);
       logout = _ref.logout;
   var currentRoute = Object(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["useLocation"])().pathname;
   var showLogin = currentRoute !== '/login';
-  var showSignup = currentRoute !== '/signup'; // console.log(currentUser);
+  var showSignup = currentRoute !== '/signup';
+  var noNewRoute = currentRoute !== '/routes/new'; // console.log(currentUser);
 
-  var display = showLogin && showSignup ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  var display = showLogin && showSignup && noNewRoute ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "footer-greeting"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "greeting-left"
@@ -606,7 +607,8 @@ __webpack_require__.r(__webpack_exports__);
   var currentRoute = Object(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["useLocation"])().pathname;
   var showLogin = currentRoute !== '/login';
   var showSignup = currentRoute !== '/signup';
-  var showDemo = currentRoute !== '/'; // console.log(currentUser);
+  var showDemo = currentRoute !== '/';
+  var noNewRoute = currentRoute === '/routes/new'; // console.log(currentUser);
 
   var display = currentUser ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "header-greeting"
@@ -658,6 +660,7 @@ __webpack_require__.r(__webpack_exports__);
     to: "/signup",
     className: "greeting-link"
   }, "Sign Up"))));
+  if (noNewRoute) return null;
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, display);
 });
 
@@ -1036,6 +1039,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _modal_modal__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../modal/modal */ "./frontend/components/modal/modal.jsx");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -1061,6 +1065,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
+
 var RouteForm = /*#__PURE__*/function (_React$Component) {
   _inherits(RouteForm, _React$Component);
 
@@ -1071,7 +1076,7 @@ var RouteForm = /*#__PURE__*/function (_React$Component) {
 
     _classCallCheck(this, RouteForm);
 
-    debugger;
+    // debugger
     _this = _super.call(this, props);
     _this.state = _this.props.route;
     _this.routeData = JSON.parse(props.route.route_data);
@@ -1123,11 +1128,7 @@ var RouteForm = /*#__PURE__*/function (_React$Component) {
             _this2.routeInfo.distance = (Math.round(_this2.dist * 0.000621371 * 100) / 100).toString() + ' mi'; //Math.round(num * 100) / 100
 
             _this2.dur += response.routes[0].legs[0].duration.value;
-            _this2.routeInfo.estimated_duration = _this2.dur; // if(this.dur/60 > 60){
-            //     this.routeInfo.estimated_duration = (Math.floor(this.dur/60/60).toString()) + ' h ' + Math.floor((this.dur/60%60)).toString() + ' m'
-            // } else {
-            //     this.routeInfo.estimated_duration = Math.floor((this.dur/60)).toString() + ' m';
-            // }
+            _this2.routeInfo.estimated_duration = _this2.dur;
 
             if (_this2.routeData.path.length === 0) {
               _this2.routeData.path.push(start);
@@ -1135,12 +1136,9 @@ var RouteForm = /*#__PURE__*/function (_React$Component) {
               _this2.routeData.path.push(end);
 
               _this2.routeData.lat = start.lat();
-              _this2.routeData.lng = start.lng(); // console.log('start.lat', start.lat())
-              // console.log('start.lng', start.lng())
-              //    console.log('this is this.routeData.path.',this.routeData.path)
+              _this2.routeData.lng = start.lng();
             } else {
-              _this2.routeData.path.push(end); // console.log('this is route_path.',this.routeData.path)
-
+              _this2.routeData.path.push(end);
             }
 
             console.log('ri:', _this2.routeInfo);
@@ -1213,10 +1211,8 @@ var RouteForm = /*#__PURE__*/function (_React$Component) {
 
       if (input === 'WALKING') {
         this.routeInfo.activity = 'running';
-        console.log(this.routeInfo);
       } else {
         this.routeInfo.activity = 'biking';
-        console.log(this.routeInfo);
       }
     }
   }, {
@@ -1224,6 +1220,15 @@ var RouteForm = /*#__PURE__*/function (_React$Component) {
     value: function updateMapFilter(event) {
       // debugger
       this.map.setMapTypeId(event.target.value);
+    }
+  }, {
+    key: "hideSidebar",
+    value: function hideSidebar() {
+      // debugger;
+      return function (e) {
+        var element = document.getElementById("routeform-tohide");
+        element.classList.toggle('hidden');
+      };
     }
   }, {
     key: "render",
@@ -1236,27 +1241,72 @@ var RouteForm = /*#__PURE__*/function (_React$Component) {
         showDuration = Math.floor(this.dur / 60).toString() + ' m';
       }
 
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_modal_modal__WEBPACK_IMPORTED_MODULE_1__["default"], {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "routeform-main"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_modal_modal__WEBPACK_IMPORTED_MODULE_1__["default"], {
         routeData: this.routeData,
         routeInfo: this.routeInfo
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "routeform-header"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "greeting-left"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "greeting-logo-cont"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
+        to: "/dashboard"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+        src: window.astra,
+        className: "routeform-logo"
+      }), " ")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Routes")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "greeting-right"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "greeting-button"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
+        to: "/routes",
+        className: "routeform-header-link"
+      }, " Back to My Routes ")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "routeform-search"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         onClick: this.handleSubmit
-      }, "save"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "this is mapform"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Routing preferences"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
+      }, "Save")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "routeform-sidebar"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "routeform-sidebar-inner",
+        id: "routeform-tohide"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Routing preferences"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
         onChange: this.updateFilter
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        className: "routeform-option",
         value: "BICYCLING"
       }, "Biking"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        className: "routeform-option",
         value: "WALKING"
-      }, "Running"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Map preferences"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
+      }, "Running")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Map preferences"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
         onChange: this.updateMapFilter
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        className: "routeform-option",
         value: "roadmap"
       }, "Standard"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        className: "routeform-option",
         value: "satellite"
       }, "Satellite"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "routeform-sidebar-arrow",
+        onClick: this.hideSidebar()
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        "class": "fa fa-arrows-h",
+        "aria-hidden": "true"
+      }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "routeform-container",
         ref: "mapNode"
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, " Distance"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, " Estimated"));
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "routeform-footer"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Distance"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, this.routeInfo.distance)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Estimated duration"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, showDuration)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+        className: "fab fa-github",
+        href: "https://github.com/pauchye"
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+        className: "fab fa-linkedin",
+        href: "https://www.linkedin.com/in/olga-smirnova-assoc-aia-17b73b41/"
+      })));
     }
   }]);
 
@@ -1322,7 +1372,7 @@ var RouteIndex = /*#__PURE__*/function (_React$Component) {
 
     _classCallCheck(this, RouteIndex);
 
-    debugger;
+    // debugger
     _this = _super.call(this, props);
     _this.user_id = props.session.id;
     _this.state = _objectSpread({
@@ -1335,7 +1385,7 @@ var RouteIndex = /*#__PURE__*/function (_React$Component) {
     key: "componentDidMount",
     value: function componentDidMount() {
       // request benches from your API here
-      debugger;
+      // debugger
       this.props.fetchUsersRoutes(this.user_id);
     }
   }, {
@@ -1345,19 +1395,22 @@ var RouteIndex = /*#__PURE__*/function (_React$Component) {
 
       // debugger;
       return function (e) {
-        console.log('upd:', input);
-
         _this2.setState({
           routeActivity: input
         });
-      }; // console.log(this.state)
+
+        var biking = document.getElementById("css-b");
+        var walking = document.getElementById("css-w");
+        biking.classList.toggle('route-ind-toggle');
+        walking.classList.toggle('route-ind-toggle');
+      };
     }
   }, {
     key: "render",
     value: function render() {
       var _this3 = this;
 
-      debugger;
+      // debugger;
       var routes = this.props.routes; //   debugger
 
       var filteredRoute = routes.filter(function (route) {
@@ -1366,18 +1419,42 @@ var RouteIndex = /*#__PURE__*/function (_React$Component) {
       console.log(routes);
       console.log(this.state.routeActivity);
       console.log(filteredRoute);
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "My Routes"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
-        to: "/routes/new"
-      }, "Create New Route")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Get Strava Routes on your Garmin device. Learn how."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "picture")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-        onClick: this.updateFilter('biking')
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "route-ind-container"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "route-ind-1"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "route-ind-head-left"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "My Routes"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
+        to: "/routes/new",
+        className: "route-ind-link"
+      }, "Create New Route")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "route-ind-head-right"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Get Strava Routes on your Garmin device."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+        href: "https://support.strava.com/hc/en-us/articles/115000919304"
+      }, "Learn how.")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+        src: window.desktop
+      }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "route-ind-2"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        onClick: this.updateFilter('biking'),
+        className: "route-ind-but route-ind-toggle",
+        id: "css-b"
       }, " Biking "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-        onClick: this.updateFilter('running')
-      }, " Running "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, filteredRoute.map(function (route) {
+        onClick: this.updateFilter('running'),
+        className: "route-ind-but",
+        id: "css-w"
+      }, " Running ")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "route-ind-3"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+        className: "route-ind-ul"
+      }, filteredRoute.map(function (route) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_route_item__WEBPACK_IMPORTED_MODULE_1__["default"], {
+          className: "route-ind-li",
           key: "route".concat(route.id),
           route: route
         });
-      })));
+      }))));
     }
   }]);
 
@@ -1405,7 +1482,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var mapStateToProps = function mapStateToProps(state) {
-  debugger;
+  // debugger
   return {
     routes: Object.values(state.entities.routes),
     users: state.entities.users,
@@ -1491,7 +1568,9 @@ var RouteItem = /*#__PURE__*/function (_React$Component) {
           lat: parseFloat(this.routeData.lat, 10),
           lng: parseFloat(this.routeData.lng, 10)
         },
-        zoom: parseFloat(this.routeData.zoom, 10)
+        zoom: parseFloat(this.routeData.zoom, 10),
+        gestureHandling: 'none',
+        zoomControl: false
       };
       this.directionsService = new google.maps.DirectionsService();
       this.directionsDisplay = new google.maps.DirectionsRenderer({
@@ -1556,11 +1635,28 @@ var RouteItem = /*#__PURE__*/function (_React$Component) {
       // debugger
       var data = this.props.route.created_at.split("T")[0]; // 2020-06-04T15:37:57.143Z
 
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      var showDuration;
+
+      if (this.props.route.estimated_duration / 60 > 60) {
+        showDuration = Math.floor(this.props.route.estimated_duration / 60 / 60).toString() + ' h ' + Math.floor(this.props.route.estimated_duration / 60 % 60).toString() + ' m';
+      } else {
+        showDuration = Math.floor(this.props.route.estimated_duration / 60).toString() + ' m';
+      }
+
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "route-ind-li"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "routeitem-container",
         ref: "mapNode",
         onClick: this.handleClick
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, this.props.route.route_name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, this.props.route.distance, " "), "Distance"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Est.moving time", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, this.props.route.estimated_duration)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Created at ", data));
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "route-ind-li-data"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+        to: "/routes/".concat(this.props.route.id),
+        className: "route-ind-showlink"
+      }, this.props.route.route_name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, this.props.route.distance, " "), "Distance"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, showDuration), "Est.moving time")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "route-it-timestamp"
+      }, "Created at ", data));
     }
   }]);
 
@@ -1618,14 +1714,14 @@ var RouteShow = /*#__PURE__*/function (_React$Component) {
   function RouteShow(props) {
     _classCallCheck(this, RouteShow);
 
-    debugger;
+    // debugger
     return _super.call(this, props); // this.handleClick = this.handleClick.bind(this)
   }
 
   _createClass(RouteShow, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      debugger;
+      // debugger
       this.props.fetchRoute(this.props.match.params.routeId);
     } // componentDidUpdate(){
     //     debugger
@@ -1635,7 +1731,7 @@ var RouteShow = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      debugger;
+      // debugger
       console.log('this.props.route', this.props.route);
       var route = this.props.route;
       if (!route) return null;
@@ -1645,7 +1741,7 @@ var RouteShow = /*#__PURE__*/function (_React$Component) {
       if (route.estimated_duration / 60 > 60) {
         showDuration = Math.floor(route.estimated_duration / 60 / 60).toString() + ' h ' + Math.floor(route.estimated_duration / 60 % 60).toString() + ' m';
       } else {
-        showDuration = Math.floor(this.dur / 60).toString() + ' m';
+        showDuration = Math.floor(route.estimated_duration / 60).toString() + ' m';
       }
 
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
@@ -1680,7 +1776,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var mstp = function mstp(state, ownProps) {
-  debugger;
+  // debugger
   return {
     route: state.entities.routes[ownProps.match.params.routeId]
   };
@@ -2469,11 +2565,11 @@ var routesReducer = function routesReducer() {
   switch (action.type) {
     case _actions_route_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_ROUTES"]:
       //   return Object.assign({}, state, { [action.routes.id]: action.routes })
-      debugger;
+      // debugger
       return Object.assign({}, state, action.routes);
 
     case _actions_route_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_ROUTE"]:
-      debugger;
+      // debugger
       return Object.assign({}, _defineProperty({}, action.route.id, action.route));
 
     case _actions_route_actions__WEBPACK_IMPORTED_MODULE_0__["REMOVE_ROUTE"]:
@@ -2721,13 +2817,13 @@ var fetchRoutes = function fetchRoutes() {
   });
 };
 var fetchUsersRoutes = function fetchUsersRoutes(userId) {
-  debugger;
+  // debugger
   return $.ajax({
     url: "api/users/".concat(userId, "/routes")
   });
 };
 var fetchRoute = function fetchRoute(routeId) {
-  debugger;
+  // debugger
   return $.ajax({
     url: "api/routes/".concat(routeId)
   });
