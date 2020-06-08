@@ -10,7 +10,7 @@ export const receiveRoutes = routes => ({
 });
 
 export const receiveRoute = route => {
-  debugger
+  // debugger
   return {
     type: RECEIVE_ROUTE,
     route 
@@ -30,17 +30,17 @@ export const fetchRoutes = () => dispatch => (
 );
 
 export const fetchUsersRoutes = (userId) => dispatch => {
-  debugger
+  // debugger
     return APIUtil.fetchUsersRoutes(userId).then(routes => { 
-      debugger
+      // debugger
       return dispatch(receiveRoutes(routes))
     })
 };
 
 export const fetchRoute = (routeId) => dispatch => {
-    debugger
+    // debugger
     return APIUtil.fetchRoute(routeId).then(route => { 
-      debugger
+      // debugger
       return dispatch(receiveRoute(route))
     })
 };

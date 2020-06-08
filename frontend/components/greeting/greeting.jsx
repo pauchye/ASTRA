@@ -7,6 +7,7 @@ export default ({currentUser, logout}) => {
   const showLogin = currentRoute !== '/login';
   const showSignup = currentRoute !== '/signup';
   const showDemo = currentRoute !== '/'
+  const noNewRoute = currentRoute === '/routes/new'
   // console.log(currentUser);
  
   const display = currentUser ? (
@@ -58,6 +59,8 @@ export default ({currentUser, logout}) => {
         </div>
     </div>
   )
+
+  if (noNewRoute) return null;
 
   return (
     <div>
