@@ -5,9 +5,11 @@ const routesReducer = (state = {}, action) => {
     switch (action.type) {
         case RECEIVE_ROUTES:
         //   return Object.assign({}, state, { [action.routes.id]: action.routes })
+        debugger
           return Object.assign({}, state, action.routes)
         case RECEIVE_ROUTE:
-          return Object.assign({}, state, { [action.route.id]: action.route })
+          debugger
+          return Object.assign({}, { [action.route.id]: action.route })
         case REMOVE_ROUTE:
             let newState = Object.assign({}, state);
             delete newState[action.routeId];

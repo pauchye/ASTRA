@@ -5,12 +5,14 @@ export const fetchRoutes = () => {
 }
 
 export const fetchUsersRoutes = (userId) => {
+  debugger
     return $.ajax({
       url: `api/users/${userId}/routes`
     })
 }
 
 export const fetchRoute = (routeId) => {
+    debugger
     return $.ajax({
       url: `api/routes/${routeId}`
     })

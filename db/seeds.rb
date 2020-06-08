@@ -53,7 +53,7 @@ route2 = Route.create!(
   distance: '',
   estimated_duration: '',
   elevation: '',
-  route_data: '{"lat":40.661665, "lng":-73.972143, "zoom":13, "path":[{"lat":40.661665,"lng": -73.973097},{"lat":40.671665,"lng":-73.971557}]}}'
+  route_data: '{"lat":40.661665, "lng":-73.972143, "zoom":13, "path":[{"lat":40.661665,"lng": -73.973097},{"lat":40.671665,"lng":-73.971557}]}'
 )
 
             

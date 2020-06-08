@@ -6,11 +6,12 @@ class SaveRoute extends React.Component{
         console.log(props);
         this.state = {
             distance: this.props.routeInfo.distance,
-            duration: this.props.routeInfo.duration,
+            estimated_duration: this.props.routeInfo.estimated_duration,
             route_name: this.props.routeInfo.route_name,
             description: this.props.routeInfo.description,
-            user_id: this.props.userId
-            
+            user_id: this.props.userId,
+            activity: this.props.routeInfo.activity,
+            route_data: JSON.stringify(this.props.routeData)
         }
 
         console.log(this.state)
@@ -25,10 +26,11 @@ class SaveRoute extends React.Component{
     }
 
     handleSubmit(e){
-        e.preventDefault;
+        e.preventDefault();
         // debugger
         this.props.action(this.state);
         this.props.closeAndSaveModal();
+        location.hash = '/routes'
     }
 
     render(){

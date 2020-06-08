@@ -9,10 +9,12 @@ export const receiveRoutes = routes => ({
     routes //{ route.id: {description: ..., :id}, route.id: {description: ..., :id} }
 });
 
-export const receiveRoute = route => ({
+export const receiveRoute = route => {
+  debugger
+  return {
     type: RECEIVE_ROUTE,
     route 
-});
+}};
 
 export const removeRoute = routeId => {
     return {
@@ -27,22 +29,26 @@ export const fetchRoutes = () => dispatch => (
     ))
 );
 
-export const fetchUsersRoutes = (userId) => dispatch => (
-    APIUtil.fetchUsersRoutes(userId).then(routes => ( 
-      dispatch(receiveRoutes(routes))
-    ))
-);
+export const fetchUsersRoutes = (userId) => dispatch => {
+  debugger
+    return APIUtil.fetchUsersRoutes(userId).then(routes => { 
+      debugger
+      return dispatch(receiveRoutes(routes))
+    })
+};
 
-export const fetchRoute = (routeId) => dispatch => (
-    APIUtil.fetchRoutes(routeId).then(route => ( 
-      dispatch(receiveRoute(route))
-    ))
-);
+export const fetchRoute = (routeId) => dispatch => {
+    debugger
+    return APIUtil.fetchRoute(routeId).then(route => { 
+      debugger
+      return dispatch(receiveRoute(route))
+    })
+};
 
 export const createRoute = (route) => dispatch => {
-    debugger
+    // debugger
     return APIUtil.createRoute(route).then(res => { 
-      debugger
+      // debuggers
       return dispatch(receiveRoute(res))
     })
   };

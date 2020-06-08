@@ -3,7 +3,7 @@ import RouteIndex from './route_index';
 import { fetchUsersRoutes, fetchRoutes } from '../../actions/route_actions'
 
 const mapStateToProps = state => {
-    // debugger
+    debugger
     return {
       routes: Object.values(state.entities.routes),
       users: state.entities.users,

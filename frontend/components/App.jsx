@@ -8,6 +8,8 @@ import SplashContainer from './splach_container';
 import DashboardContainer from './dashboard/dashboard_container';
 import RoutesIndexContainer from './route/route_index_container';
 import RoutesCreateContainer from './route/route_create_container';
+import RouteEditForm from './route/route_edit_container';
+import RouteShow from './route/route_show_container';
 import Footer from './greeting/footer'
 import Modal from './modal/modal.jsx'
 
@@ -23,6 +25,8 @@ const App = () => (
         <ProtectedRoute exact path="/dashboard" component={DashboardContainer} />
         <ProtectedRoute exact path="/routes" component={RoutesIndexContainer} />
         <ProtectedRoute exact path="/routes/new" component={RoutesCreateContainer} />
+        <ProtectedRoute exact path="/routes/:routeId/edit" component={RouteEditForm} />
+        <ProtectedRoute exact path="/routes/:routeId" component={RouteShow} />
         <AuthRoute exact path="/" component={SplashContainer} />
       </Switch>
       <Footer />
