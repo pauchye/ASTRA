@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 
 class RouteIndex extends React.Component {
     constructor(props) {
-      // debugger
+      debugger
         super(props);
         this.user_id = props.session.id;
         this.state = {routeActivity: 'biking', ...this.props.routes};
@@ -12,6 +12,7 @@ class RouteIndex extends React.Component {
 
     componentDidMount() {
       // request benches from your API here
+      debugger
       this.props.fetchUsersRoutes(this.user_id);
     }
 
@@ -25,7 +26,7 @@ class RouteIndex extends React.Component {
     }
   
     render() {
-        // debugger;
+        debugger;
       const { routes } = this.props;
     //   debugger
       let filteredRoute = routes.filter(route => route.activity === this.state.routeActivity)

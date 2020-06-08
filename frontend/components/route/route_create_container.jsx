@@ -7,17 +7,18 @@ const mapStateToProps = state => {
     // debugger
     const userId = state.session.id;
     return {
+      postType: 'Create Route',
       userId,
       route: {
         // user_id: null,
         route_name: '',
         description: '',
-        activity: '',
+        activity: 'biking',
         road_type: '',
         distance: '',
         estimated_duration: '',
         elevation: '',
-        route_data: '{"lat": "", "lng": "", "zoom":"", "route_coord":"", "path":[]}' // "path":[{"lat":0,"lng":0},{"lat":0,"lng":0}]
+        route_data: '{"lat": "", "lng": "", "zoom":"13", "route_coord":"", "path":[]}' // "path":[{"lat":0,"lng":0},{"lat":0,"lng":0}]
       }
     }
   }

@@ -4,7 +4,7 @@ import { createRoute } from '../../actions/route_actions'
 import { openModal, closeModal, closeAndSaveModal } from '../../actions/modal_actions'
 
 const mapStateToProps = state => {
-    debugger
+    // debugger
     const userId = state.session.id;
     return {
       userId,

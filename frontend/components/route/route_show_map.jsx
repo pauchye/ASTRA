@@ -1,13 +1,11 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
-class RouteItem extends React.Component{
+class RouteShowMap extends React.Component{
     constructor(props){
-        super(props);
+        super(props)
         this.routeData = JSON.parse(props.route.route_data);
         this.markers = [];
         this.calculateAndDisplayRoute = this.calculateAndDisplayRoute.bind(this)
-        this.handleClick = this.handleClick.bind(this)
     }
 
     componentDidMount() {
@@ -62,34 +60,13 @@ class RouteItem extends React.Component{
         this.markers.push(marker)
     }
 
-    handleClick(e){
-        // debugger
-        e.preventDefault();
-        location.hash = `/routes/${this.props.route.id}`
-    }
-
     render(){
-        // debugger
-        let data = this.props.route.created_at.split("T")[0]// 2020-06-04T15:37:57.143Z
         return(
-            <div  >
-                <div></div>
-                <div className='routeitem-container' ref='mapNode' onClick={this.handleClick}></div>
-                <div>{this.props.route.route_name}</div>
-                <label>
-                    <div>{this.props.route.distance} </div>
-                    Distance
-                </label>
-
-                <label>
-                    Est.moving time
-                    <div>{this.props.route.estimated_duration}</div>
-                </label>
-                <div>Created at {data}</div>
-            </div>           
+            <div > 
+                <div className='routeshow-container' ref='mapNode'></div>
+           </div>
         )
     }
 }
 
-
-export default RouteItem;
+export default RouteShowMap;

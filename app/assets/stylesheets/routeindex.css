@@ -1,0 +1,12 @@
+.routeitem-container{
+    background-color: teal;
+    width: 200px;
+    height: 300px;
+    border: 2px, solid black;
+}
+
+.route-ind-container {
+    display: grid;
+    grid-template-columns: 40px 50px auto 50px 40px;
+    grid-template-rows: 25% 100px auto;
+  }
