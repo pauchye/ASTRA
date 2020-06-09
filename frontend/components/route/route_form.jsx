@@ -21,8 +21,10 @@ class RouteForm extends React.Component{
             road_type: this.props.route.road_type,
             distance: this.props.route.distance,
             estimated_duration: this.props.route.estimated_duration,
-            elevation: this.props.route.elevation
+            elevation: this.props.route.elevation,
+            id: this.props.route.id
         }
+        console.log('route form constructor', this.routeInfo)
         this.calculateAndDisplayRoute = this.calculateAndDisplayRoute.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
         this.updateMapFilter = this.updateMapFilter.bind(this)
@@ -48,9 +50,18 @@ class RouteForm extends React.Component{
 
                     this.dist += response.routes[0].legs[0].distance.value;
                     this.routeInfo.distance = (Math.round((this.dist*0.000621371)*100)/100).toString() + ' mi'; //Math.round(num * 100) / 100
+                    this.setState({distance: this.routeInfo.distance})
+                    //this.setState({ word: event.currentTarget.value });
 
                     this.dur += response.routes[0].legs[0].duration.value;
                     this.routeInfo.estimated_duration = this.dur;
+                    let showDuration;
+                    if(this.routeInfo.estimated_duration/60 > 60){
+                        showDuration = (Math.floor(this.routeInfo.estimated_duration/60/60).toString()) + ' h ' + Math.floor((this.routeInfo.estimated_duration/60%60)).toString() + ' m'
+                    } else {
+                        showDuration = Math.floor((this.dur/60)).toString() + ' m';
+                    }
+                    this.setState({estimated_duration: showDuration})
 
                     if(this.routeData.path.length === 0){
                         this.routeData.path.push(start);
@@ -117,12 +128,9 @@ class RouteForm extends React.Component{
     }
 
     handleSubmit(e) {
-        e.preventDefault();
+        e.preventDefault();    
 
-        console.log('this.routeData.path',this.routeData.path)
-        
-
-        this.props.openModal('save')
+        this.props.openModal(this.props.modalWord)
     }
 
     updateFilter(event) {
@@ -154,12 +162,7 @@ class RouteForm extends React.Component{
       }
 
     render(){
-        let showDuration;
-        if(this.routeInfo.estimated_duration/60 > 60){
-            showDuration = (Math.floor(this.routeInfo.estimated_duration/60/60).toString()) + ' h ' + Math.floor((this.routeInfo.estimated_duration/60%60)).toString() + ' m'
-        } else {
-            showDuration = Math.floor((this.dur/60)).toString() + ' m';
-        }
+        
         return(
             <div className="routeform-main">
                 <Modal routeData={this.routeData} routeInfo={this.routeInfo}/>
@@ -198,19 +201,19 @@ class RouteForm extends React.Component{
                         
                     </div>
                     <div className="routeform-sidebar-arrow" onClick={this.hideSidebar()}>
-                        <i class="fa fa-arrows-h" aria-hidden="true"></i>
+                        <i className="fa fa-arrows-h" aria-hidden="true"></i>
                     </div>
                 </div>
                 <div className='routeform-container' ref='mapNode'></div>
                 <div className ='routeform-footer'>
                     
                         <div>
-                            <div>Distance</div>
-                            <div>{this.routeInfo.distance}</div>
+                            <div className ='routeform-lab'>Distance</div>
+                            <div className ='routeform-res'>{this.state.distance}</div>
                         </div>
                         <div>
-                            <div>Estimated duration</div>
-                            <div>{showDuration}</div>
+                            <div className ='routeform-lab' >Estimated duration</div>
+                            <div className ='routeform-res'>{this.state.estimated_duration}</div>
                         </div>
                   
                         <a className="fab fa-github" href="https://github.com/pauchye"></a>

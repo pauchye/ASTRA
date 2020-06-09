@@ -216,7 +216,9 @@ var updateRoute = function updateRoute(route) {
 };
 var deleteRoute = function deleteRoute(routeId) {
   return function (dispatch) {
+    // debugger
     return _util_routes_api_util__WEBPACK_IMPORTED_MODULE_0__["deleteRoute"](routeId).then(function () {
+      // debugger
       return dispatch(removeRoute(routeId));
     });
   };
@@ -714,6 +716,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _actions_modal_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../actions/modal_actions */ "./frontend/actions/modal_actions.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _route_save_route_container__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../route/save_route_container */ "./frontend/components/route/save_route_container.jsx");
+/* harmony import */ var _route_update_route_container__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../route/update_route_container */ "./frontend/components/route/update_route_container.jsx");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -735,6 +738,7 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
 
 
 
@@ -771,7 +775,16 @@ var Modal = /*#__PURE__*/function (_React$Component) {
         case 'save':
           component = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_route_save_route_container__WEBPACK_IMPORTED_MODULE_3__["default"], {
             routeData: routeData,
-            routeInfo: routeInfo
+            routeInfo: routeInfo,
+            closeModal: closeModal
+          });
+          break;
+
+        case 'update':
+          component = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_route_update_route_container__WEBPACK_IMPORTED_MODULE_4__["default"], {
+            routeData: routeData,
+            routeInfo: routeInfo,
+            closeModal: closeModal
           });
           break;
 
@@ -868,6 +881,7 @@ var mapStateToProps = function mapStateToProps(state) {
     userId: userId,
     route: {
       // user_id: null,
+      modalWord: 'save',
       route_name: '',
       description: '',
       activity: 'biking',
@@ -973,7 +987,8 @@ var EditRouteForm = /*#__PURE__*/function (_React$Component) {
           action = _this$props.action,
           closeModal = _this$props.closeModal,
           closeAndSaveModal = _this$props.closeAndSaveModal,
-          openModal = _this$props.openModal; // debugger
+          openModal = _this$props.openModal,
+          modalWord = _this$props.modalWord; // debugger
 
       if (!route) return null;
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(_route_form__WEBPACK_IMPORTED_MODULE_1__["default"], {
@@ -984,7 +999,8 @@ var EditRouteForm = /*#__PURE__*/function (_React$Component) {
         closeModal: closeModal,
         closeAndSaveModal: closeAndSaveModal,
         openModal: openModal,
-        route: route
+        route: route,
+        modalWord: modalWord
       });
     }
   }]);
@@ -998,7 +1014,8 @@ var mapStateToProps = function mapStateToProps(state, ownProps) {
   return {
     postType: 'Update Route',
     userId: userId,
-    route: state.entities.routes[ownProps.match.params.routeId]
+    route: state.entities.routes[ownProps.match.params.routeId],
+    modalWord: 'update'
   };
 };
 
@@ -1092,8 +1109,10 @@ var RouteForm = /*#__PURE__*/function (_React$Component) {
       road_type: _this.props.route.road_type,
       distance: _this.props.route.distance,
       estimated_duration: _this.props.route.estimated_duration,
-      elevation: _this.props.route.elevation
+      elevation: _this.props.route.elevation,
+      id: _this.props.route.id
     };
+    console.log('route form constructor', _this.routeInfo);
     _this.calculateAndDisplayRoute = _this.calculateAndDisplayRoute.bind(_assertThisInitialized(_this));
     _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
     _this.updateMapFilter = _this.updateMapFilter.bind(_assertThisInitialized(_this));
@@ -1127,8 +1146,24 @@ var RouteForm = /*#__PURE__*/function (_React$Component) {
             _this2.dist += response.routes[0].legs[0].distance.value;
             _this2.routeInfo.distance = (Math.round(_this2.dist * 0.000621371 * 100) / 100).toString() + ' mi'; //Math.round(num * 100) / 100
 
+            _this2.setState({
+              distance: _this2.routeInfo.distance
+            }); //this.setState({ word: event.currentTarget.value });
+
+
             _this2.dur += response.routes[0].legs[0].duration.value;
             _this2.routeInfo.estimated_duration = _this2.dur;
+            var showDuration;
+
+            if (_this2.routeInfo.estimated_duration / 60 > 60) {
+              showDuration = Math.floor(_this2.routeInfo.estimated_duration / 60 / 60).toString() + ' h ' + Math.floor(_this2.routeInfo.estimated_duration / 60 % 60).toString() + ' m';
+            } else {
+              showDuration = Math.floor(_this2.dur / 60).toString() + ' m';
+            }
+
+            _this2.setState({
+              estimated_duration: showDuration
+            });
 
             if (_this2.routeData.path.length === 0) {
               _this2.routeData.path.push(start);
@@ -1200,8 +1235,7 @@ var RouteForm = /*#__PURE__*/function (_React$Component) {
     key: "handleSubmit",
     value: function handleSubmit(e) {
       e.preventDefault();
-      console.log('this.routeData.path', this.routeData.path);
-      this.props.openModal('save');
+      this.props.openModal(this.props.modalWord);
     }
   }, {
     key: "updateFilter",
@@ -1233,14 +1267,6 @@ var RouteForm = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      var showDuration;
-
-      if (this.routeInfo.estimated_duration / 60 > 60) {
-        showDuration = Math.floor(this.routeInfo.estimated_duration / 60 / 60).toString() + ' h ' + Math.floor(this.routeInfo.estimated_duration / 60 % 60).toString() + ' m';
-      } else {
-        showDuration = Math.floor(this.dur / 60).toString() + ' m';
-      }
-
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "routeform-main"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_modal_modal__WEBPACK_IMPORTED_MODULE_1__["default"], {
@@ -1293,14 +1319,22 @@ var RouteForm = /*#__PURE__*/function (_React$Component) {
         className: "routeform-sidebar-arrow",
         onClick: this.hideSidebar()
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-        "class": "fa fa-arrows-h",
+        className: "fa fa-arrows-h",
         "aria-hidden": "true"
       }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "routeform-container",
         ref: "mapNode"
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "routeform-footer"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Distance"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, this.routeInfo.distance)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Estimated duration"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, showDuration)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "routeform-lab"
+      }, "Distance"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "routeform-res"
+      }, this.state.distance)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "routeform-lab"
+      }, "Estimated duration"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "routeform-res"
+      }, this.state.estimated_duration)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
         className: "fab fa-github",
         href: "https://github.com/pauchye"
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
@@ -1712,10 +1746,15 @@ var RouteShow = /*#__PURE__*/function (_React$Component) {
   var _super = _createSuper(RouteShow);
 
   function RouteShow(props) {
+    var _this;
+
     _classCallCheck(this, RouteShow);
 
     // debugger
-    return _super.call(this, props); // this.handleClick = this.handleClick.bind(this)
+    _this = _super.call(this, props); // this.handleClick = this.handleClick.bind(this)
+
+    _this.deleteRoute = _this.deleteRoute.bind(_assertThisInitialized(_this));
+    return _this;
   }
 
   _createClass(RouteShow, [{
@@ -1723,18 +1762,21 @@ var RouteShow = /*#__PURE__*/function (_React$Component) {
     value: function componentDidMount() {
       // debugger
       this.props.fetchRoute(this.props.match.params.routeId);
-    } // componentDidUpdate(){
-    //     debugger
-    //     this.props.fetchRoute(this.props.match.params.routeId)
-    // }
-
+    }
+  }, {
+    key: "deleteRoute",
+    value: function deleteRoute() {
+      this.props.deleteRoute(this.props.match.params.routeId).then(function (res) {
+        location.hash = '/routes';
+      });
+    }
   }, {
     key: "render",
     value: function render() {
       // debugger
-      console.log('this.props.route', this.props.route);
       var route = this.props.route;
       if (!route) return null;
+      var createddata = route.created_at.split("T")[0];
       var data = route.created_at.split("T")[0];
       var showDuration;
 
@@ -1744,11 +1786,38 @@ var RouteShow = /*#__PURE__*/function (_React$Component) {
         showDuration = Math.floor(route.estimated_duration / 60).toString() + ' m';
       }
 
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "route-show-container"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "route-show-top"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+        to: "/routes"
+      }, "My ", route.activity, " routes"), "/", route.route_name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "route-show-header"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, route.route_name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "route-show-btn"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+        className: "route-show-edit",
         to: "/routes/".concat(route.id, "/edit")
-      }, "Edit"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "This is the route show page"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, route.route_name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, route.distance), "Distance"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Est.moving time", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, showDuration)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Created at ", data), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_route_show_map__WEBPACK_IMPORTED_MODULE_2__["default"], {
+      }, "Edit"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "route-show-delete",
+        onClick: this.deleteRoute
+      }, "Delete"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "route-show-body"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "route-show-map-cont"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_route_show_map__WEBPACK_IMPORTED_MODULE_2__["default"], {
         route: route
-      }));
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "route-show-left-cont"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "route-show-user"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+        src: window.ava,
+        className: "route-show-ava"
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "By ", this.props.currentUser.first_name, " ", this.props.currentUser.last_name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Created at ", createddata))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "route-show-stats"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, route.distance), "Distance"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, showDuration), "Est.moving time")))));
     }
   }]);
 
@@ -1778,7 +1847,8 @@ __webpack_require__.r(__webpack_exports__);
 var mstp = function mstp(state, ownProps) {
   // debugger
   return {
-    route: state.entities.routes[ownProps.match.params.routeId]
+    route: state.entities.routes[ownProps.match.params.routeId],
+    currentUser: state.entities.users[state.session.id]
   };
 };
 
@@ -1984,7 +2054,8 @@ var SaveRoute = /*#__PURE__*/function (_React$Component) {
       description: _this.props.routeInfo.description,
       user_id: _this.props.userId,
       activity: _this.props.routeInfo.activity,
-      route_data: JSON.stringify(_this.props.routeData)
+      route_data: JSON.stringify(_this.props.routeData),
+      id: _this.props.routeInfo.id
     };
     console.log(_this.state); // debugger
 
@@ -2004,29 +2075,46 @@ var SaveRoute = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "handleSubmit",
     value: function handleSubmit(e) {
-      e.preventDefault(); // debugger
+      var _this3 = this;
 
-      this.props.action(this.state);
-      this.props.closeAndSaveModal();
-      location.hash = '/routes';
+      e.preventDefault();
+      debugger;
+      this.props.action(this.state).then(function (res) {
+        _this3.props.closeAndSaveModal();
+
+        return res;
+      }).then(function (res) {
+        location.hash = '/routes';
+      });
     }
   }, {
     key: "render",
     value: function render() {
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "this is the modal"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+      var closeModal = this.props.closeModal;
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "modal-save"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "My Route"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
         onSubmit: this.handleSubmit
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, " Route name:", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "modal-small-text"
+      }, "Route name:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "text",
         value: this.state.route_name,
         placeholder: "Route name",
         onChange: this.update('route_name')
-      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, " Description:", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", {
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "modal-small-text"
+      }, "Description:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", {
         value: this.state.description,
-        placeholder: "Description",
+        placeholder: "Add some more details or notes",
         onChange: this.update('description')
-      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "modal-button"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        onClick: closeModal
+      }, "Edit Route"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         type: "submit"
-      }, "submit")));
+      }, "Save to My Routes"))));
     }
   }]);
 
@@ -2070,6 +2158,56 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     action: function action(route) {
       return dispatch(Object(_actions_route_actions__WEBPACK_IMPORTED_MODULE_2__["createRoute"])(route));
+    },
+    closeModal: function closeModal() {
+      return dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_3__["closeModal"])());
+    },
+    closeAndSaveModal: function closeAndSaveModal() {
+      return dispatch(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_3__["closeAndSaveModal"]);
+    },
+    openModal: function openModal(smth) {
+      return dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_3__["openModal"])(smth));
+    }
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mapStateToProps, mapDispatchToProps)(_save_route__WEBPACK_IMPORTED_MODULE_1__["default"]));
+
+/***/ }),
+
+/***/ "./frontend/components/route/update_route_container.jsx":
+/*!**************************************************************!*\
+  !*** ./frontend/components/route/update_route_container.jsx ***!
+  \**************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _save_route__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./save_route */ "./frontend/components/route/save_route.jsx");
+/* harmony import */ var _actions_route_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions/route_actions */ "./frontend/actions/route_actions.js");
+/* harmony import */ var _actions_modal_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions/modal_actions */ "./frontend/actions/modal_actions.js");
+
+
+
+
+
+var mapStateToProps = function mapStateToProps(state) {
+  // debugger
+  var userId = state.session.id;
+  return {
+    userId: userId,
+    errors: state.errors.routes //to add!!
+
+  };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  // debugger
+  return {
+    action: function action(route) {
+      return dispatch(Object(_actions_route_actions__WEBPACK_IMPORTED_MODULE_2__["updateRoute"])(route));
     },
     closeModal: function closeModal() {
       return dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_3__["closeModal"])());
@@ -2424,7 +2562,7 @@ var Splash = /*#__PURE__*/function (_React$Component) {
         className: "button-splash-cont"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
         to: "/signup",
-        className: "button-splash"
+        className: "button-splash1"
       }, "Sign up with email"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "line-or"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -2848,6 +2986,7 @@ var updateRoute = function updateRoute(route) {
   });
 };
 var deleteRoute = function deleteRoute(routeId) {
+  // debugger
   return $.ajax({
     url: "api/routes/".concat(routeId),
     method: 'delete'

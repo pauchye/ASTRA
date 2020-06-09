@@ -2,6 +2,7 @@ import React from 'react';
 import { closeModal } from '../../actions/modal_actions';
 import { connect } from 'react-redux';
 import SaveRouteContainer from '../route/save_route_container';
+import UpdateRouteContainer from '../route/update_route_container'
 
 class Modal extends React.Component {
   constructor(props){
@@ -17,7 +18,10 @@ class Modal extends React.Component {
     let component;
     switch (modal) {
       case 'save':
-        component = <SaveRouteContainer routeData={routeData} routeInfo={routeInfo}/>;
+        component = <SaveRouteContainer routeData={routeData} routeInfo={routeInfo} closeModal={closeModal}/>;
+        break;
+      case 'update':
+        component = <UpdateRouteContainer routeData={routeData} routeInfo={routeInfo} closeModal={closeModal}/>;
         break;
       default:
         return null;

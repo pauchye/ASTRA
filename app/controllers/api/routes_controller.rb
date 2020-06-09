@@ -40,8 +40,10 @@ class Api::RoutesController < ApplicationController
     end
 
     def update
+        # debugger
         @route = Route.find(params[:id])
-        if @route.save
+        if @route.update(route_params)
+            # debugger
             render :show
         else
             render json: @route.errors.full_messages, status: 401
@@ -49,9 +51,11 @@ class Api::RoutesController < ApplicationController
     end
 
     def destroy
+        # debugger
         @route = Route.find(params[:id])
+        # debugger
         if @route
-            destroy(@route)
+            @route.destroy
         else
             render json: ['Could not locate route'], status: 400
         end

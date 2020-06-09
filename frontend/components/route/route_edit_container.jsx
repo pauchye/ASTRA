@@ -10,7 +10,7 @@ class EditRouteForm extends React.Component {
     }
 
     render(){
-        const { postType, userId, route, fetchRoute, action, closeModal, closeAndSaveModal, openModal} = this.props;
+        const { postType, userId, route, fetchRoute, action, closeModal, closeAndSaveModal, openModal, modalWord} = this.props;
         // debugger
         if(!route) return null;
         return (
@@ -23,6 +23,7 @@ class EditRouteForm extends React.Component {
             closeAndSaveModal = {closeAndSaveModal}
             openModal = {openModal}
             route = {route}
+            modalWord = {modalWord}
             />
         )        
     }
@@ -34,7 +35,8 @@ const mapStateToProps = (state, ownProps) => {
     return {
       postType: 'Update Route',
       userId,
-      route: state.entities.routes[ownProps.match.params.routeId]
+      route: state.entities.routes[ownProps.match.params.routeId],
+      modalWord: 'update'
     }
   }
   

@@ -11,6 +11,7 @@ const mapStateToProps = state => {
       userId,
       route: {
         // user_id: null,
+        modalWord: 'save',
         route_name: '',
         description: '',
         activity: 'biking',

@@ -4,13 +4,116 @@
     bottom: 0;
     right: 0;
     left: 0;
-    background: rgba(182, 53, 199, 0.4);
+    background: rgba(43, 43, 43, 0.4);
     z-index: 10;
+    overflow: auto;
   }
   
   .modal-child {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    top: 110px;
+    right: 16px;
+    overflow: auto;
+    /* transform: translate(-50%, -50%); */
+  }
+
+  .modal-save {
+    background-color: rgba(255, 255, 255);
+    width: 385px;
+    height: 497px;
+    padding: 24px;
+    z-index: 11;
+    padding: 24px;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+
+  }
+
+  .modal-save label{
+    color: #6d6d78;
+    font-size: 11px;
+    line-height: 13px;
+    margin-bottom: 6px;
+    margin-top: 24px;
+    display: flex;
+    flex-direction: column;
+  }
+  .modal-small-text{
+    padding-bottom: 10px;
+    /* margin-bottom: 10px; */
+  }
+
+  .modal-save label input {
+    font-size: 16px;
+    font-weight: bold;
+    max-height: 48px;
+    padding: 16px;
+    border: 1px solid #dfdfe8;
+    border-radius: 4px;
+  }
+
+  .modal-save label textarea {
+    font-size: 16px;
+    font-weight: bold;
+    height: 144px;
+    padding: 16px;
+    border: 1px solid #dfdfe8;
+    border-radius: 4px;
+  }
+
+  .modal-save label textarea::placeholder{
+    color: lightgrey;
+    font-weight: 500;
+  }
+
+  .modal-save h3 {
+    font-size: 22px;
+    line-height: 28px;
+    font-weight: 700;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
+  .modal-button {
+    display: flex;
+  }
+
+  .modal-button button:first-child{
+    border: 1px solid #fc5200;
+    color: #fc5200;
+    padding: 12px;
+    align-items: center;
+    border-radius: 4px;
+    /* height: 19px;
+    width: 64px; */
+    margin-right: 12px;
+    margin-top: 12px;
+    font-size: 14px;
+    justify-content: center;
+    min-height: 32px;
+  }
+
+  .modal-button button:first-child:hover {
+    background-color: #e6e6e6;
+    box-shadow: inset 0 3px 5px rgba(0,0,0,0.125);
+    outline: 0;
+  }
+
+  .modal-button button:last-child{
+    background-color: #fc5200;
+    border: 1px solid #fc5200;
+    color: #fff;
+    flex: 1 1;
+    margin-left: 12px;
+    padding: 12px;
+    align-items: center;
+    border-radius: 4px;
+    /* height: 19px;
+    width: 64px; */
+    margin-right: 12px;
+    margin-top: 12px;
+    font-size: 14px;
+    justify-content: center;
+    min-height: 32px;   
   }

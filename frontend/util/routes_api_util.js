@@ -35,6 +35,7 @@ export const updateRoute = (route) => {
 }
 
 export const deleteRoute = (routeId) => {
+    // debugger
     return $.ajax({
         url: `api/routes/${routeId}`,
         method: 'delete'

@@ -69,12 +69,13 @@
 
   .route-ind-ul {
     display: flex;
+    flex-wrap: wrap;
     padding-inline-start: 0px;
   }
 
   .route-ind-li {
     /* width: 290px; */
-    width: 23.5%;
+    width: 23%;
     height: 366px;
     margin-right: 20px;
     margin: 0 1.6% 40px 0;

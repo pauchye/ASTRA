@@ -1,6 +1,153 @@
+
+.route-show-container {
+        padding-left: 120px;
+        padding-right: 120px;
+        margin-top: 36px;
+        display: flex;
+        flex-direction: column;
+}
+
+.route-show-top {
+        margin-bottom: 20px;
+        font-size: 12px;  
+        text-decoration: none;
+        color: #494950;
+}
+
+.route-show-btn {
+        display: flex;
+}
+
+.route-show-edit{
+        background-color: white;
+        border-radius: 4px;
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: 600;
+        padding: 7px 10px;
+        border: 1px solid rgb(207, 207, 207);
+        font-size: 14px;
+        text-decoration: none;
+        color: black;
+        margin-left: 5px;
+    }
+
+.route-show-delete{
+        background-color: white;
+        border-radius: 4px;
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: 600;
+        padding: 7px 10px;
+        border: 1px solid rgb(207, 207, 207);
+        font-size: 14px;
+        text-decoration: none;
+        color: black;
+        margin-left: 5px;
+}
+
+.route-show-edit:hover{
+    background-color: #f0f0f5;
+}
+
+.route-show-header {
+        margin-bottom: 36px;
+}
+
+.route-show-header h2{
+        font-size: 34px;
+        font-weight: 700;
+        line-height: 41px;
+        margin-top: 0px;
+        margin-bottom: 16px;
+}
+
+.route-show-body {
+        margin-top: 0px;
+        width: 100%;
+        display: flex;
+}
+.route-show-map-cont {
+        width: 66.6667%;
+}
+
 .routeshow-container{
         background-color: teal;
-        width: 600px;
-        height: 600px;
-        border: 2px, solid black;
+        position: relative;
+        width: 100%;
+        /* min-width: 700px; */
+        height: 450px;
+        /* border: 2px, solid black; */
+        overflow: visible;
+}
+
+.route-show-ava {
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
+}
+
+.route-show-left-cont{
+        padding: 20px;
+        padding-top: 0px;
+}
+
+.route-show-user {
+        display: flex;
+}
+
+.route-show-user div div:first-child{
+        color: #242428;
+        font-size: 22px;
+        line-height: 28px;
+        margin: 5px;
+        margin-top: 10px;
+        margin-left: 10px;
+}
+
+.route-show-user div div:last-child{
+        margin: 5px;
+        color: #6d6d78;
+        font-size: 12px;
+        line-height: 16px;
+        margin-left: 10px;
+}
+
+.route-show-stats {
+        margin-left: 10px;
+        padding-top: 20px;
+        margin-top: 20px;
+        border-top: 1px solid rgb(235, 235, 235);
+        display: flex;
+        flex-direction: column;
+}
+
+.route-show-stats label {
+        font-size: 12px;
+        font-weight: 400;
+        color: #494950;
+        line-height: 1.2;
+        padding-bottom: 15px;
+}
+
+.route-show-stats label div {
+        color: #242428;
+        font-family: "MaisonNeue", "Segoe UI", "Helvetica Neue", -apple-system, system-ui, BlinkMacSystemFont, Roboto, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+        font-size: 20px;
+        font-weight: 400;
+        line-height: 1;
+}
+
+        
+
+
+@media (max-width: 768px) {
+        .route-show-container{
+          padding-left: 5px;
+          padding-right: 5px;
+        }
+        .routeshow-container{
+          width: 100%;
+        }
+        .route-show-left-cont{
+          display: none;      
+        }
 }

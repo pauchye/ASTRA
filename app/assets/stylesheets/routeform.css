@@ -138,4 +138,17 @@
     z-index: 3;
     width: 100%;
     min-height: 50px;
+    box-shadow: 0px 0px 7px rgb(105, 105, 105);
+}
+
+.routeform-lab {
+    font-size: 13px;
+    line-height: 18px;
+    color: #000;
+}
+
+.routeform-res {
+    font-size: 22px;
+    line-height: 28px;
+    color: #242428
 }

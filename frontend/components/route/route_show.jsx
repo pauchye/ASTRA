@@ -7,6 +7,7 @@ class RouteShow extends React.Component{
         // debugger
         super(props);
         // this.handleClick = this.handleClick.bind(this)
+        this.deleteRoute = this.deleteRoute.bind(this)
     }
 
     componentDidMount(){
@@ -14,16 +15,15 @@ class RouteShow extends React.Component{
         this.props.fetchRoute(this.props.match.params.routeId)
     }
 
-    // componentDidUpdate(){
-    //     debugger
-    //     this.props.fetchRoute(this.props.match.params.routeId)
-    // }
+    deleteRoute(){
+        this.props.deleteRoute(this.props.match.params.routeId).then(res => {location.hash = '/routes'})  
+    }
 
     render(){
         // debugger
-        console.log( 'this.props.route', this.props.route)
         const { route } = this.props;
         if (!route) return null;
+        let createddata = route.created_at.split("T")[0];
         let data = route.created_at.split("T")[0]
         let showDuration;
         if(route.estimated_duration/60 > 60){
@@ -32,20 +32,44 @@ class RouteShow extends React.Component{
             showDuration = Math.floor((route.estimated_duration/60)).toString() + ' m';
         }
         return(
-            <div>
-                 <Link to={`/routes/${route.id}/edit`}>Edit</Link>
-                 <div>This is the route show page</div> 
-                 <div>{route.route_name}</div>
-                 <label>
-                    <div>{route.distance}</div>
-                    Distance
-                </label>
-                <label>
-                    Est.moving time
-                    <div>{showDuration}</div>
-                </label>
-                <div>Created at {data}</div>
-                <RouteShowMap route={route}/>
+            <div className='route-show-container'>
+                <div className='route-show-top'>
+                     <Link to={`/routes`}>My {route.activity} routes</Link>/{route.route_name}
+                </div>
+                 
+                 <div className='route-show-header'>
+                     <h2>{route.route_name}</h2>
+                     <div className="route-show-btn">
+                    <Link className='route-show-edit' to={`/routes/${route.id}/edit`}>Edit</Link> 
+                    <div className='route-show-delete' onClick={this.deleteRoute}>Delete</div>
+                     </div>
+                </div> 
+                <div className='route-show-body'>
+                    <div className='route-show-map-cont'>
+                        <RouteShowMap route={route}/>
+                    </div>
+                    <div className='route-show-left-cont'>
+                        <div className='route-show-user'>
+                            <img src={window.ava} className="route-show-ava"/>
+                            <div>
+                                <div>By {this.props.currentUser.first_name} {this.props.currentUser.last_name}</div>
+                                <div>Created at {createddata}</div>
+                            </div> 
+                        </div>
+                        <div className='route-show-stats'>
+                            <label>
+                               <div>{route.distance}</div>
+                               Distance
+                           </label>
+                           <label>
+                              <div>{showDuration}</div>
+                              Est.moving time
+                            </label>
+                        </div>                        
+                    </div>
+                </div>
+                 
+                
             </div>
         )
     }

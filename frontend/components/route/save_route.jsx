@@ -11,7 +11,8 @@ class SaveRoute extends React.Component{
             description: this.props.routeInfo.description,
             user_id: this.props.userId,
             activity: this.props.routeInfo.activity,
-            route_data: JSON.stringify(this.props.routeData)
+            route_data: JSON.stringify(this.props.routeData),
+            id: this.props.routeInfo.id
         }
 
         console.log(this.state)
@@ -27,24 +28,33 @@ class SaveRoute extends React.Component{
 
     handleSubmit(e){
         e.preventDefault();
-        // debugger
-        this.props.action(this.state);
-        this.props.closeAndSaveModal();
-        location.hash = '/routes'
+        debugger
+        this.props.action(this.state)
+        .then(res => {
+            this.props.closeAndSaveModal();
+            return res;
+        }).then(res => {location.hash = '/routes'})       
+        
     }
 
     render(){
+        const { closeModal } = this.props
         return(
-            <div>
-            <h1>this is the modal</h1>
+            <div className='modal-save'> 
+            <h3>My Route</h3>
             <form onSubmit={this.handleSubmit}>
-                <label> Route name:
+                <label> <div className="modal-small-text">Route name:</div>
+                    
                     <input type="text" value={this.state.route_name} placeholder="Route name" onChange={this.update('route_name')}/>
                 </label>
-                <label> Description:
-                    <textarea value={this.state.description} placeholder="Description" onChange={this.update('description')}></textarea>
+                <label> <div className="modal-small-text">Description:</div>
+                    <textarea value={this.state.description} placeholder="Add some more details or notes" onChange={this.update('description')}></textarea>
                 </label>
-                <button type="submit">submit</button>
+                <div className="modal-button">
+                  <button onClick={closeModal} >Edit Route</button>  
+                  <button type="submit">Save to My Routes</button>  
+                </div>
+                
             </form>
             </div>
         )

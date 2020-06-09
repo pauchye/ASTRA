@@ -41,7 +41,7 @@ class Splash extends React.Component {
               <div>
                 
                 <div className ='button-splash-cont' >
-                  <Link to='/signup' className ='button-splash' >Sign up with email</Link>
+                  <Link to='/signup' className ='button-splash1' >Sign up with email</Link>
                   <div className='line-or'>
                     <div className ='text-or'>or</div>
                   </div>
