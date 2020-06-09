@@ -12,7 +12,7 @@ class RouteForm extends React.Component{
         // this.route_path = this.routeData.path; //"path":[{"lat":0,"lng":0},{"lat":0,"lng":0}]
         this.dist = 0;
         this.dur = 0;
-        this.custTravelMode = 'WALKING'
+        this.custTravelMode = 'WALKING';
  
         this.routeInfo = {
             route_name: this.props.route.route_name, 
@@ -24,11 +24,12 @@ class RouteForm extends React.Component{
             elevation: this.props.route.elevation,
             id: this.props.route.id
         }
-        console.log('route form constructor', this.routeInfo)
-        this.calculateAndDisplayRoute = this.calculateAndDisplayRoute.bind(this)
-        this.handleSubmit = this.handleSubmit.bind(this)
-        this.updateMapFilter = this.updateMapFilter.bind(this)
-        this.updateFilter = this.updateFilter.bind(this)
+        console.log('route form constructor', this.routeInfo);
+        this.calculateAndDisplayRoute = this.calculateAndDisplayRoute.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.updateMapFilter = this.updateMapFilter.bind(this);
+        this.updateFilter = this.updateFilter.bind(this);
+        this.removeMarker = this.removeMarker.bind(this);
     }
 
     calculateAndDisplayRoute(directionsService, directionsDisplay) {
@@ -82,8 +83,10 @@ class RouteForm extends React.Component{
     }
 
     componentDidMount() {
+        let maplat = parseFloat(this.routeData.lat, 10) || 40.779914;
+        let maplng= parseFloat(this.routeData.lng, 10) || -73.970519;
         const mapOptions = {
-          center: { lat: 40.779914, lng: -73.970519 }, 
+          center: { lat: maplat, lng: maplng }, 
           zoom: 13,
           mapTypeId: 'roadmap'
         };
@@ -115,6 +118,16 @@ class RouteForm extends React.Component{
         
     }
 
+    removeMarker(){
+        if(this.markers === []) return;
+        this.markers[this.markers.length - 1].setMap(null);
+        this.markers.pop();
+        if(this.markers.length === 1){
+            directionsDisplay.setMap(null);
+            directionsDisplay = null;
+        };
+        this.calculateAndDisplayRoute(this.directionsService, this.directionsDisplay);
+    }
 
      placeMarker(location) {
          let marker = new google.maps.Marker({
@@ -181,6 +194,7 @@ class RouteForm extends React.Component{
                 </div>
                 <div></div>
                 <div className="routeform-search">
+                    <button onClick={this.removeMarker}>Remove Marker</button>
                     <button onClick={this.handleSubmit}>Save</button>
                 </div>
                 <div className="routeform-sidebar">

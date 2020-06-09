@@ -1117,6 +1117,7 @@ var RouteForm = /*#__PURE__*/function (_React$Component) {
     _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
     _this.updateMapFilter = _this.updateMapFilter.bind(_assertThisInitialized(_this));
     _this.updateFilter = _this.updateFilter.bind(_assertThisInitialized(_this));
+    _this.removeMarker = _this.removeMarker.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -1189,10 +1190,12 @@ var RouteForm = /*#__PURE__*/function (_React$Component) {
     value: function componentDidMount() {
       var _this3 = this;
 
+      var maplat = parseFloat(this.routeData.lat, 10) || 40.779914;
+      var maplng = parseFloat(this.routeData.lng, 10) || -73.970519;
       var mapOptions = {
         center: {
-          lat: 40.779914,
-          lng: -73.970519
+          lat: maplat,
+          lng: maplng
         },
         zoom: 13,
         mapTypeId: 'roadmap'
@@ -1220,6 +1223,21 @@ var RouteForm = /*#__PURE__*/function (_React$Component) {
 
         _this3.calculateAndDisplayRoute(_this3.directionsService, _this3.directionsDisplay);
       });
+    }
+  }, {
+    key: "removeMarker",
+    value: function removeMarker() {
+      if (this.markers === []) return;
+      this.markers[this.markers.length - 1].setMap(null);
+      this.markers.pop();
+
+      if (this.markers.length === 1) {
+        directionsDisplay.setMap(null);
+        directionsDisplay = null;
+      }
+
+      ;
+      this.calculateAndDisplayRoute(this.directionsService, this.directionsDisplay);
     }
   }, {
     key: "placeMarker",
@@ -1293,6 +1311,8 @@ var RouteForm = /*#__PURE__*/function (_React$Component) {
       }, " Back to My Routes ")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "routeform-search"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        onClick: this.removeMarker
+      }, "Remove Marker"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         onClick: this.handleSubmit
       }, "Save")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "routeform-sidebar"
@@ -1984,6 +2004,7 @@ var RouteShowMap = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
+      console.log(this.routeData);
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "routeshow-container",
         ref: "mapNode"

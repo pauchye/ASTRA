@@ -9,7 +9,6 @@ class RouteShowMap extends React.Component{
     }
 
     componentDidMount() {
-
         const mapOptions = {
           center: { lat: parseFloat(this.routeData.lat, 10), lng: parseFloat(this.routeData.lng, 10) }, 
           zoom: parseFloat(this.routeData.zoom, 10)
@@ -61,6 +60,7 @@ class RouteShowMap extends React.Component{
     }
 
     render(){
+        console.log(this.routeData)
         return(
             <div > 
                 <div className='routeshow-container' ref='mapNode'></div>
