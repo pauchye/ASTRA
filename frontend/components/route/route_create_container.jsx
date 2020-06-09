@@ -9,9 +9,9 @@ const mapStateToProps = state => {
     return {
       postType: 'Create Route',
       userId,
+      modalWord: 'save',
       route: {
         // user_id: null,
-        modalWord: 'save',
         route_name: '',
         description: '',
         activity: 'biking',

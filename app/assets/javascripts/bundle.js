@@ -879,9 +879,9 @@ var mapStateToProps = function mapStateToProps(state) {
   return {
     postType: 'Create Route',
     userId: userId,
+    modalWord: 'save',
     route: {
       // user_id: null,
-      modalWord: 'save',
       route_name: '',
       description: '',
       activity: 'biking',
@@ -1253,6 +1253,7 @@ var RouteForm = /*#__PURE__*/function (_React$Component) {
     key: "handleSubmit",
     value: function handleSubmit(e) {
       e.preventDefault();
+      console.log(this.props.modalWord);
       this.props.openModal(this.props.modalWord);
     }
   }, {

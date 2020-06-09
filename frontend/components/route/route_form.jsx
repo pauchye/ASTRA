@@ -142,7 +142,7 @@ class RouteForm extends React.Component{
 
     handleSubmit(e) {
         e.preventDefault();    
-
+        console.log(this.props.modalWord)
         this.props.openModal(this.props.modalWord)
     }
 
