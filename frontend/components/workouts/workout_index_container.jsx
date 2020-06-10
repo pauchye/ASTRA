@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import Dashboard from './dashboard'
+import WorkoutIndex from './workout_index'
 import { fetchUsersWorkouts } from '../../actions/workout_actions'
 
 const mapStateToProps = (state) => {
@@ -17,4 +17,4 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Dashboard)
+export default connect(mapStateToProps, mapDispatchToProps)(WorkoutIndex)

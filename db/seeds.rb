@@ -34,26 +34,63 @@ Route.delete_all
 
 route1 = Route.create!(
   user_id: demoUser.id,
-  route_name: 'firstroute',
-  description: 'some',
-  activity: 'biking',
+  route_name: 'central park run',
+  description: 'after aA',
+  activity: 'running',
   road_type: '',
-  distance: '',
-  estimated_duration: '',
+  distance: '7.11 mi',
+  estimated_duration: 8544,
   elevation: '',
-  route_data: '{"lat":40.770040, "lng":-73.977047, "zoom":13, "path":[{"lat":40.773899,"lng": -73.973097},{"lat":40.779952,"lng":-73.971557}]}'
+  route_data: '{"lat":40.7678805,"lng":-73.97103059999999,"zoom":"13","route_coord":"","path":[{"lat":40.7678805,"lng":-73.97103059999999},{"lat":40.7853349,"lng":-73.9676296},{"lat":40.7926518,"lng":-73.9522575},{"lat":40.7940953,"lng":-73.9588997}]}'
 )
 
 route2 = Route.create!(
   user_id: demoUser.id,
-  route_name: 'secondroute',
-  description: 'some other',
+  route_name: 'Bike to work',
+  description: 'Via the Brooklyn Bridge',
   activity: 'biking',
   road_type: '',
-  distance: '',
-  estimated_duration: '',
+  distance: '4.83 mi',
+  estimated_duration: 6303,
   elevation: '',
-  route_data: '{"lat":40.661665, "lng":-73.972143, "zoom":13, "path":[{"lat":40.661665,"lng": -73.973097},{"lat":40.671665,"lng":-73.971557}]}'
+  route_data: '{"lat":40.659217,"lng":-73.9605184,"zoom":"13","route_coord":"","path":[{"lat":40.659217,"lng":-73.9605184},{"lat":40.7147058,"lng":-74.0073634}]}'
 )
 
+Workout.delete_all
+
+workout1 = Workout.create!(
+  user_id: demoUser.id,
+  route_id: route2.id,
+  title: 'Biking to work',
+  description: 'Morning workout on my way to work',
+  sport: 'biking',
+  date: '6/9/2020',
+  time: '8:30 am',
+  distance: 483,
+  duration: 3605
+)
+
+workout2 = Workout.create!(
+  user_id: demoUser.id,
+  route_id: route1.id,
+  title: 'Running in the park',
+  description: 'Sunny day. Good to run!',
+  sport: 'running',
+  date: '6/10/2020',
+  time: '11:30 am',
+  distance: 711,
+  duration: 8544
+)
+
+workout3 = Workout.create!(
+  user_id: u2.id,
+  route_id: route1.id,
+  title: 'Running late',
+  description: 'Lazy day',
+  sport: 'running',
+  date: '6/8/2020',
+  time: '10:30 am',
+  distance: 711,
+  duration: 8544
+)
             

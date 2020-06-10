@@ -17,7 +17,7 @@ const mapDispatchToProps = dispatch => {
     return {
         action: route => dispatch(createRoute(route)),
         closeModal: () => dispatch(closeModal()),
-        closeAndSaveModal: () => dispatch(closeAndSaveModal),
+        closeAndSaveModal: () => dispatch(closeAndSaveModal()),
         openModal: (smth) => dispatch(openModal(smth))
     }
 }

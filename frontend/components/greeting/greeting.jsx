@@ -23,7 +23,7 @@ export default ({currentUser, logout}) => {
                   <Link to='/routes'> Routes </Link> 
                 </div>
                 <div className='greeting-left-drop'>
-                    Workouts
+                  <Link to='/workouts'> Workouts </Link> 
                 </div> 
             </div>
             

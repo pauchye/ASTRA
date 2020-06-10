@@ -9,6 +9,9 @@ import DashboardContainer from './dashboard/dashboard_container';
 import RoutesIndexContainer from './route/route_index_container';
 import RoutesCreateContainer from './route/route_create_container';
 import RouteEditForm from './route/route_edit_container';
+import WorkoutsCreateForm from './workouts/create_workout_form_container';
+import WorkoutsEditForm from './workouts/edit_workout_form_container';
+import WorkoutIndexContainer from './workouts/workout_index_container';
 import RouteShow from './route/route_show_container';
 import Footer from './greeting/footer'
 import Modal from './modal/modal.jsx'
@@ -27,6 +30,9 @@ const App = () => (
         <ProtectedRoute exact path="/routes/new" component={RoutesCreateContainer} />
         <ProtectedRoute exact path="/routes/:routeId/edit" component={RouteEditForm} />
         <ProtectedRoute exact path="/routes/:routeId" component={RouteShow} />
+        <ProtectedRoute exact path="/workouts" component={WorkoutIndexContainer} />
+        <ProtectedRoute exact path="/workouts/new" component={WorkoutsCreateForm} />
+        <ProtectedRoute exact path="/workouts/:workoutId/edit" component={WorkoutsEditForm} />
         <AuthRoute exact path="/" component={SplashContainer} />
       </Switch>
       <Footer />

@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import WorkoutItem from '../workouts/workout_item'
+import WorkoutIndexItem from '../workouts/workout_index_item'
 
-class Dashboard extends React.Component {
+class WorkoutIndex extends React.Component {
     constructor(props){
         super(props);
         this.state = {
@@ -25,7 +25,8 @@ class Dashboard extends React.Component {
         // debugger
         return(
             <div>
-                This is dashboard
+                This is WorkoutIndex
+                <Link to='/workouts/new' className='route-ind-link' >Create New Workout</Link>
                 <div>
                     <img src={window.ava} className='dash-pic-small'/>
                     <div>{this.props.currentUser.first_name} {this.props.currentUser.last_name}</div>
@@ -50,7 +51,7 @@ class Dashboard extends React.Component {
                 <ul >
                 {
                 workouts.map(workout => (
-                    <WorkoutItem
+                    <WorkoutIndexItem
                     key={`workout${workout.id}`}
                     workout={workout}
                     currentUser={this.props.currentUser}
@@ -64,4 +65,4 @@ class Dashboard extends React.Component {
     }
 }
 
-export default Dashboard;
+export default WorkoutIndex;

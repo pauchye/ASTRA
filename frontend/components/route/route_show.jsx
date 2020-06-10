@@ -24,7 +24,6 @@ class RouteShow extends React.Component{
         const { route } = this.props;
         if (!route) return null;
         let createddata = route.created_at.split("T")[0];
-        let data = route.created_at.split("T")[0]
         let showDuration;
         if(route.estimated_duration/60 > 60){
             showDuration = (Math.floor(route.estimated_duration/60/60).toString()) + ' h ' + Math.floor((route.estimated_duration/60%60)).toString() + ' m'

@@ -12,7 +12,7 @@ class RouteForm extends React.Component{
         // this.route_path = this.routeData.path; //"path":[{"lat":0,"lng":0},{"lat":0,"lng":0}]
         this.dist = 0;
         this.dur = 0;
-        this.custTravelMode = 'WALKING';
+        this.custTravelMode = 'BICYCLING';
  
         this.routeInfo = {
             route_name: this.props.route.route_name, 
@@ -36,7 +36,7 @@ class RouteForm extends React.Component{
         let wayPoints = this.markers.slice(1, this.markers.length - 1 ).map(marker => ({location: marker.position, stopover: false})) || [];
 
         if(this.markers.length > 1) {
-
+            debugger
             directionsService.route({
                 origin: this.markers[0].position,
                 waypoints: wayPoints,
@@ -151,11 +151,11 @@ class RouteForm extends React.Component{
         
         this.custTravelMode = input;
         if(input === 'WALKING'){
-          this.routeInfo.activity = 'running' 
-          
+          this.routeInfo.activity = 'running';
+        //   this.custTravelMode = 'WALKING';        
         } else {
           this.routeInfo.activity = 'biking'
-       
+        //   this.custTravelMode = 'BICYCLING';
         }
         
     }
