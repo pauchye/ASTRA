@@ -29,6 +29,7 @@
     "@babel/preset-react": "^7.10.1",
     "babel-loader": "^8.1.0",
     "react": "^16.13.1",
+    "react-datepicker": "^3.0.0",
     "react-dom": "^16.13.1",
     "react-redux": "^7.2.0",
     "react-router-dom": "^5.2.0",
@@ -41,5 +42,9 @@
   "engines": {
     "node": "10.13.0",
     "npm": "6.4.1"
+  },
+  "devDependencies": {
+    "css-loader": "^3.5.3",
+    "mini-css-extract-plugin": "^0.9.0"
   }
 }

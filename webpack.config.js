@@ -1,6 +1,9 @@
 const path = require('path');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+
 
 module.exports = {
+  plugins: [new MiniCssExtractPlugin()],
   entry: './frontend/astra.jsx',
   output: {
     path: path.resolve(__dirname, 'app', 'assets', 'javascripts'),
@@ -15,6 +18,10 @@ module.exports = {
         query: {
           presets: ['@babel/env', '@babel/react']
         }
+      },
+      {
+        test: [/\.css$/],
+        use: [MiniCssExtractPlugin.loader, 'css-loader'],
       }
     ]
   },

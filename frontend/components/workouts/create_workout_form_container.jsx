@@ -15,7 +15,8 @@ const mapStateToProps = state => {
             date: '',
             time: '',
             distance: 0,
-            duration: 0
+            duration: 0,
+            type: ''
         },
         routes
     })
