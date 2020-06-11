@@ -36,29 +36,16 @@ class WorkoutIndex extends React.Component {
         // debugger
         return(
             <div className="work-ind-main">
-                This is WorkoutIndex
+                <h1>My activities</h1>
                 <Link to='/workouts/new' className='route-ind-link' >Create New Workout</Link>
                 <div>
-                    <div>{this.props.currentUser.first_name} {this.props.currentUser.last_name}</div>
-                    <label>
+                    <label className="work-ind-lab">
                         <div>{workoutsCU.length}</div>
                         Activities
                     </label>
-                    <label>
-                        Latest Activity
-                        <div> 
-                            <div>
-                                {latestWorkout.title}
-                            </div>
-                            <div>
-                                {latestWorkout.date}
-                            </div>
-                        </div>
-            
-                    </label>
                 </div>
 
-                <label> 
+                <label className="work-ind-search"> 
                     <div>Search</div>
                     <input type="text" onChange={this.updateFilter}/>
                 </label>    

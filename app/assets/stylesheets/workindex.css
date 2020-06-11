@@ -11,6 +11,23 @@
     width: 100%;
 }
 
+.work-ind-lab{
+
+}
+
+.work-ind-search {
+    width: 80%;
+    padding: 20px;
+    border: 1px solid lightgray;
+    border-radius: 4px;
+}
+
+.work-ind-main h1{
+    font-size: 34px;
+    font-weight: 700;
+    line-height: 41px;
+}
+
 .work-ind-list {
     display: flex;
     flex-direction: column;
