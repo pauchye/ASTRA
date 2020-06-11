@@ -2,6 +2,24 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import WorkoutIndexItem from '../workouts/workout_index_item'
 
+function debounce(fn, time) {
+    let timeoutHandle = null;
+    let lastArgs = null;
+  
+    return function(...args) {
+      if (timeoutHandle) {
+        clearTimeout(timeoutHandle);
+      }
+      const that = this;
+      lastArgs = args;
+      timeoutHandle = setTimeout(() => {
+        fn.apply(that, lastArgs);
+      }, time);
+    }
+  }
+
+// <input type="text" onChange={debounce(this.updateFilter, 500)}/> 
+
 class WorkoutIndex extends React.Component {
     constructor(props){
         super(props);
@@ -17,8 +35,19 @@ class WorkoutIndex extends React.Component {
         )
     }
 
+    // updateFilter(event) {
+    //         this.setState({filter: event.target.value})
+    // }
+
+    
     updateFilter(event) {
-            this.setState({filter: event.target.value})
+        event.persist();
+        if(!this.debounced) {
+            this.debounced = debounce(() => {
+                    this.setState({filter: event.target.value})
+             }, 600);
+        }
+        this.debounced();
     }
 
     render() {

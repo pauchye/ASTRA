@@ -63,7 +63,12 @@ class RouteForm extends React.Component{
                         showDuration = Math.floor((this.dur/60)).toString() + ' m';
                     }
                     this.setState({estimated_duration: showDuration})
-
+                    // console.log("this.dist", this.dist)
+                    // console.log("this.routeInfo.distance", this.routeInfo.distance)
+                    // console.log("this.state.distance", this.state.distance)
+                    // console.log("this.dur", this.dur )
+                    // console.log("this.routeInfo.estimated_duration", this.routeInfo.estimated_duration )
+                    // console.log("this.state.estimated_duration", this.state.estimated_duration )
                     if(this.routeData.path.length === 0){
                         this.routeData.path.push(start);
                         this.routeData.path.push(end);
@@ -104,6 +109,7 @@ class RouteForm extends React.Component{
         // arr.forEach 
         // 
         this.routeData.path.forEach(location => {
+            debugger
             this.placeMarker(location);
             this.calculateAndDisplayRoute(this.directionsService, this.directionsDisplay); 
         })
@@ -126,6 +132,9 @@ class RouteForm extends React.Component{
             directionsDisplay.setMap(null);
             directionsDisplay = null;
         };
+        this.dist = 0;
+        this.dur = 0;
+        
         this.calculateAndDisplayRoute(this.directionsService, this.directionsDisplay);
     }
 

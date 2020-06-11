@@ -1368,7 +1368,13 @@ var RouteForm = /*#__PURE__*/function (_React$Component) {
 
             _this2.setState({
               estimated_duration: showDuration
-            });
+            }); // console.log("this.dist", this.dist)
+            // console.log("this.routeInfo.distance", this.routeInfo.distance)
+            // console.log("this.state.distance", this.state.distance)
+            // console.log("this.dur", this.dur )
+            // console.log("this.routeInfo.estimated_duration", this.routeInfo.estimated_duration )
+            // console.log("this.state.estimated_duration", this.state.estimated_duration )
+
 
             if (_this2.routeData.path.length === 0) {
               _this2.routeData.path.push(start);
@@ -1418,6 +1424,8 @@ var RouteForm = /*#__PURE__*/function (_React$Component) {
       // 
 
       this.routeData.path.forEach(function (location) {
+        debugger;
+
         _this3.placeMarker(location);
 
         _this3.calculateAndDisplayRoute(_this3.directionsService, _this3.directionsDisplay);
@@ -1441,6 +1449,8 @@ var RouteForm = /*#__PURE__*/function (_React$Component) {
       }
 
       ;
+      this.dist = 0;
+      this.dur = 0;
       this.calculateAndDisplayRoute(this.directionsService, this.directionsDisplay);
     }
   }, {
@@ -3239,6 +3249,28 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
+function debounce(fn, time) {
+  var timeoutHandle = null;
+  var lastArgs = null;
+  return function () {
+    if (timeoutHandle) {
+      clearTimeout(timeoutHandle);
+    }
+
+    var that = this;
+
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    lastArgs = args;
+    timeoutHandle = setTimeout(function () {
+      fn.apply(that, lastArgs);
+    }, time);
+  };
+} // <input type="text" onChange={debounce(this.updateFilter, 500)}/> 
+
+
 var WorkoutIndex = /*#__PURE__*/function (_React$Component) {
   _inherits(WorkoutIndex, _React$Component);
 
@@ -3267,31 +3299,44 @@ var WorkoutIndex = /*#__PURE__*/function (_React$Component) {
           bool: true
         });
       });
-    }
+    } // updateFilter(event) {
+    //         this.setState({filter: event.target.value})
+    // }
+
   }, {
     key: "updateFilter",
     value: function updateFilter(event) {
-      this.setState({
-        filter: event.target.value
-      });
+      var _this3 = this;
+
+      event.persist();
+
+      if (!this.debounced) {
+        this.debounced = debounce(function () {
+          _this3.setState({
+            filter: event.target.value
+          });
+        }, 600);
+      }
+
+      this.debounced();
     }
   }, {
     key: "render",
     value: function render() {
-      var _this3 = this;
+      var _this4 = this;
 
       // debugger
       if (!this.state.bool) return null;
       var workouts = this.props.workouts;
       var workoutsCU = workouts.filter(function (workout) {
-        return workout.user_id === _this3.props.currentUser.id;
+        return workout.user_id === _this4.props.currentUser.id;
       });
       var latestWorkout = workouts[workouts.length - 1];
       var filteredWorkouts = workouts;
 
       if (this.state.filter) {
         filteredWorkouts = workouts.filter(function (workout) {
-          return workout.title.split(" ").includes(_this3.state.filter);
+          return workout.title.split(" ").includes(_this4.state.filter);
         });
       } // debugger
 
@@ -3332,8 +3377,8 @@ var WorkoutIndex = /*#__PURE__*/function (_React$Component) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_workouts_workout_index_item__WEBPACK_IMPORTED_MODULE_2__["default"], {
           key: "workout".concat(workout.id),
           workout: workout,
-          currentUser: _this3.props.currentUser,
-          deleteWorkout: _this3.props.deleteWorkout
+          currentUser: _this4.props.currentUser,
+          deleteWorkout: _this4.props.deleteWorkout
         });
       })));
     }
