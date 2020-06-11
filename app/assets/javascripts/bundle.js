@@ -667,7 +667,9 @@ var Dashboard = /*#__PURE__*/function (_React$Component) {
         className: "dash-user-label-act"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "dash-user-label-name"
-      }, "Latest Activity"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, latestWorkout.title), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, latestWorkout.date))) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null);
+      }, "Latest Activity"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, latestWorkout.title), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "dash-user-label-wdate"
+      }, latestWorkout.date))) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null);
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "dash-main"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -1335,9 +1337,11 @@ var RouteForm = /*#__PURE__*/function (_React$Component) {
           stopover: false
         };
       }) || [];
+      this.dist = 0;
+      this.dur = 0;
 
       if (this.markers.length > 1) {
-        debugger;
+        // debugger
         directionsService.route({
           origin: this.markers[0].position,
           waypoints: wayPoints,
@@ -1449,8 +1453,6 @@ var RouteForm = /*#__PURE__*/function (_React$Component) {
       }
 
       ;
-      this.dist = 0;
-      this.dur = 0;
       this.calculateAndDisplayRoute(this.directionsService, this.directionsDisplay);
     }
   }, {

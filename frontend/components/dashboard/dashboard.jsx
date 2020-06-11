@@ -35,7 +35,7 @@ class Dashboard extends React.Component {
                         <div>
                             {latestWorkout.title}
                         </div>
-                        <div>
+                        <div className = "dash-user-label-wdate">
                             {latestWorkout.date}
                         </div>
                     </div>

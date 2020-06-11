@@ -104,12 +104,13 @@
 
 .dash-item-data {
     display: flex;
-
+    
 }
 
 .dash-item-data label {
     padding-right: 50px;
     border-right: 1px solid lightgray;
+    padding-left: 10px;
 }
 
 .dash-item-data h4 {
@@ -128,6 +129,11 @@
 .dash-item-date {
     font-size: 11px;
     color: #666;
+}
+
+.dash-user-label-wdate {
+    font-size: 12px;
+    padding-top: 7px;
 }
 
 

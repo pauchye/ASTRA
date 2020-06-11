@@ -34,9 +34,10 @@ class RouteForm extends React.Component{
 
     calculateAndDisplayRoute(directionsService, directionsDisplay) {
         let wayPoints = this.markers.slice(1, this.markers.length - 1 ).map(marker => ({location: marker.position, stopover: false})) || [];
-
+        this.dist = 0;
+        this.dur = 0;
         if(this.markers.length > 1) {
-            debugger
+            // debugger
             directionsService.route({
                 origin: this.markers[0].position,
                 waypoints: wayPoints,
@@ -132,8 +133,6 @@ class RouteForm extends React.Component{
             directionsDisplay.setMap(null);
             directionsDisplay = null;
         };
-        this.dist = 0;
-        this.dur = 0;
         
         this.calculateAndDisplayRoute(this.directionsService, this.directionsDisplay);
     }
