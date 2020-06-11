@@ -83,7 +83,7 @@ workout2 = Workout.create!(
 )
 
 workout3 = Workout.create!(
-  user_id: u2.id,
+  user_id: demoUser.id,
   route_id: route1.id,
   title: 'Running late',
   description: 'Lazy day',
@@ -93,4 +93,30 @@ workout3 = Workout.create!(
   distance: 711,
   duration: 8544
 )
+
+workout4 = Workout.create!(
+  user_id: demoUser.id,
+  route_id: route2.id,
+  title: 'Biking to work again',
+  description: 'Morning workout on my way to work',
+  sport: 'biking',
+  date: '6/11/2020',
+  time: '8:30 am',
+  distance: 546,
+  duration: 4531
+)
+
+workout5 = Workout.create!(
+  user_id: demoUser.id,
+  route_id: route1.id,
+  title: 'Running in the park again',
+  description: 'Sunny day. Good to run!',
+  sport: 'running',
+  date: '6/11/2020',
+  time: '11:30 am',
+  distance: 659,
+  duration: 7890
+)
+
+
             

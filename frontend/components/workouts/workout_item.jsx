@@ -36,31 +36,33 @@ class WorkoutItem extends React.Component{
         let pace = ((this.props.workout.duration/60)/(this.props.workout.distance/100)).toFixed(2).toString() + ' min/mi'
 
         return(
-            <div>
-                <div>
-                    <img src={window.ava} className='dash-pic-small foooooooooo'/>
-                    <div>{pic}</div>
+            <div className = "dash-item">
+                <div className = "dash-item-inside">
+                <div className = "dash-item-top">
+                    <div>
+                        <img src={window.ava} className='dash-pic-small'/>
+                        <div className = "dash-item-pic">{pic}</div>
+                    </div>
+                    <div>
+                    <div className = "dash-item-username">{this.props.currentUser.first_name} {this.props.currentUser.last_name}</div>
+                        <div className = "dash-item-date">{data} </div> 
+                    </div>
                 </div>
-                <div>
-                   <div>{this.props.currentUser.first_name} {this.props.currentUser.last_name}</div>
-                    <div>{data} </div> 
-                </div>
-
-                <div>
+                <div className = "dash-item-data">
                     <label>
+                        <h4>Distance</h4>
                         <div>{distMi} </div>
-                        Distance
                     </label>
                     <label>
+                        <h4>Pace</h4>
                         <div>{pace} </div>
-                        Pace
                     </label>
                     <label>
+                        <h4>Duration</h4>
                         <div>{showDuration} </div>
-                        Duration
                     </label>
                 </div>
-                
+                </div>
                 
             </div>           
         )

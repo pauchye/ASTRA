@@ -71,6 +71,21 @@
     color: black;
 }
 
+.greeting-button-log button{
+    background-color: white;
+    border-radius: 4px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 600;
+    padding: 5px;
+    border: 1px solid rgb(175, 174, 174);
+    font-size: 14px;
+    text-decoration: none;
+    color: black;
+}
+
+.greeting-button-log button:hover {
+    cursor: pointer;
+}
 .greeting-link{
     background-color: #FC4C02;
     border-radius: 4px;
@@ -85,6 +100,18 @@
 .greeting-button:hover{
     cursor: pointer;
     background-color: lightgray;
+}
+
+.greeting-left-drop-link {
+    padding-right: 20px;
+    padding-left: 0px;
+    border-right: 1px solid lightgray;
+    text-decoration: none;
+}
+
+.greeting-left-drop-hello {
+    padding-right: 20px;
+    border-right: 1px solid lightgray;
 }
 
 

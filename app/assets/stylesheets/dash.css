@@ -3,3 +3,140 @@
     height: 40px;
     border-radius: 50%;
 }
+
+.dash-pic-larger{
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    z-index: 2;
+}
+
+.dash-main {
+    display: flex;
+    background-color: #f7f7fa;
+}
+
+.dash-user {
+    /* border: 2px solid red; */
+    margin: 20px;
+    margin-right: 0px;
+    margin-left: 110px;
+    width: 292px;
+    height: 350px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.dash-user-cont {
+    position: relative;
+    top: -30px;
+    border: none;
+    border-radius: 10px;
+    height: 80%;
+    width: 100%;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.dash-user-name {
+    padding-top: 50px;
+    text-align: center;
+    font-weight: 700;
+    font-size: 22px;
+}
+
+.dash-user-label {
+    padding: 20px;
+    padding-left: 40px;
+}
+
+.dash-user-label-act {
+    border-top: 1px solid lightgray;
+    border-bottom: 1px solid lightgray;
+    margin: 0 20px;
+
+    padding: 20px;
+}
+
+.dash-user-label-name {
+    font-size: 12px;
+    padding-bottom: 7px;
+}
+
+.dash-body {
+    margin: 20px;
+    margin-top: 36px;
+    padding-inline-start: 20px;
+    width: 60%;
+    max-width: 592px;
+}
+
+.dash-item {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    background-color: white;
+    padding-left: 0px;
+}
+
+.dash-item-inside {
+    padding: 20px;
+}
+
+.dash-item-top {
+    display: flex;
+}
+
+.dash-item-top > div {
+    display: flex;
+    flex-direction: column;
+    padding-right: 50px;
+}
+
+.dash-item-pic {
+    padding-left: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.dash-item-data {
+    display: flex;
+
+}
+
+.dash-item-data label {
+    padding-right: 50px;
+    border-right: 1px solid lightgray;
+}
+
+.dash-item-data h4 {
+    font-size: 12px;
+    font-weight: 400;
+    margin-bottom: 5px;
+}
+
+.dash-item-username {
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 1.45;
+    padding-bottom: 10px;
+}
+
+.dash-item-date {
+    font-size: 11px;
+    color: #666;
+}
+
+
+@media (max-width: 768px) {
+    .dash-main {
+        margin-right: 5px;
+        margin-left: 5px;
+    }
+    .dash-user {
+        display: none;
+    }
+}

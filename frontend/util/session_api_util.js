@@ -20,6 +20,7 @@ export const logIn = user => {
 }
 
 export const logOut = () => {
+    debugger
     return(
         $.ajax({
             url: `/api/session`,

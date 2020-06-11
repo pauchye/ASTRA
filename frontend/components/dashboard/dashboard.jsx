@@ -29,9 +29,9 @@ class Dashboard extends React.Component {
         // if(!props.workouts) return null;
 
         let showLatestWorkout = latestWorkout ? ( 
-                <label>
-                    Latest Activity
-                    <div> 
+                <label className = "dash-user-label-act">
+                    <div className = "dash-user-label-name">Latest Activity</div>
+                    <div > 
                         <div>
                             {latestWorkout.title}
                         </div>
@@ -46,19 +46,20 @@ class Dashboard extends React.Component {
         );
 
         return(
-            <div>
-                This is dashboard
-                <div>
-                    <img src={window.ava} className='dash-pic-small'/>
-                    <div>{this.props.currentUser.first_name} {this.props.currentUser.last_name}</div>
-                    <label>
+            <div className = "dash-main">
+                <div className = "dash-user">
+                    <img src={window.ava} className='dash-pic-larger'/>
+                    <div className = "dash-user-cont">
+                    <div className = "dash-user-name">{this.props.currentUser.first_name} {this.props.currentUser.last_name}</div>
+                    <label className = "dash-user-label">
+                        <div className = "dash-user-label-name">Activities</div>
                         <div>{workoutsCU.length}</div>
-                        Activities
                     </label>
                     {showLatestWorkout}
+                    </div>
                 </div>
 
-                <ul >
+                <ul className = "dash-body">
                 {
                 workouts.map(workout => (
                     <WorkoutItem

@@ -258,6 +258,7 @@ var receiveCurrentUser = function receiveCurrentUser(currentUser) {
   };
 };
 var logoutCurrentUser = function logoutCurrentUser() {
+  debugger;
   return {
     type: LOGOUT_CURRENT_USER
   };
@@ -291,7 +292,9 @@ var login = function login(formUser) {
 };
 var logout = function logout() {
   return function (dispatch) {
+    // debugger
     return Object(_util_session_api_util__WEBPACK_IMPORTED_MODULE_0__["logOut"])().then(function (user) {
+      // debugger
       return dispatch(logoutCurrentUser());
     }, function (error) {
       return dispatch(receiveSessionError(error.responseJSON));
@@ -660,11 +663,29 @@ var Dashboard = /*#__PURE__*/function (_React$Component) {
       var latestWorkout = workouts[workouts.length - 1];
       debugger; // if(!props.workouts) return null;
 
-      var showLatestWorkout = latestWorkout ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Latest Activity", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, latestWorkout.title), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, latestWorkout.date))) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null);
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "This is dashboard", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+      var showLatestWorkout = latestWorkout ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+        className: "dash-user-label-act"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "dash-user-label-name"
+      }, "Latest Activity"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, latestWorkout.title), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, latestWorkout.date))) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null);
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "dash-main"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "dash-user"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         src: window.ava,
-        className: "dash-pic-small"
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, this.props.currentUser.first_name, " ", this.props.currentUser.last_name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, workoutsCU.length), "Activities"), showLatestWorkout), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, workouts.map(function (workout) {
+        className: "dash-pic-larger"
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "dash-user-cont"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "dash-user-name"
+      }, this.props.currentUser.first_name, " ", this.props.currentUser.last_name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+        className: "dash-user-label"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "dash-user-label-name"
+      }, "Activities"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, workoutsCU.length)), showLatestWorkout)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+        className: "dash-body"
+      }, workouts.map(function (workout) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_workouts_workout_item__WEBPACK_IMPORTED_MODULE_2__["default"], {
           key: "workout".concat(workout.id),
           workout: workout,
@@ -801,18 +822,22 @@ __webpack_require__.r(__webpack_exports__);
     className: "greeting-logo"
   }), " ")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "greeting-drop-cont"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Hello ", currentUser.first_name, "!! "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "greeting-left-drop-hello"
+  }, "Hello ", currentUser.first_name, "!! "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "greeting-left-drop"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
-    to: "/routes"
+    to: "/routes",
+    className: "greeting-left-drop-link"
   }, " Routes ")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "greeting-left-drop"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
-    to: "/workouts"
+    to: "/workouts",
+    className: "greeting-left-drop-link"
   }, " Workouts ")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "greeting-right"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "greeting-button"
+    className: "greeting-button-log"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
     className: "greeting-button-q",
     onClick: logout
@@ -3548,10 +3573,24 @@ var WorkoutItem = /*#__PURE__*/function (_React$Component) {
       console.log('distMi:', this.props.workout.distance);
       var distMi = (this.props.workout.distance / 100).toString() + ' mi';
       var pace = (this.props.workout.duration / 60 / (this.props.workout.distance / 100)).toFixed(2).toString() + ' min/mi';
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "dash-item"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "dash-item-inside"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "dash-item-top"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         src: window.ava,
-        className: "dash-pic-small foooooooooo"
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, pic)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, this.props.currentUser.first_name, " ", this.props.currentUser.last_name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, data, " ")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, distMi, " "), "Distance"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, pace, " "), "Pace"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, showDuration, " "), "Duration")));
+        className: "dash-pic-small"
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "dash-item-pic"
+      }, pic)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "dash-item-username"
+      }, this.props.currentUser.first_name, " ", this.props.currentUser.last_name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "dash-item-date"
+      }, data, " "))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "dash-item-data"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "Distance"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, distMi, " ")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "Pace"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, pace, " ")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "Duration"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, showDuration, " ")))));
     }
   }]);
 
@@ -3853,7 +3892,8 @@ var workoutsReducer = function workoutsReducer() {
     case _actions_workout_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_WORKOUTS"]:
       //   return Object.assign({}, state, { [action.routes.id]: action.routes })
       // debugger
-      return Object.assign({}, state, action.workouts);
+      return action.workouts;
+    // return Object.assign({}, state, action.workouts)
 
     case _actions_workout_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_WORKOUT"]:
       // debugger
@@ -3863,6 +3903,7 @@ var workoutsReducer = function workoutsReducer() {
       var newState = Object.assign({}, state);
       delete newState[action.workoutId];
       return newState;
+    // case LOGOUT_CURRENT_USER:
 
     default:
       return state;
@@ -4056,6 +4097,7 @@ var logIn = function logIn(user) {
   });
 };
 var logOut = function logOut() {
+  debugger;
   return $.ajax({
     url: "/api/session",
     method: 'delete'

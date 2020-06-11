@@ -12,6 +12,7 @@ export const receiveCurrentUser = (currentUser) => {
 }
 
 export const logoutCurrentUser = () => {
+    debugger
     return{
         type: LOGOUT_CURRENT_USER,
     }
@@ -39,11 +40,15 @@ export const login = formUser => dispatch => {
     )
 }
     
-export const logout = () => dispatch => (
-    logOut().then(user => dispatch(logoutCurrentUser()), 
+export const logout = () => dispatch => {
+    // debugger
+    return logOut().then(user => {
+        // debugger
+        return dispatch(logoutCurrentUser())
+    },  
     error => dispatch(receiveSessionError(error.responseJSON))
     )
-)
+}
 
 // const checkEmail = (bool) => {
 //     return {

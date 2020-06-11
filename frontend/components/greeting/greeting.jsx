@@ -18,18 +18,18 @@ export default ({currentUser, logout}) => {
                
             </div>
             <div className='greeting-drop-cont'>
-                <div >Hello {currentUser.first_name}!! </div>
+                <div className='greeting-left-drop-hello'>Hello {currentUser.first_name}!! </div>
                 <div className='greeting-left-drop'>
-                  <Link to='/routes'> Routes </Link> 
+                  <Link to='/routes' className='greeting-left-drop-link'> Routes </Link> 
                 </div>
                 <div className='greeting-left-drop'>
-                  <Link to='/workouts'> Workouts </Link> 
+                  <Link to='/workouts' className='greeting-left-drop-link' > Workouts </Link> 
                 </div> 
             </div>
             
         </div>
         <div className='greeting-right' >
-            <div className='greeting-button' >
+            <div className='greeting-button-log' >
               <button className='greeting-button-q' onClick={logout}>Logout</button>   
             </div>  
 

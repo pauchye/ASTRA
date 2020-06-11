@@ -6,7 +6,8 @@ const workoutsReducer = (state = {}, action) => {
         case RECEIVE_WORKOUTS:
         //   return Object.assign({}, state, { [action.routes.id]: action.routes })
         // debugger
-          return Object.assign({}, state, action.workouts)
+          return action.workouts
+          // return Object.assign({}, state, action.workouts)
         case RECEIVE_WORKOUT:
           // debugger
           return Object.assign({}, { [action.workout.id]: action.workout })
@@ -14,6 +15,7 @@ const workoutsReducer = (state = {}, action) => {
             let newState = Object.assign({}, state);
             delete newState[action.workoutId];
             return newState;
+        // case LOGOUT_CURRENT_USER:
         default:
           return state;
       }
