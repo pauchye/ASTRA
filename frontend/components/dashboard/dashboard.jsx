@@ -4,6 +4,7 @@ import WorkoutItem from '../workouts/workout_item'
 
 class Dashboard extends React.Component {
     constructor(props){
+        debugger
         super(props);
         this.state = {
             bool: false
@@ -17,12 +18,33 @@ class Dashboard extends React.Component {
     }
 
     render() {
-        // debugger
+        debugger
         if(!this.state.bool) return null;
+        
         const workouts = this.props.workouts;
         const workoutsCU = workouts.filter(workout => workout.user_id === this.props.currentUser.id)
+        console.log(workoutsCU)
         const latestWorkout = workouts[workouts.length - 1]
-        // debugger
+        debugger
+        // if(!props.workouts) return null;
+
+        let showLatestWorkout = latestWorkout ? ( 
+                <label>
+                    Latest Activity
+                    <div> 
+                        <div>
+                            {latestWorkout.title}
+                        </div>
+                        <div>
+                            {latestWorkout.date}
+                        </div>
+                    </div>
+        
+                </label>
+        ) : (
+                <div></div>
+        );
+
         return(
             <div>
                 This is dashboard
@@ -33,18 +55,7 @@ class Dashboard extends React.Component {
                         <div>{workoutsCU.length}</div>
                         Activities
                     </label>
-                    <label>
-                        Latest Activity
-                        <div> 
-                            <div>
-                                {latestWorkout.title}
-                            </div>
-                            <div>
-                                {latestWorkout.date}
-                            </div>
-                        </div>
-            
-                    </label>
+                    {showLatestWorkout}
                 </div>
 
                 <ul >

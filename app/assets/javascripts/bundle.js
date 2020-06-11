@@ -626,6 +626,7 @@ var Dashboard = /*#__PURE__*/function (_React$Component) {
 
     _classCallCheck(this, Dashboard);
 
+    debugger;
     _this = _super.call(this, props);
     _this.state = {
       bool: false
@@ -649,18 +650,21 @@ var Dashboard = /*#__PURE__*/function (_React$Component) {
     value: function render() {
       var _this3 = this;
 
-      // debugger
+      debugger;
       if (!this.state.bool) return null;
       var workouts = this.props.workouts;
       var workoutsCU = workouts.filter(function (workout) {
         return workout.user_id === _this3.props.currentUser.id;
       });
-      var latestWorkout = workouts[workouts.length - 1]; // debugger
+      console.log(workoutsCU);
+      var latestWorkout = workouts[workouts.length - 1];
+      debugger; // if(!props.workouts) return null;
 
+      var showLatestWorkout = latestWorkout ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Latest Activity", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, latestWorkout.title), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, latestWorkout.date))) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null);
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "This is dashboard", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         src: window.ava,
         className: "dash-pic-small"
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, this.props.currentUser.first_name, " ", this.props.currentUser.last_name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, workoutsCU.length), "Activities"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Latest Activity", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, latestWorkout.title), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, latestWorkout.date)))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, workouts.map(function (workout) {
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, this.props.currentUser.first_name, " ", this.props.currentUser.last_name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, workoutsCU.length), "Activities"), showLatestWorkout), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, workouts.map(function (workout) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_workouts_workout_item__WEBPACK_IMPORTED_MODULE_2__["default"], {
           key: "workout".concat(workout.id),
           workout: workout,
@@ -694,7 +698,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var mapStateToProps = function mapStateToProps(state) {
-  // debugger
+  debugger;
   return {
     currentUser: state.entities.users[state.session.id],
     workouts: Object.values(state.entities.workouts)
@@ -702,7 +706,7 @@ var mapStateToProps = function mapStateToProps(state) {
 };
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-  // debugger
+  debugger;
   return {
     fetchUsersWorkouts: function fetchUsersWorkouts(userId) {
       return dispatch(Object(_actions_workout_actions__WEBPACK_IMPORTED_MODULE_2__["fetchUsersWorkouts"])(userId));
@@ -3269,14 +3273,14 @@ var WorkoutIndex = /*#__PURE__*/function (_React$Component) {
 
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "work-ind-main"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "My activities"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "My activities"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
         to: "/workouts/new",
-        className: "route-ind-link"
+        className: "work-ind-link"
       }, "Create New Workout"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         className: "work-ind-lab"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, workoutsCU.length), "Activities")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, workoutsCU.length, " Activities")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         className: "work-ind-search"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Search"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Keywords"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "text",
         onChange: this.updateFilter
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
@@ -3517,7 +3521,8 @@ var WorkoutItem = /*#__PURE__*/function (_React$Component) {
   _createClass(WorkoutItem, [{
     key: "render",
     value: function render() {
-      // debugger
+      debugger;
+      if (!this.props.workout) return null;
       var pic;
 
       if (this.props.workout.sport === 'running') {

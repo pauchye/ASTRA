@@ -13,7 +13,8 @@ class WorkoutItem extends React.Component{
 
 
     render(){
-        // debugger
+        debugger
+        if(!this.props.workout) return null;
         let pic 
         if(this.props.workout.sport === 'running'){
             pic= <i className="fas fa-running"></i>
