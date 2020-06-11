@@ -29,6 +29,7 @@ class WorkoutItem extends React.Component{
             showDuration = Math.floor((this.props.workout.duration/60)).toString() + ' min';
         }
 
+        console.log('distMi:', this.props.workout.distance)
         let distMi = (this.props.workout.distance/100).toString() + ' mi';
         
         let pace = ((this.props.workout.duration/60)/(this.props.workout.distance/100)).toFixed(2).toString() + ' min/mi'
@@ -36,7 +37,7 @@ class WorkoutItem extends React.Component{
         return(
             <div>
                 <div>
-                    <img src={window.ava} className='dash-pic-small'/>
+                    <img src={window.ava} className='dash-pic-small foooooooooo'/>
                     <div>{pic}</div>
                 </div>
                 <div>

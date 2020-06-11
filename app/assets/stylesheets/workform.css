@@ -1,0 +1,161 @@
+.work-form-main {
+    display: flex;
+    margin-right: 135px;
+    margin-left: 110px;
+    padding-left: 16px;
+    padding-right: 16px;
+    margin-top: 10px;
+    margin-bottom: 80px;
+    position: relative;
+    
+}
+
+.work-form-nav {
+    /* width: 112px; */
+    margin-top: 20px;
+    max-height: 19px;
+    min-width: 112px;
+    color: #333;
+    display: block;
+    padding: 14px 20px 14px 20px;
+    border: 1px solid lightgray;
+    box-shadow: inset 3px 0 0 #fc5200;
+    font-size: 16px;
+    background-color: rgb(252, 252, 252);
+    margin-right: 20px;
+}
+
+.work-form-body h3{
+    font-size: 34px;
+    font-weight: 700;
+    line-height: 41px;
+    margin-bottom: 9px;
+    letter-spacing: -0.01em;
+    margin-top: 14px;
+    width: 500px;
+}
+
+.work-form-body form {
+    display: flex;
+    flex-direction: column;
+
+}
+
+.work-form-body select, .work-form-body option {
+    padding: 7.5px;
+    border: 1px solid rgb(230, 229, 229);
+}
+
+.work-form-first{
+    display: flex;
+    justify-content: space-between;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgb(233, 233, 233);
+}
+
+.work-form-first label:first-child {
+    margin-right: 20px;
+}
+
+.work-form-second{
+    display: flex;
+    justify-content: space-between;
+}
+
+
+
+.work-form-body form label{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    color: #242428;
+    
+}
+.work-form-second-label{
+    display: flex;
+    justify-content: flex-start !important;
+}
+
+.work-form-body textarea::placeholder, .work-form-body input::placeholder {
+    color: lightgrey;
+}
+
+.work-form-small{
+    color: #242428;
+    font-size: 12px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.work-form-body input, .work-form-body textarea, .work-form-body select {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border: 1px solid rgb(230, 229, 229);
+}
+
+.work-form-body textarea {
+    height: 100px;
+    padding: 10px 10px;
+}
+
+.work-form-dur {
+    display: flex;
+    flex-direction: row;
+    margin-right: 0px;
+}
+.work-form-date {
+    display: flex;
+}
+
+.work-form-cal{
+    padding: 5px;
+}
+
+.work-form-dur input{
+    width: 60px;
+
+}
+
+.work-form-body form label input{
+    padding: 7px;
+}
+
+.work-form-tag{
+    width: 200;
+	height: 36px;
+    /* transform: skew(-30deg); */
+    font: 400 13.3333px Arial;
+    margin: 5px;
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+	border: 1px solid rgb(230, 230, 230);
+}
+
+.work-form-tag label, .work-form-tag input{
+    transform: skew(0deg); 
+    padding: 5px;
+}
+
+.work-form-button{
+    background-color: #FC4C02;
+    width: 120px;
+    border-radius: 4px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 600;
+    padding: 8px;
+    font-size: 14px;
+    text-decoration: none;
+    color: white;
+    border: none;
+    margin-top: 10px;
+}
+
+@media (max-width: 768px) {
+    .work-form-main{
+        margin-right: 5px;
+        margin-left: 5px;
+    }
+}

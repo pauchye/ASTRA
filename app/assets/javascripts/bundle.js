@@ -351,13 +351,14 @@ var receiveWorkouts = function receiveWorkouts(workouts) {
 var receiveWorkout = function receiveWorkout(workout) {
   // debugger
   return {
-    type: RECEIVE_ROUTE,
+    type: RECEIVE_WORKOUT,
     workout: workout
   };
 };
 var removeWorkout = function removeWorkout(workoutId) {
+  // debugger
   return {
-    type: RECEIVE_WORKOUT,
+    type: REMOVE_WORKOUT,
     workoutId: workoutId
   };
 }; //----- thunk actions
@@ -398,8 +399,10 @@ var createWorkout = function createWorkout(workout) {
 };
 var updateWorkout = function updateWorkout(workout) {
   return function (dispatch) {
+    // debugger
     return _util_workouts_api_utils__WEBPACK_IMPORTED_MODULE_0__["updateWorkout"](workout).then(function (res) {
-      return dispatch(receiveWorkout(res));
+      // debugger
+      dispatch(receiveWorkout(res));
     });
   };
 };
@@ -1424,8 +1427,8 @@ var RouteForm = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "handleSubmit",
     value: function handleSubmit(e) {
-      e.preventDefault();
-      console.log(this.props.modalWord);
+      e.preventDefault(); // console.log(this.props.modalWord)
+
       this.props.openModal(this.props.modalWord);
     }
   }, {
@@ -2176,7 +2179,7 @@ var RouteShowMap = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      console.log(this.routeData);
+      // console.log(this.routeData)
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "routeshow-container",
         ref: "mapNode"
@@ -2270,8 +2273,8 @@ var SaveRoute = /*#__PURE__*/function (_React$Component) {
     value: function handleSubmit(e) {
       var _this3 = this;
 
-      e.preventDefault();
-      debugger;
+      e.preventDefault(); // debugger
+
       this.props.action(this.state).then(function (res) {
         _this3.props.closeAndSaveModal();
 
@@ -2800,12 +2803,12 @@ var mapStateToProps = function mapStateToProps(state) {
     workout: {
       title: '',
       description: '',
-      sport: '',
+      sport: 'biking',
       date: '',
       time: '',
-      distance: 0,
+      distance: '',
       duration: 0,
-      type: ''
+      workout_type: ''
     },
     routes: routes
   };
@@ -2878,7 +2881,8 @@ var EditWorkoutForm = /*#__PURE__*/function (_React$Component) {
   _createClass(EditWorkoutForm, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      this.props.fetchRoute(this.props.match.params.routeId);
+      // debugger
+      this.props.fetchWorkout(this.props.match.params.workoutId);
     }
   }, {
     key: "render",
@@ -2888,7 +2892,9 @@ var EditWorkoutForm = /*#__PURE__*/function (_React$Component) {
           userId = _this$props.userId,
           workout = _this$props.workout,
           routes = _this$props.routes,
-          action = _this$props.action;
+          action = _this$props.action; // debugger
+
+      if (!workout) return null;
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(_workout_form__WEBPACK_IMPORTED_MODULE_1__["default"], {
         postType: postType,
         userId: userId,
@@ -2907,6 +2913,7 @@ var mapStateToProps = function mapStateToProps(state, ownProps) {
   var routes = Object.values(state.entities.routes).filter(function (route) {
     return route.user_id === userId;
   });
+  debugger;
   return {
     postType: 'Update Workout',
     userId: userId,
@@ -2919,6 +2926,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     action: function action(workout) {
       return dispatch(Object(_actions_workout_actions__WEBPACK_IMPORTED_MODULE_2__["updateWorkout"])(workout));
+    },
+    fetchWorkout: function fetchWorkout(workoutId) {
+      return dispatch(Object(_actions_workout_actions__WEBPACK_IMPORTED_MODULE_2__["fetchWorkout"])(workoutId));
     }
   };
 };
@@ -2943,6 +2953,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_datepicker_dist_react_datepicker_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-datepicker/dist/react-datepicker.css */ "./node_modules/react-datepicker/dist/react-datepicker.css");
 /* harmony import */ var react_datepicker_dist_react_datepicker_css__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_datepicker_dist_react_datepicker_css__WEBPACK_IMPORTED_MODULE_2__);
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -2987,14 +2999,50 @@ var WorkoutForm = /*#__PURE__*/function (_React$Component) {
     _this.state.durHours = Math.floor(_this.state.duration / 60 / 60); // this.setState({durMinutes: Math.floor(this.state.duration/60%60)})
 
     _this.state.durMinutes = Math.floor(_this.state.duration / 60 % 60);
+    _this.state.user_id = _this.props.userId;
+    _this.state.val = 'mi';
+    _this.state.distance = (_this.state.distance / 100).toString();
+    debugger;
     _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_this));
+    _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this)); // this.handleMin = this.handleMin.bind(this)
+    // this.handleHour = this.handleHour.bind(this)
+    // this.handleDist = this.handleDist.bind(this)
+    // this.handleDate = this.handleDate.bind(this)
+
     return _this;
   }
 
   _createClass(WorkoutForm, [{
     key: "handleChange",
-    value: function handleChange(e) {
-      console.log(e);
+    value: function handleChange(input) {
+      var _this2 = this;
+
+      return function (e) {
+        _this2.setState(_defineProperty({}, input, e.currentTarget.value));
+      };
+    }
+  }, {
+    key: "handleSubmit",
+    value: function handleSubmit(e) {
+      e.preventDefault();
+      var inputObject = Object.assign({}, this.state); //distance
+
+      var dist = this.state.distance.split(".");
+      if (dist[1].length < 2) dist[1] += '0';
+      if (dist[1].length > 2) dist[1] = dist[1].split('').slice(0, 2).join("");
+      var distNum = parseInt(dist[0], 10) * 100 + parseInt(dist[1], 10);
+
+      if (this.state.val === 'km') {
+        distNum = distNum * 0.62137;
+      }
+
+      inputObject.distance = distNum; // duration
+
+      inputObject.duration = this.state.durHours * 60 * 60 + this.state.durMinutes * 60;
+      debugger;
+      this.props.action(inputObject).then(function (res) {
+        location.hash = '/workouts';
+      });
     }
   }, {
     key: "render",
@@ -3007,54 +3055,112 @@ var WorkoutForm = /*#__PURE__*/function (_React$Component) {
         tagVal = 'Treadmill';
       }
 
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, " workout form", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, " Distance", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      debugger;
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "work-form-main"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "work-form-nav"
+      }, "Manual"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "work-form-body"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Manual Entry"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+        onSubmit: this.handleSubmit
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "work-form-first"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "work-form-small"
+      }, "Distance"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "text",
         value: this.state.distance,
-        onChange: this.handleChange
-      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, " Duration", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-        type: "text",
+        onChange: this.handleChange('distance'),
+        placeholder: "1.00"
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
+        defaultValue: "mi",
+        onChange: this.handleChange('val')
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "mi"
+      }, "mi"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "km"
+      }, "km")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "work-form-small"
+      }, "Duration"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "work-form-dur"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "number",
         value: this.state.durHours,
         placeholder: "h",
-        onChange: this.handleChange
+        onChange: this.handleChange('durHours')
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-        type: "text",
+        type: "number",
         value: this.state.durMinutes,
         placeholder: "m",
-        onChange: this.handleChange
-      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, " Sport", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", null, sportArray.map(function (sport, i) {
+        onChange: this.handleChange('durMinutes')
+      })))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "work-form-second"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+        className: "work-form-second-label"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "work-form-small"
+      }, "Sport"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
+        onChange: this.handleChange('sport')
+      }, sportArray.map(function (sport, i) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
           key: i,
           value: sport
         }, sport);
-      }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, " Date&time", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_datepicker__WEBPACK_IMPORTED_MODULE_1___default.a, {
-        selected: this.state.date,
-        onSelect: this.handleSelect //when day is clicked
-        ,
-        onChange: this.handleChange //only when value has changed
-
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", null, timeArray.map(function (time, i) {
+      }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+        className: "work-form-second-label"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "work-form-small"
+      }, "Tag"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "work-form-tag"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Commute "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "radio",
+        id: "Commute",
+        name: "tag",
+        value: this.state.type,
+        onChange: this.handleChange('type')
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "work-form-tag"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, tagVal), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "radio",
+        id: "tagVal",
+        name: "tag",
+        value: this.state.type,
+        onChange: this.handleChange('type')
+      }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+        className: "work-form-second-label"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "work-form-small"
+      }, "Date&time"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "work-form-date"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        className: "work-form-cal",
+        type: "date",
+        value: this.state.date,
+        onChange: this.handleChange('date')
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
+        onChange: this.handleChange('time')
+      }, timeArray.map(function (time, i) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
           key: i,
           value: time
         }, time);
-      }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, " Tag", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
-        "for": "Commute"
-      }, "Commute", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-        type: "radio",
-        id: "Commute",
-        name: "tag",
-        value: this.state.type
-      })), tagVal, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
-        "for": "tagVal"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-        type: "radio",
-        id: "tagVal",
-        name: "tag",
-        value: this.state.type
-      }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, " Description", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", {
+      }))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "work-form-small"
+      }, "Title"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "text",
+        value: this.state.title,
+        onChange: this.handleChange('title')
+      }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "work-form-small"
+      }, "Description"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", {
         value: this.state.description,
-        onChange: this.handleChange
-      }))));
+        onChange: this.handleChange('description'),
+        placeholder: "How did it go? Were you tired or rested? How was the weather?"
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: "work-form-button",
+        type: "submit"
+      }, this.props.postType))));
     }
   }]);
 
@@ -3118,6 +3224,7 @@ var WorkoutIndex = /*#__PURE__*/function (_React$Component) {
     _this.state = {
       bool: false
     };
+    _this.updateFilter = _this.updateFilter.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -3133,6 +3240,13 @@ var WorkoutIndex = /*#__PURE__*/function (_React$Component) {
       });
     }
   }, {
+    key: "updateFilter",
+    value: function updateFilter(event) {
+      this.setState({
+        filter: event.target.value
+      });
+    }
+  }, {
     key: "render",
     value: function render() {
       var _this3 = this;
@@ -3143,19 +3257,50 @@ var WorkoutIndex = /*#__PURE__*/function (_React$Component) {
       var workoutsCU = workouts.filter(function (workout) {
         return workout.user_id === _this3.props.currentUser.id;
       });
-      var latestWorkout = workouts[workouts.length - 1]; // debugger
+      var latestWorkout = workouts[workouts.length - 1];
+      var filteredWorkouts = workouts;
 
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "This is WorkoutIndex", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+      if (this.state.filter) {
+        filteredWorkouts = workouts.filter(function (workout) {
+          return workout.title.split(" ").includes(_this3.state.filter);
+        });
+      } // debugger
+
+
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "work-ind-main"
+      }, "This is WorkoutIndex", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
         to: "/workouts/new",
         className: "route-ind-link"
-      }, "Create New Workout"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-        src: window.ava,
-        className: "dash-pic-small"
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, this.props.currentUser.first_name, " ", this.props.currentUser.last_name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, workoutsCU.length), "Activities"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Latest Activity", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, latestWorkout.title), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, latestWorkout.date)))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, workouts.map(function (workout) {
+      }, "Create New Workout"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, this.props.currentUser.first_name, " ", this.props.currentUser.last_name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, workoutsCU.length), "Activities"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Latest Activity", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, latestWorkout.title), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, latestWorkout.date)))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Search"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "text",
+        onChange: this.updateFilter
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+        className: "work-ind-list"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+        className: "work-ind-line"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "work-ind-1"
+      }, "Sport"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "work-ind-2"
+      }, "Date"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "work-ind-3"
+      }, "Title"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "work-ind-4"
+      }, "Time"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "work-ind-5"
+      }, "Distance"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "work-ind-6"
+      }, "Pace"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "work-ind-7"
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "work-ind-8"
+      })), filteredWorkouts.map(function (workout) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_workouts_workout_index_item__WEBPACK_IMPORTED_MODULE_2__["default"], {
           key: "workout".concat(workout.id),
           workout: workout,
-          currentUser: _this3.props.currentUser
+          currentUser: _this3.props.currentUser,
+          deleteWorkout: _this3.props.deleteWorkout
         });
       })));
     }
@@ -3197,6 +3342,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     fetchUsersWorkouts: function fetchUsersWorkouts(userId) {
       return dispatch(Object(_actions_workout_actions__WEBPACK_IMPORTED_MODULE_2__["fetchUsersWorkouts"])(userId));
+    },
+    deleteWorkout: function deleteWorkout(workoutId) {
+      return dispatch(Object(_actions_workout_actions__WEBPACK_IMPORTED_MODULE_2__["deleteWorkout"])(workoutId));
     }
   };
 };
@@ -3248,29 +3396,27 @@ var WorkoutIndexItem = /*#__PURE__*/function (_React$Component) {
   var _super = _createSuper(WorkoutIndexItem);
 
   function WorkoutIndexItem(props) {
+    var _this;
+
     _classCallCheck(this, WorkoutIndexItem);
 
-    return _super.call(this, props);
+    _this = _super.call(this, props);
+    _this.deleteWorkout = _this.deleteWorkout.bind(_assertThisInitialized(_this));
+    return _this;
   } // componentDidMount() {
   // }
 
 
   _createClass(WorkoutIndexItem, [{
+    key: "deleteWorkout",
+    value: function deleteWorkout() {
+      debugger;
+      this.props.deleteWorkout(this.props.workout.id);
+    }
+  }, {
     key: "render",
     value: function render() {
       // debugger
-      var pic;
-
-      if (this.props.workout.sport === 'running') {
-        pic = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-          className: "fas fa-running"
-        });
-      } else {
-        pic = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-          className: "fas fa-bicycle"
-        });
-      }
-
       var data = this.props.workout.created_at.split("T")[0]; // 2020-06-04T15:37:57.143Z
 
       var showDuration;
@@ -3283,10 +3429,27 @@ var WorkoutIndexItem = /*#__PURE__*/function (_React$Component) {
 
       var distMi = (this.props.workout.distance / 100).toString() + ' mi';
       var pace = (this.props.workout.duration / 60 / (this.props.workout.distance / 100)).toFixed(2).toString() + ' min/mi';
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-        src: window.ava,
-        className: "dash-pic-small"
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, pic)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, this.props.currentUser.first_name, " ", this.props.currentUser.last_name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, data, " ")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, distMi, " "), "Distance"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, pace, " "), "Pace"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, showDuration, " "), "Duration")));
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+        className: "work-ind-line"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "work-ind-1"
+      }, this.props.workout.sport), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "work-ind-2"
+      }, data), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "work-ind-3"
+      }, this.props.workout.title), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "work-ind-4"
+      }, showDuration), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "work-ind-5"
+      }, distMi), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "work-ind-6"
+      }, pace, " "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+        className: "work-ind-7",
+        to: "/workouts/".concat(this.props.workout.id, "/edit")
+      }, "Edit"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "work-ind-8",
+        onClick: this.deleteWorkout
+      }, "Delete"));
     }
   }]);
 
@@ -3373,11 +3536,12 @@ var WorkoutItem = /*#__PURE__*/function (_React$Component) {
         showDuration = Math.floor(this.props.workout.duration / 60).toString() + ' min';
       }
 
+      console.log('distMi:', this.props.workout.distance);
       var distMi = (this.props.workout.distance / 100).toString() + ' mi';
       var pace = (this.props.workout.duration / 60 / (this.props.workout.distance / 100)).toFixed(2).toString() + ' min/mi';
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         src: window.ava,
-        className: "dash-pic-small"
+        className: "dash-pic-small foooooooooo"
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, pic)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, this.props.currentUser.first_name, " ", this.props.currentUser.last_name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, data, " ")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, distMi, " "), "Distance"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, pace, " "), "Pace"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, showDuration, " "), "Duration")));
     }
   }]);
@@ -3934,6 +4098,7 @@ var createWorkout = function createWorkout(workout) {
   });
 };
 var updateWorkout = function updateWorkout(workout) {
+  // debugger
   return $.ajax({
     url: "api/workouts/".concat(workout.id),
     method: 'patch',

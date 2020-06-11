@@ -11,12 +11,12 @@ const mapStateToProps = state => {
         workout: {
             title: '',
             description: '',
-            sport: '',
+            sport: 'biking',
             date: '',
             time: '',
-            distance: 0,
+            distance: '',
             duration: 0,
-            type: ''
+            workout_type: ''
         },
         routes
     })

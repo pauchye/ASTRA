@@ -47,6 +47,7 @@ class Api::WorkoutsController < ApplicationController
         @workout = Workout.find(params[:id])
         # debugger
         if @workout
+            # debugger
             @workout.destroy
         else
             render json: ['Could not locate workout'], status: 400

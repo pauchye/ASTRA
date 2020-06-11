@@ -27,6 +27,7 @@ export const createWorkout = (workout) => {
 }
 
 export const updateWorkout = (workout) => {
+    // debugger
     return $.ajax({
       url: `api/workouts/${workout.id}`,
       method: 'patch',

@@ -24,78 +24,153 @@ class WorkoutForm extends React.Component {
         this.state.durHours = Math.floor(this.state.duration/60/60);
         // this.setState({durMinutes: Math.floor(this.state.duration/60%60)})
         this.state.durMinutes = Math.floor(this.state.duration/60%60);
-        
+        this.state.user_id = this.props.userId;
+        this.state.val = 'mi';
+        this.state.distance = (this.state.distance/100).toString()
+
+        debugger
         this.handleChange = this.handleChange.bind(this)
+        this.handleSubmit = this.handleSubmit.bind(this)
+        // this.handleMin = this.handleMin.bind(this)
+        // this.handleHour = this.handleHour.bind(this)
+        // this.handleDist = this.handleDist.bind(this)
+        // this.handleDate = this.handleDate.bind(this)
     }
 
-    handleChange(e){
-        console.log(e)
+    handleChange(input){
+        return (e) => {
+            this.setState({[input]: e.currentTarget.value})
+        }
     }
 
-    
+
+    handleSubmit(e){
+        e.preventDefault();
+        let inputObject = Object.assign({}, this.state);
+        //distance
+        let dist = this.state.distance.split(".")
+        if(dist[1].length < 2) dist[1] +='0'
+        if(dist[1].length > 2) dist[1] = dist[1].split('').slice(0,2).join("")
+        let distNum = parseInt(dist[0], 10)*100 + parseInt(dist[1], 10);
+        if(this.state.val === 'km'){
+            distNum = distNum * 0.62137;
+        }
+        inputObject.distance = distNum;
+        // duration
+        inputObject.duration = this.state.durHours*60*60 + this.state.durMinutes*60;
+        debugger
+        this.props.action(inputObject)
+            .then(res => {location.hash = '/workouts'})  
+    }
 
 
     render(){
+
         let tagVal
         if(this.state.sport === 'biking') {
             tagVal = 'Indoor cycling'
         } else {
             tagVal = 'Treadmill'
         }
+        debugger
         return(
-            <div> workout form 
-            <form>
-                <label> Distance
-                    <input 
-                    type="text"
-                    value={this.state.distance}
-                    onChange={this.handleChange}
-                    />
-                </label>
-                <label> Duration
-                    <input 
-                        type="text"
-                        value={this.state.durHours}
-                        placeholder='h'
-                        onChange={this.handleChange}
-                    />
-                    <input 
-                        type="text"
-                        value={this.state.durMinutes}
-                        placeholder='m'
-                        onChange={this.handleChange}
-                    />
-                </label>
-                <label> Sport
-                    <select >
-                        { sportArray.map((sport, i) => <option key={i} value={sport}>{sport}</option> ) }
-                    </select>
-                </label>
-                <label> Date&time
-                    <DatePicker
-                        selected={this.state.date}
-                        onSelect={this.handleSelect} //when day is clicked
-                        onChange={this.handleChange} //only when value has changed
+            <div className="work-form-main"> 
+            
+            <div className="work-form-nav"> 
+                Manual
+            </div>
+            
+            <div className="work-form-body">
+                <h3>Manual Entry</h3>
+            <form onSubmit={this.handleSubmit}>
+                <div className="work-form-first">
+                    <label> 
+                        <div className="work-form-small">Distance</div>
+                        <div>
+                        <input 
+                            type="text"
+                            value={this.state.distance}
+                            onChange={this.handleChange('distance')}
+                            placeholder = '1.00'
                         />
-                    <select >
-                        { timeArray.map((time, i) => <option key={i} value={time}>{time}</option> ) }
-                    </select>
-                </label>
-                <label> Tag
-                    <label for="Commute">Commute
-                        <input type="radio" id="Commute" name="tag" value={this.state.type}/>
-                    </label>{tagVal}
-                    <label for="tagVal">
-                        <input type="radio" id="tagVal" name="tag" value={this.state.type}/>
+                        <select defaultValue="mi" onChange={this.handleChange('val')}>
+                            <option value="mi">mi</option>
+                            <option value="km">km</option>
+                        </select>
+                        </div>
                     </label>
-                </label>    
-                <label> Description
+                    <label > 
+                        <div className="work-form-small">Duration</div>
+                        
+                       <div className="work-form-dur">
+                        <input 
+                            type="number"
+                            value={this.state.durHours}
+                            placeholder='h'
+                            onChange={this.handleChange('durHours')}
+                        />
+                        <input 
+                            type="number"
+                            value={this.state.durMinutes}
+                            placeholder='m'
+                            onChange={this.handleChange('durMinutes')}
+                        />
+                        </div>
+                    </label>
+                </div >
+                <div className="work-form-second">
+                   <label className="work-form-second-label"> 
+                       <div className="work-form-small">Sport</div>
+                        <select onChange={this.handleChange('sport')}>
+                            { sportArray.map((sport, i) => <option key={i} value={sport}>{sport}</option> ) }
+                        </select>
+                   </label>
+                   <label className="work-form-second-label"> 
+                        <div className="work-form-small">Tag</div>
+                        <div className="work-form-tag">
+                            <label >Commute </label>
+                            <input type="radio" id="Commute" name="tag" value={this.state.type} onChange={this.handleChange('type')}/>
+                            
+                        </div>
+                        
+                        <div className="work-form-tag">
+                            <label>{tagVal}</label>
+                            <input type="radio" id="tagVal" name="tag" value={this.state.type} onChange={this.handleChange('type')}/>
+                        </div> 
+                   </label> 
+                   <label className="work-form-second-label"> 
+                       <div className="work-form-small">Date&time</div>
+                       <div className="work-form-date">
+                            <input className="work-form-cal" type="date" value={this.state.date} onChange={this.handleChange('date')}/>
+                            <select onChange={this.handleChange('time')}>
+                            { timeArray.map((time, i) => <option key={i} value={time}>{time}</option> ) }
+                            </select>
+                        </div>
+                </label> 
+                </div>
+                <div>
+                    <label> 
+                        <div className="work-form-small">Title</div>
+                        <input 
+                        type="text"
+                        value={this.state.title}
+                        onChange={this.handleChange('title')}
+                        />
+                    </label>
+                </div>
+                
+                
+                <label> 
+                    <div className="work-form-small">Description</div>
                     <textarea 
                         value={this.state.description}
-                        onChange={this.handleChange}
+                        onChange={this.handleChange('description')}
+                        placeholder="How did it go? Were you tired or rested? How was the weather?"
                     ></textarea>
                 </label>
+                <button className="work-form-button" type="submit">{this.props.postType}</button>
             </form>
+            </div>
             </div>
         )
     }

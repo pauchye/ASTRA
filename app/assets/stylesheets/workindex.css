@@ -1,0 +1,51 @@
+.work-ind-main {
+    display: flex;
+    flex-direction: column;
+    margin-right: 135px;
+    margin-left: 110px;
+    padding-left: 16px;
+    padding-right: 16px;
+    margin-top: 10px;
+    margin-bottom: 80px;
+    position: relative;
+    width: 100%;
+}
+
+.work-ind-list {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    background-color: lightpink;
+}
+.work-ind-line {
+    display: grid;
+    grid-template-columns: 60px 100px 140px 100px 100px 100px auto auto;
+}
+
+.work-ind-1 {
+    grid-column: 1;
+}
+
+.work-ind-2 {
+    grid-column: 2;
+}
+
+.work-ind-3 {
+    grid-column: 3;
+}
+
+.work-ind-4 {
+    grid-column: 4;
+}
+
+.work-ind-5 {
+    grid-column: 5;
+}
+
+.work-ind-6 {
+    grid-column: 6;
+}
+
+.work-ind-7 {
+    grid-column: 7;
+}

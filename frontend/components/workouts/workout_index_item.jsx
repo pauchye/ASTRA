@@ -4,23 +4,19 @@ import { Link } from 'react-router-dom';
 class WorkoutIndexItem extends React.Component{
     constructor(props){
         super(props);
-
+        this.deleteWorkout = this.deleteWorkout.bind(this)
     }
 
     // componentDidMount() {
 
     // }
-
+    deleteWorkout(){
+        debugger
+            this.props.deleteWorkout(this.props.workout.id)  
+    }        
 
     render(){
         // debugger
-        let pic 
-        if(this.props.workout.sport === 'running'){
-            pic= <i className="fas fa-running"></i>
-        } else {
-            pic = <i className="fas fa-bicycle"></i>
-        }
-
         let data = this.props.workout.created_at.split("T")[0]// 2020-06-04T15:37:57.143Z
         let showDuration;
         if(this.props.workout.duration/60 > 60){
@@ -32,35 +28,18 @@ class WorkoutIndexItem extends React.Component{
         let distMi = (this.props.workout.distance/100).toString() + ' mi';
         
         let pace = ((this.props.workout.duration/60)/(this.props.workout.distance/100)).toFixed(2).toString() + ' min/mi'
-
+        
         return(
-            <div>
-                <div>
-                    <img src={window.ava} className='dash-pic-small'/>
-                    <div>{pic}</div>
-                </div>
-                <div>
-                   <div>{this.props.currentUser.first_name} {this.props.currentUser.last_name}</div>
-                    <div>{data} </div> 
-                </div>
-
-                <div>
-                    <label>
-                        <div>{distMi} </div>
-                        Distance
-                    </label>
-                    <label>
-                        <div>{pace} </div>
-                        Pace
-                    </label>
-                    <label>
-                        <div>{showDuration} </div>
-                        Duration
-                    </label>
-                </div>
-                
-                
-            </div>           
+            <li className="work-ind-line">
+                <div className="work-ind-1">{this.props.workout.sport}</div>
+                <div className="work-ind-2">{data}</div>
+                <div className="work-ind-3">{this.props.workout.title}</div>
+                <div className="work-ind-4">{showDuration}</div>
+                <div className="work-ind-5">{distMi}</div>
+                <div className="work-ind-6">{pace} </div>
+                <Link className="work-ind-7" to={`/workouts/${this.props.workout.id}/edit`}>Edit</Link>
+                <div className='work-ind-8' onClick={this.deleteWorkout}>Delete</div>                
+            </li>           
         )
     }
 }

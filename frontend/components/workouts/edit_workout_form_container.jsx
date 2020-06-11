@@ -1,15 +1,18 @@
 import { connect } from 'react-redux';
 import WorkoutForm from './workout_form';
-import { updateWorkout } from '../../actions/workout_actions';
+import { updateWorkout, fetchWorkout } from '../../actions/workout_actions';
 import React from 'react';
 
 class EditWorkoutForm extends React.Component {
     componentDidMount(){
-        this.props.fetchRoute(this.props.match.params.routeId)
+        // debugger
+        this.props.fetchWorkout(this.props.match.params.workoutId)
     }
 
     render() {
         const { postType, userId, workout, routes, action} = this.props;
+        // debugger
+        if(!workout) return null;
         return(
           <WorkoutForm
             postType={postType}
@@ -25,7 +28,8 @@ class EditWorkoutForm extends React.Component {
 
 const mapStateToProps = (state, ownProps) => {
     const userId = state.session.id;
-    const routes = Object.values(state.entities.routes).filter(route => route.user_id === userId);
+    const routes = Object.values(state.entities.routes).filter(route => route.user_id === userId)
+    debugger
     return ({
         postType: 'Update Workout',
         userId,
@@ -36,7 +40,8 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = dispatch => {
     return ({
-        action: workout => dispatch(updateWorkout(workout))
+        action: workout => dispatch(updateWorkout(workout)),
+        fetchWorkout: workoutId => dispatch(fetchWorkout(workoutId))
     })
 }
 

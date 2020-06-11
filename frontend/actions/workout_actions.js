@@ -14,13 +14,14 @@ export const receiveWorkouts = workouts => {
 export const receiveWorkout = workout => {
   // debugger
   return {
-    type: RECEIVE_ROUTE,
+    type: RECEIVE_WORKOUT,
     workout 
 }};
 
 export const removeWorkout = workoutId => {
+  // debugger
     return {
-        type: RECEIVE_WORKOUT,
+        type: REMOVE_WORKOUT,
         workoutId
     }
 }
@@ -55,11 +56,13 @@ export const createWorkout = (workout) => dispatch => {
     })
   };
 
-export const updateWorkout = (workout) => dispatch => (
-    APIUtil.updateWorkout(workout).then(res => ( 
+export const updateWorkout = (workout) => dispatch => {
+  // debugger
+    return APIUtil.updateWorkout(workout).then(res => {
+      // debugger
       dispatch(receiveWorkout(res))
-    ))
-);
+    }) 
+};
 
 export const deleteWorkout = (workoutId) => dispatch => {
   // debugger
