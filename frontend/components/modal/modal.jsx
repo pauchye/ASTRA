@@ -7,7 +7,7 @@ import UpdateRouteContainer from '../route/update_route_container'
 class Modal extends React.Component {
   constructor(props){
     super(props);
-    // debugger
+    
   }
   render(){
     const { closeModal, modal, routeData, routeInfo } = this.props;

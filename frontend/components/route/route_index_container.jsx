@@ -3,7 +3,7 @@ import RouteIndex from './route_index';
 import { fetchUsersRoutes, fetchRoutes } from '../../actions/route_actions'
 
 const mapStateToProps = state => {
-    // debugger
+    
     return {
       routes: Object.values(state.entities.routes),
       users: state.entities.users,
@@ -12,7 +12,7 @@ const mapStateToProps = state => {
   }
   
 const mapDispatchToProps = dispatch => {
-    // debugger
+    
     return {
         fetchUsersRoutes: (userId) => dispatch(fetchUsersRoutes(userId))
     }

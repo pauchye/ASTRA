@@ -4,7 +4,7 @@ import Splash from './splash'
 
 
 const mapDispatchToProps = dispatch => {
-    // debugger
+    
     return {
         processForm: (user) => dispatch(login(user))
     }

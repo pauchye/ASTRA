@@ -22,6 +22,7 @@
     </script>
     <script src="https://kit.fontawesome.com/080cd15705.js" crossorigin="anonymous"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=<%= Rails.application.credentials.google[:api_key] %>"></script>
+    <%= favicon_link_tag asset_path('apple-touch-icon.png') %>
   </head>
 
   <body>

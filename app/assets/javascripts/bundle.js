@@ -105,8 +105,6 @@ var OPEN_MODAL = 'OPEN_MODAL';
 var CLOSE_MODAL = 'CLOSE_MODAL';
 var CLOSE_AND_SAVE = 'CLOSE_AND_SAVE';
 var openModal = function openModal(modal) {
-  // debugger;
-  console.log('modal:', modal);
   return {
     type: OPEN_MODAL,
     modal: modal
@@ -160,7 +158,6 @@ var receiveRoutes = function receiveRoutes(routes) {
   };
 };
 var receiveRoute = function receiveRoute(route) {
-  // debugger
   return {
     type: RECEIVE_ROUTE,
     route: route
@@ -182,27 +179,21 @@ var fetchRoutes = function fetchRoutes() {
 };
 var fetchUsersRoutes = function fetchUsersRoutes(userId) {
   return function (dispatch) {
-    // debugger
     return _util_routes_api_util__WEBPACK_IMPORTED_MODULE_0__["fetchUsersRoutes"](userId).then(function (routes) {
-      // debugger
       return dispatch(receiveRoutes(routes));
     });
   };
 };
 var fetchRoute = function fetchRoute(routeId) {
   return function (dispatch) {
-    // debugger
     return _util_routes_api_util__WEBPACK_IMPORTED_MODULE_0__["fetchRoute"](routeId).then(function (route) {
-      // debugger
       return dispatch(receiveRoute(route));
     });
   };
 };
 var createRoute = function createRoute(route) {
   return function (dispatch) {
-    // debugger
     return _util_routes_api_util__WEBPACK_IMPORTED_MODULE_0__["createRoute"](route).then(function (res) {
-      // debuggers
       return dispatch(receiveRoute(res));
     });
   };
@@ -216,9 +207,7 @@ var updateRoute = function updateRoute(route) {
 };
 var deleteRoute = function deleteRoute(routeId) {
   return function (dispatch) {
-    // debugger
     return _util_routes_api_util__WEBPACK_IMPORTED_MODULE_0__["deleteRoute"](routeId).then(function () {
-      // debugger
       return dispatch(removeRoute(routeId));
     });
   };
@@ -258,13 +247,11 @@ var receiveCurrentUser = function receiveCurrentUser(currentUser) {
   };
 };
 var logoutCurrentUser = function logoutCurrentUser() {
-  debugger;
   return {
     type: LOGOUT_CURRENT_USER
   };
 };
 var receiveSessionError = function receiveSessionError(errors) {
-  // debugger
   return {
     type: RECEIVE_SESSION_ERRORS,
     errors: errors
@@ -281,8 +268,6 @@ var signup = function signup(formUser) {
 };
 var login = function login(formUser) {
   return function (dispatch) {
-    // debugger
-    // console.log(logIn(formUser))
     return Object(_util_session_api_util__WEBPACK_IMPORTED_MODULE_0__["logIn"])(formUser).then(function (user) {
       return dispatch(receiveCurrentUser(user));
     }, function (error) {
@@ -292,9 +277,7 @@ var login = function login(formUser) {
 };
 var logout = function logout() {
   return function (dispatch) {
-    // debugger
     return Object(_util_session_api_util__WEBPACK_IMPORTED_MODULE_0__["logOut"])().then(function (user) {
-      // debugger
       return dispatch(logoutCurrentUser());
     }, function (error) {
       return dispatch(receiveSessionError(error.responseJSON));
@@ -344,7 +327,6 @@ var RECEIVE_WORKOUT = 'RECEIVE_WORKOUT';
 var REMOVE_WORKOUT = 'REMOVE_WORKOUT'; // ----- pojo actions
 
 var receiveWorkouts = function receiveWorkouts(workouts) {
-  // debugger
   return {
     type: RECEIVE_WORKOUTS,
     workouts: workouts //{ route.id: {description: ..., :id}, route.id: {description: ..., :id} }
@@ -352,14 +334,12 @@ var receiveWorkouts = function receiveWorkouts(workouts) {
   };
 };
 var receiveWorkout = function receiveWorkout(workout) {
-  // debugger
   return {
     type: RECEIVE_WORKOUT,
     workout: workout
   };
 };
 var removeWorkout = function removeWorkout(workoutId) {
-  // debugger
   return {
     type: REMOVE_WORKOUT,
     workoutId: workoutId
@@ -375,45 +355,38 @@ var fetchWorkouts = function fetchWorkouts() {
 };
 var fetchUsersWorkouts = function fetchUsersWorkouts(userId) {
   return function (dispatch) {
-    //   debugger
+    //   
     return _util_workouts_api_utils__WEBPACK_IMPORTED_MODULE_0__["fetchUsersWorkouts"](userId).then(function (workouts) {
-      //   debugger
+      //   
       return dispatch(receiveWorkouts(workouts));
     });
   };
 };
 var fetchWorkout = function fetchWorkout(workoutId) {
   return function (dispatch) {
-    // debugger
     return _util_workouts_api_utils__WEBPACK_IMPORTED_MODULE_0__["fetchWorkout"](workoutId).then(function (workout) {
-      // debugger
       return dispatch(receiveWorkout(workout));
     });
   };
 };
 var createWorkout = function createWorkout(workout) {
   return function (dispatch) {
-    // debugger
     return _util_workouts_api_utils__WEBPACK_IMPORTED_MODULE_0__["createWorkout"](workout).then(function (res) {
-      // debuggers
+      s;
       return dispatch(receiveWorkout(res));
     });
   };
 };
 var updateWorkout = function updateWorkout(workout) {
   return function (dispatch) {
-    // debugger
     return _util_workouts_api_utils__WEBPACK_IMPORTED_MODULE_0__["updateWorkout"](workout).then(function (res) {
-      // debugger
       dispatch(receiveWorkout(res));
     });
   };
 };
 var deleteWorkout = function deleteWorkout(workoutId) {
   return function (dispatch) {
-    // debugger
     return _util_workouts_api_utils__WEBPACK_IMPORTED_MODULE_0__["deleteWorkout"](workoutId).then(function () {
-      // debugger
       return dispatch(removeWorkout(workoutId));
     });
   };
@@ -629,7 +602,6 @@ var Dashboard = /*#__PURE__*/function (_React$Component) {
 
     _classCallCheck(this, Dashboard);
 
-    debugger;
     _this = _super.call(this, props);
     _this.state = {
       bool: false
@@ -653,16 +625,12 @@ var Dashboard = /*#__PURE__*/function (_React$Component) {
     value: function render() {
       var _this3 = this;
 
-      debugger;
       if (!this.state.bool) return null;
       var workouts = this.props.workouts;
       var workoutsCU = workouts.filter(function (workout) {
         return workout.user_id === _this3.props.currentUser.id;
       });
-      console.log(workoutsCU);
       var latestWorkout = workouts[workouts.length - 1];
-      debugger; // if(!props.workouts) return null;
-
       var showLatestWorkout = latestWorkout ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         className: "dash-user-label-act"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -721,7 +689,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var mapStateToProps = function mapStateToProps(state) {
-  debugger;
   return {
     currentUser: state.entities.users[state.session.id],
     workouts: Object.values(state.entities.workouts)
@@ -729,7 +696,6 @@ var mapStateToProps = function mapStateToProps(state) {
 };
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-  debugger;
   return {
     fetchUsersWorkouts: function fetchUsersWorkouts(userId) {
       return dispatch(Object(_actions_workout_actions__WEBPACK_IMPORTED_MODULE_2__["fetchUsersWorkouts"])(userId));
@@ -761,8 +727,7 @@ __webpack_require__.r(__webpack_exports__);
   var currentRoute = Object(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["useLocation"])().pathname;
   var showLogin = currentRoute !== '/login';
   var showSignup = currentRoute !== '/signup';
-  var noNewRoute = currentRoute !== '/routes/new'; // console.log(currentUser);
-
+  var noNewRoute = currentRoute !== '/routes/new';
   var display = showLogin && showSignup && noNewRoute ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "footer-greeting"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -809,8 +774,7 @@ __webpack_require__.r(__webpack_exports__);
   var showLogin = currentRoute !== '/login';
   var showSignup = currentRoute !== '/signup';
   var showDemo = currentRoute !== '/';
-  var noNewRoute = currentRoute === '/routes/new'; // console.log(currentUser);
-
+  var noNewRoute = currentRoute === '/routes/new';
   var display = currentUser ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "header-greeting"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -958,7 +922,7 @@ var Modal = /*#__PURE__*/function (_React$Component) {
   function Modal(props) {
     _classCallCheck(this, Modal);
 
-    return _super.call(this, props); // debugger
+    return _super.call(this, props);
   }
 
   _createClass(Modal, [{
@@ -1079,7 +1043,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var mapStateToProps = function mapStateToProps(state) {
-  // debugger
   var userId = state.session.id;
   return {
     postType: 'Create Route',
@@ -1101,7 +1064,6 @@ var mapStateToProps = function mapStateToProps(state) {
 };
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-  // debugger
   return {
     action: function action(route) {
       return dispatch(Object(_actions_route_actions__WEBPACK_IMPORTED_MODULE_2__["createRoute"])(route));
@@ -1193,8 +1155,7 @@ var EditRouteForm = /*#__PURE__*/function (_React$Component) {
           closeModal = _this$props.closeModal,
           closeAndSaveModal = _this$props.closeAndSaveModal,
           openModal = _this$props.openModal,
-          modalWord = _this$props.modalWord; // debugger
-
+          modalWord = _this$props.modalWord;
       if (!route) return null;
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(_route_form__WEBPACK_IMPORTED_MODULE_1__["default"], {
         postType: postType,
@@ -1214,7 +1175,6 @@ var EditRouteForm = /*#__PURE__*/function (_React$Component) {
 }(react__WEBPACK_IMPORTED_MODULE_4___default.a.Component);
 
 var mapStateToProps = function mapStateToProps(state, ownProps) {
-  // debugger
   var userId = state.session.id;
   return {
     postType: 'Update Route',
@@ -1225,7 +1185,6 @@ var mapStateToProps = function mapStateToProps(state, ownProps) {
 };
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-  // debugger
   return {
     fetchRoute: function fetchRoute(routeId) {
       return dispatch(Object(_actions_route_actions__WEBPACK_IMPORTED_MODULE_2__["fetchRoute"])(routeId));
@@ -1298,7 +1257,6 @@ var RouteForm = /*#__PURE__*/function (_React$Component) {
 
     _classCallCheck(this, RouteForm);
 
-    // debugger
     _this = _super.call(this, props);
     _this.state = _this.props.route;
     _this.routeData = JSON.parse(props.route.route_data);
@@ -1317,7 +1275,6 @@ var RouteForm = /*#__PURE__*/function (_React$Component) {
       elevation: _this.props.route.elevation,
       id: _this.props.route.id
     };
-    console.log('route form constructor', _this.routeInfo);
     _this.calculateAndDisplayRoute = _this.calculateAndDisplayRoute.bind(_assertThisInitialized(_this));
     _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
     _this.updateMapFilter = _this.updateMapFilter.bind(_assertThisInitialized(_this));
@@ -1341,7 +1298,6 @@ var RouteForm = /*#__PURE__*/function (_React$Component) {
       this.dur = 0;
 
       if (this.markers.length > 1) {
-        // debugger
         directionsService.route({
           origin: this.markers[0].position,
           waypoints: wayPoints,
@@ -1372,13 +1328,7 @@ var RouteForm = /*#__PURE__*/function (_React$Component) {
 
             _this2.setState({
               estimated_duration: showDuration
-            }); // console.log("this.dist", this.dist)
-            // console.log("this.routeInfo.distance", this.routeInfo.distance)
-            // console.log("this.state.distance", this.state.distance)
-            // console.log("this.dur", this.dur )
-            // console.log("this.routeInfo.estimated_duration", this.routeInfo.estimated_duration )
-            // console.log("this.state.estimated_duration", this.state.estimated_duration )
-
+            });
 
             if (_this2.routeData.path.length === 0) {
               _this2.routeData.path.push(start);
@@ -1390,9 +1340,6 @@ var RouteForm = /*#__PURE__*/function (_React$Component) {
             } else {
               _this2.routeData.path.push(end);
             }
-
-            console.log('ri:', _this2.routeInfo);
-            console.log('rd:', _this2.routeData);
           } else {
             window.alert('Directions request failed due to ' + status);
           }
@@ -1428,8 +1375,6 @@ var RouteForm = /*#__PURE__*/function (_React$Component) {
       // 
 
       this.routeData.path.forEach(function (location) {
-        debugger;
-
         _this3.placeMarker(location);
 
         _this3.calculateAndDisplayRoute(_this3.directionsService, _this3.directionsDisplay);
@@ -1461,15 +1406,13 @@ var RouteForm = /*#__PURE__*/function (_React$Component) {
       var marker = new google.maps.Marker({
         position: location,
         map: this.map
-      }); //  debugger
-
-      this.markers.push(marker); //  console.log(marker)
+      });
+      this.markers.push(marker);
     }
   }, {
     key: "handleSubmit",
     value: function handleSubmit(e) {
-      e.preventDefault(); // console.log(this.props.modalWord)
-
+      e.preventDefault();
       this.props.openModal(this.props.modalWord);
     }
   }, {
@@ -1479,21 +1422,20 @@ var RouteForm = /*#__PURE__*/function (_React$Component) {
       this.custTravelMode = input;
 
       if (input === 'WALKING') {
-        this.routeInfo.activity = 'running'; //   this.custTravelMode = 'WALKING';        
+        this.routeInfo.activity = 'running';
       } else {
-        this.routeInfo.activity = 'biking'; //   this.custTravelMode = 'BICYCLING';
+        this.routeInfo.activity = 'biking';
       }
     }
   }, {
     key: "updateMapFilter",
     value: function updateMapFilter(event) {
-      // debugger
       this.map.setMapTypeId(event.target.value);
     }
   }, {
     key: "hideSidebar",
     value: function hideSidebar() {
-      // debugger;
+      ;
       return function (e) {
         var element = document.getElementById("routeform-tohide");
         element.classList.toggle('hidden');
@@ -1643,7 +1585,6 @@ var RouteIndex = /*#__PURE__*/function (_React$Component) {
 
     _classCallCheck(this, RouteIndex);
 
-    // debugger
     _this = _super.call(this, props);
     _this.user_id = props.session.id;
     _this.state = _objectSpread({
@@ -1656,7 +1597,6 @@ var RouteIndex = /*#__PURE__*/function (_React$Component) {
     key: "componentDidMount",
     value: function componentDidMount() {
       // request benches from your API here
-      // debugger
       this.props.fetchUsersRoutes(this.user_id);
     }
   }, {
@@ -1664,7 +1604,7 @@ var RouteIndex = /*#__PURE__*/function (_React$Component) {
     value: function updateFilter(input) {
       var _this2 = this;
 
-      // debugger;
+      ;
       return function (e) {
         _this2.setState({
           routeActivity: input
@@ -1681,15 +1621,10 @@ var RouteIndex = /*#__PURE__*/function (_React$Component) {
     value: function render() {
       var _this3 = this;
 
-      // debugger;
-      var routes = this.props.routes; //   debugger
-
+      var routes = this.props.routes;
       var filteredRoute = routes.filter(function (route) {
         return route.activity === _this3.state.routeActivity;
       });
-      console.log(routes);
-      console.log(this.state.routeActivity);
-      console.log(filteredRoute);
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "route-ind-container"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -1753,7 +1688,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var mapStateToProps = function mapStateToProps(state) {
-  // debugger
   return {
     routes: Object.values(state.entities.routes),
     users: state.entities.users,
@@ -1762,7 +1696,6 @@ var mapStateToProps = function mapStateToProps(state) {
 };
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-  // debugger
   return {
     fetchUsersRoutes: function fetchUsersRoutes(userId) {
       return dispatch(Object(_actions_route_actions__WEBPACK_IMPORTED_MODULE_2__["fetchUsersRoutes"])(userId));
@@ -1896,14 +1829,12 @@ var RouteItem = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "handleClick",
     value: function handleClick(e) {
-      // debugger
       e.preventDefault();
       location.hash = "/routes/".concat(this.props.route.id);
     }
   }, {
     key: "render",
     value: function render() {
-      // debugger
       var data = this.props.route.created_at.split("T")[0]; // 2020-06-04T15:37:57.143Z
 
       var showDuration;
@@ -1987,7 +1918,6 @@ var RouteShow = /*#__PURE__*/function (_React$Component) {
 
     _classCallCheck(this, RouteShow);
 
-    // debugger
     _this = _super.call(this, props); // this.handleClick = this.handleClick.bind(this)
 
     _this.deleteRoute = _this.deleteRoute.bind(_assertThisInitialized(_this));
@@ -1997,7 +1927,6 @@ var RouteShow = /*#__PURE__*/function (_React$Component) {
   _createClass(RouteShow, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      // debugger
       this.props.fetchRoute(this.props.match.params.routeId);
     }
   }, {
@@ -2010,7 +1939,6 @@ var RouteShow = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      // debugger
       var route = this.props.route;
       if (!route) return null;
       var createddata = route.created_at.split("T")[0];
@@ -2081,7 +2009,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var mstp = function mstp(state, ownProps) {
-  // debugger
   return {
     route: state.entities.routes[ownProps.match.params.routeId],
     currentUser: state.entities.users[state.session.id]
@@ -2220,7 +2147,6 @@ var RouteShowMap = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      // console.log(this.routeData)
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "routeshow-container",
         ref: "mapNode"
@@ -2283,7 +2209,6 @@ var SaveRoute = /*#__PURE__*/function (_React$Component) {
     _classCallCheck(this, SaveRoute);
 
     _this = _super.call(this, props);
-    console.log(props);
     _this.state = {
       distance: _this.props.routeInfo.distance,
       estimated_duration: _this.props.routeInfo.estimated_duration,
@@ -2294,8 +2219,6 @@ var SaveRoute = /*#__PURE__*/function (_React$Component) {
       route_data: JSON.stringify(_this.props.routeData),
       id: _this.props.routeInfo.id
     };
-    console.log(_this.state); // debugger
-
     _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
     return _this;
   }
@@ -2314,14 +2237,13 @@ var SaveRoute = /*#__PURE__*/function (_React$Component) {
     value: function handleSubmit(e) {
       var _this3 = this;
 
-      e.preventDefault(); // debugger
-
+      e.preventDefault();
       this.props.action(this.state).then(function (res) {
         _this3.props.closeAndSaveModal();
 
         return res;
       }).then(function (res) {
-        location.hash = '/routes';
+        return location.hash = "/routes/".concat(res.route.id);
       });
     }
   }, {
@@ -2381,7 +2303,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var mapStateToProps = function mapStateToProps(state) {
-  // debugger
   var userId = state.session.id;
   return {
     userId: userId,
@@ -2391,7 +2312,6 @@ var mapStateToProps = function mapStateToProps(state) {
 };
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-  // debugger
   return {
     action: function action(route) {
       return dispatch(Object(_actions_route_actions__WEBPACK_IMPORTED_MODULE_2__["createRoute"])(route));
@@ -2431,7 +2351,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var mapStateToProps = function mapStateToProps(state) {
-  // debugger
   var userId = state.session.id;
   return {
     userId: userId,
@@ -2441,7 +2360,6 @@ var mapStateToProps = function mapStateToProps(state) {
 };
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-  // debugger
   return {
     action: function action(route) {
       return dispatch(Object(_actions_route_actions__WEBPACK_IMPORTED_MODULE_2__["updateRoute"])(route));
@@ -2479,7 +2397,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var mapStateToProps = function mapStateToProps(state) {
-  // debugger
   return {
     errors: state.errors.session,
     formType: 'Log In',
@@ -2582,7 +2499,6 @@ var SessionForm = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "renderErrors",
     value: function renderErrors() {
-      // debugger
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, this.props.errors.map(function (error, i) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
           key: "error-".concat(i)
@@ -2698,7 +2614,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-  // debugger
   return {
     processForm: function processForm(user) {
       return dispatch(Object(_actions_session_actions__WEBPACK_IMPORTED_MODULE_1__["login"])(user));
@@ -2774,7 +2689,6 @@ var Splash = /*#__PURE__*/function (_React$Component) {
   _createClass(Splash, [{
     key: "loginDemo",
     value: function loginDemo(e) {
-      // debugger
       this.props.processForm(this.demoUser); // .then(() => this.props.history.push('/dashboard'))
     }
   }, {
@@ -2922,7 +2836,6 @@ var EditWorkoutForm = /*#__PURE__*/function (_React$Component) {
   _createClass(EditWorkoutForm, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      // debugger
       this.props.fetchWorkout(this.props.match.params.workoutId);
     }
   }, {
@@ -2933,8 +2846,7 @@ var EditWorkoutForm = /*#__PURE__*/function (_React$Component) {
           userId = _this$props.userId,
           workout = _this$props.workout,
           routes = _this$props.routes,
-          action = _this$props.action; // debugger
-
+          action = _this$props.action;
       if (!workout) return null;
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(_workout_form__WEBPACK_IMPORTED_MODULE_1__["default"], {
         postType: postType,
@@ -2954,7 +2866,6 @@ var mapStateToProps = function mapStateToProps(state, ownProps) {
   var routes = Object.values(state.entities.routes).filter(function (route) {
     return route.user_id === userId;
   });
-  debugger;
   return {
     postType: 'Update Workout',
     userId: userId,
@@ -3035,21 +2946,13 @@ var WorkoutForm = /*#__PURE__*/function (_React$Component) {
 
     _this = _super.call(this, props);
     _this.state = props.workout;
-    console.log(_this.state); // this.setState({durHours: Math.floor(this.state.duration/60/60)})
-
-    _this.state.durHours = Math.floor(_this.state.duration / 60 / 60); // this.setState({durMinutes: Math.floor(this.state.duration/60%60)})
-
+    _this.state.durHours = Math.floor(_this.state.duration / 60 / 60);
     _this.state.durMinutes = Math.floor(_this.state.duration / 60 % 60);
     _this.state.user_id = _this.props.userId;
     _this.state.val = 'mi';
     _this.state.distance = (_this.state.distance / 100).toString();
-    debugger;
     _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_this));
-    _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this)); // this.handleMin = this.handleMin.bind(this)
-    // this.handleHour = this.handleHour.bind(this)
-    // this.handleDist = this.handleDist.bind(this)
-    // this.handleDate = this.handleDate.bind(this)
-
+    _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -3069,6 +2972,7 @@ var WorkoutForm = /*#__PURE__*/function (_React$Component) {
       var inputObject = Object.assign({}, this.state); //distance
 
       var dist = this.state.distance.split(".");
+      if (!dist[1]) dist[1] = '00';
       if (dist[1].length < 2) dist[1] += '0';
       if (dist[1].length > 2) dist[1] = dist[1].split('').slice(0, 2).join("");
       var distNum = parseInt(dist[0], 10) * 100 + parseInt(dist[1], 10);
@@ -3080,7 +2984,6 @@ var WorkoutForm = /*#__PURE__*/function (_React$Component) {
       inputObject.distance = distNum; // duration
 
       inputObject.duration = this.state.durHours * 60 * 60 + this.state.durMinutes * 60;
-      debugger;
       this.props.action(inputObject).then(function (res) {
         location.hash = '/workouts';
       });
@@ -3096,7 +2999,6 @@ var WorkoutForm = /*#__PURE__*/function (_React$Component) {
         tagVal = 'Treadmill';
       }
 
-      debugger;
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "work-form-main"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -3270,8 +3172,7 @@ function debounce(fn, time) {
       fn.apply(that, lastArgs);
     }, time);
   };
-} // <input type="text" onChange={debounce(this.updateFilter, 500)}/> 
-
+}
 
 var WorkoutIndex = /*#__PURE__*/function (_React$Component) {
   _inherits(WorkoutIndex, _React$Component);
@@ -3288,6 +3189,7 @@ var WorkoutIndex = /*#__PURE__*/function (_React$Component) {
       bool: false
     };
     _this.updateFilter = _this.updateFilter.bind(_assertThisInitialized(_this));
+    _this.updateSport = _this.updateSport.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -3301,10 +3203,7 @@ var WorkoutIndex = /*#__PURE__*/function (_React$Component) {
           bool: true
         });
       });
-    } // updateFilter(event) {
-    //         this.setState({filter: event.target.value})
-    // }
-
+    }
   }, {
     key: "updateFilter",
     value: function updateFilter(event) {
@@ -3323,11 +3222,18 @@ var WorkoutIndex = /*#__PURE__*/function (_React$Component) {
       this.debounced();
     }
   }, {
+    key: "updateSport",
+    value: function updateSport(event) {
+      event.persist();
+      this.setState({
+        filtSport: event.target.value
+      });
+    }
+  }, {
     key: "render",
     value: function render() {
       var _this4 = this;
 
-      // debugger
       if (!this.state.bool) return null;
       var workouts = this.props.workouts;
       var workoutsCU = workouts.filter(function (workout) {
@@ -3336,12 +3242,35 @@ var WorkoutIndex = /*#__PURE__*/function (_React$Component) {
       var latestWorkout = workouts[workouts.length - 1];
       var filteredWorkouts = workouts;
 
+      if (this.state.filtSport) {
+        if (this.state.filtSport === "All") {
+          filteredWorkouts = workouts;
+        } else {
+          filteredWorkouts = filteredWorkouts.filter(function (workout) {
+            return workout.sport === _this4.state.filtSport;
+          });
+        }
+      }
+
       if (this.state.filter) {
         filteredWorkouts = workouts.filter(function (workout) {
-          return workout.title.split(" ").includes(_this4.state.filter);
+          return workout.title.split(" ").map(function (el) {
+            return el.toUpperCase();
+          }).includes(_this4.state.filter.toUpperCase());
         });
-      } // debugger
+      }
 
+      var paceArray = [];
+      var effort = 0;
+      filteredWorkouts.forEach(function (workout) {
+        paceArray.push(workout.duration / 60 / (workout.distance / 100));
+      });
+
+      if (paceArray.length > 0) {
+        effort = paceArray.reduce(function (accumulator, currentValue) {
+          return accumulator + currentValue;
+        }) / paceArray.length;
+      }
 
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "work-ind-main"
@@ -3352,10 +3281,24 @@ var WorkoutIndex = /*#__PURE__*/function (_React$Component) {
         className: "work-ind-lab"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, workoutsCU.length, " Activities")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         className: "work-ind-search"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "work-ind-search-left"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Keywords"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "text",
         onChange: this.updateFilter
-      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Sport"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
+        className: "work-ind-search-select",
+        onChange: this.updateSport
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        className: "routeform-option",
+        value: "All"
+      }, "All"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        className: "routeform-option",
+        value: "biking"
+      }, "Biking"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        className: "routeform-option",
+        value: "running"
+      }, "Running")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
         className: "work-ind-list"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
         className: "work-ind-line"
@@ -3372,15 +3315,20 @@ var WorkoutIndex = /*#__PURE__*/function (_React$Component) {
       }, "Distance"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "work-ind-6"
       }, "Pace"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "work-ind-7"
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "work-ind-7 tooltip"
+      }, "Relative effort", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "tooltiptext"
+      }, "Relative effort shows this workout pace comparing to avarage pace")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "work-ind-8"
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "work-ind-9"
       })), filteredWorkouts.map(function (workout) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_workouts_workout_index_item__WEBPACK_IMPORTED_MODULE_2__["default"], {
           key: "workout".concat(workout.id),
           workout: workout,
           currentUser: _this4.props.currentUser,
-          deleteWorkout: _this4.props.deleteWorkout
+          deleteWorkout: _this4.props.deleteWorkout,
+          effort: effort
         });
       })));
     }
@@ -3410,7 +3358,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var mapStateToProps = function mapStateToProps(state) {
-  // debugger
   return {
     currentUser: state.entities.users[state.session.id],
     workouts: Object.values(state.entities.workouts)
@@ -3418,7 +3365,6 @@ var mapStateToProps = function mapStateToProps(state) {
 };
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-  // debugger
   return {
     fetchUsersWorkouts: function fetchUsersWorkouts(userId) {
       return dispatch(Object(_actions_workout_actions__WEBPACK_IMPORTED_MODULE_2__["fetchUsersWorkouts"])(userId));
@@ -3490,15 +3436,13 @@ var WorkoutIndexItem = /*#__PURE__*/function (_React$Component) {
   _createClass(WorkoutIndexItem, [{
     key: "deleteWorkout",
     value: function deleteWorkout() {
-      debugger;
       this.props.deleteWorkout(this.props.workout.id);
     }
   }, {
     key: "render",
     value: function render() {
-      // debugger
-      var data = this.props.workout.created_at.split("T")[0]; // 2020-06-04T15:37:57.143Z
-
+      // let data = this.props.workout.created_at.split("T")[0]// 2020-06-04T15:37:57.143Z
+      var data = this.props.workout.date;
       var showDuration;
 
       if (this.props.workout.duration / 60 > 60) {
@@ -3509,6 +3453,7 @@ var WorkoutIndexItem = /*#__PURE__*/function (_React$Component) {
 
       var distMi = (this.props.workout.distance / 100).toString() + ' mi';
       var pace = (this.props.workout.duration / 60 / (this.props.workout.distance / 100)).toFixed(2).toString() + ' min/mi';
+      var effort = (1 / (this.props.workout.duration / 60 / (this.props.workout.distance / 100) / this.props.effort)).toFixed(1);
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
         className: "work-ind-line"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -3523,11 +3468,13 @@ var WorkoutIndexItem = /*#__PURE__*/function (_React$Component) {
         className: "work-ind-5"
       }, distMi), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "work-ind-6"
-      }, pace, " "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
-        className: "work-ind-7",
+      }, pace, " "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "work-ind-7"
+      }, effort, " "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+        className: "work-ind-8",
         to: "/workouts/".concat(this.props.workout.id, "/edit")
       }, "Edit"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "work-ind-8",
+        className: "work-ind-9",
         onClick: this.deleteWorkout
       }, "Delete"));
     }
@@ -3593,7 +3540,6 @@ var WorkoutItem = /*#__PURE__*/function (_React$Component) {
   _createClass(WorkoutItem, [{
     key: "render",
     value: function render() {
-      debugger;
       if (!this.props.workout) return null;
       var pic;
 
@@ -3617,7 +3563,6 @@ var WorkoutItem = /*#__PURE__*/function (_React$Component) {
         showDuration = Math.floor(this.props.workout.duration / 60).toString() + ' min';
       }
 
-      console.log('distMi:', this.props.workout.distance);
       var distMi = (this.props.workout.distance / 100).toString() + ' mi';
       var pace = (this.props.workout.duration / 60 / (this.props.workout.distance / 100)).toFixed(2).toString() + ' min/mi';
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -3774,11 +3719,9 @@ var routesReducer = function routesReducer() {
   switch (action.type) {
     case _actions_route_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_ROUTES"]:
       //   return Object.assign({}, state, { [action.routes.id]: action.routes })
-      // debugger
       return Object.assign({}, state, action.routes);
 
     case _actions_route_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_ROUTE"]:
-      // debugger
       return Object.assign({}, _defineProperty({}, action.route.id, action.route));
 
     case _actions_route_actions__WEBPACK_IMPORTED_MODULE_0__["REMOVE_ROUTE"]:
@@ -3938,12 +3881,10 @@ var workoutsReducer = function workoutsReducer() {
   switch (action.type) {
     case _actions_workout_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_WORKOUTS"]:
       //   return Object.assign({}, state, { [action.routes.id]: action.routes })
-      // debugger
       return action.workouts;
     // return Object.assign({}, state, action.workouts)
 
     case _actions_workout_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_WORKOUT"]:
-      // debugger
       return Object.assign({}, _defineProperty({}, action.workout.id, action.workout));
 
     case _actions_workout_actions__WEBPACK_IMPORTED_MODULE_0__["REMOVE_WORKOUT"]:
@@ -4071,13 +4012,11 @@ var fetchRoutes = function fetchRoutes() {
   });
 };
 var fetchUsersRoutes = function fetchUsersRoutes(userId) {
-  // debugger
   return $.ajax({
     url: "api/users/".concat(userId, "/routes")
   });
 };
 var fetchRoute = function fetchRoute(routeId) {
-  // debugger
   return $.ajax({
     url: "api/routes/".concat(routeId)
   });
@@ -4102,7 +4041,6 @@ var updateRoute = function updateRoute(route) {
   });
 };
 var deleteRoute = function deleteRoute(routeId) {
-  // debugger
   return $.ajax({
     url: "api/routes/".concat(routeId),
     method: 'delete'
@@ -4124,7 +4062,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "logIn", function() { return logIn; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "logOut", function() { return logOut; });
 var signUp = function signUp(user) {
-  // debugger
   return $.ajax({
     url: "/api/users",
     method: 'post',
@@ -4134,7 +4071,6 @@ var signUp = function signUp(user) {
   });
 };
 var logIn = function logIn(user) {
-  // debugger
   return $.ajax({
     url: "/api/session",
     method: 'post',
@@ -4144,7 +4080,6 @@ var logIn = function logIn(user) {
   });
 };
 var logOut = function logOut() {
-  debugger;
   return $.ajax({
     url: "/api/session",
     method: 'delete'
@@ -4174,13 +4109,11 @@ var fetchWorkouts = function fetchWorkouts() {
   });
 };
 var fetchUsersWorkouts = function fetchUsersWorkouts(userId) {
-  // debugger
   return $.ajax({
     url: "api/users/".concat(userId, "/workouts")
   });
 };
 var fetchWorkout = function fetchWorkout(workoutId) {
-  // debugger
   return $.ajax({
     url: "api/workouts/".concat(workoutId)
   });
@@ -4196,7 +4129,6 @@ var createWorkout = function createWorkout(workout) {
   });
 };
 var updateWorkout = function updateWorkout(workout) {
-  // debugger
   return $.ajax({
     url: "api/workouts/".concat(workout.id),
     method: 'patch',
@@ -4206,7 +4138,6 @@ var updateWorkout = function updateWorkout(workout) {
   });
 };
 var deleteWorkout = function deleteWorkout(workoutId) {
-  // debugger
   return $.ajax({
     url: "api/workouts/".concat(workoutId),
     method: 'delete'

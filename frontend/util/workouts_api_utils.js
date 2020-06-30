@@ -5,14 +5,14 @@ export const fetchWorkouts = () => {
 }
 
 export const fetchUsersWorkouts = (userId) => {
-  // debugger
+  
     return $.ajax({
       url: `api/users/${userId}/workouts`
     })
 }
 
 export const fetchWorkout = (workoutId) => {
-    // debugger
+    
     return $.ajax({
       url: `api/workouts/${workoutId}`
     })
@@ -27,7 +27,7 @@ export const createWorkout = (workout) => {
 }
 
 export const updateWorkout = (workout) => {
-    // debugger
+    
     return $.ajax({
       url: `api/workouts/${workout.id}`,
       method: 'patch',
@@ -36,7 +36,7 @@ export const updateWorkout = (workout) => {
 }
 
 export const deleteWorkout = (workoutId) => {
-    // debugger
+    
     return $.ajax({
         url: `api/workouts/${workoutId}`,
         method: 'delete'

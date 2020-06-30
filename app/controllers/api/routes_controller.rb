@@ -29,9 +29,9 @@ class Api::RoutesController < ApplicationController
     end
 
     def create
-        # debugger
+        
         @route = Route.new(route_params)
-        # debugger
+        
         if @route.save
             render :show
         else
@@ -40,10 +40,10 @@ class Api::RoutesController < ApplicationController
     end
 
     def update
-        # debugger
+        
         @route = Route.find(params[:id])
         if @route.update(route_params)
-            # debugger
+            
             render :show
         else
             render json: @route.errors.full_messages, status: 401
@@ -51,9 +51,9 @@ class Api::RoutesController < ApplicationController
     end
 
     def destroy
-        # debugger
+        
         @route = Route.find(params[:id])
-        # debugger
+        
         if @route
             @route.destroy
         else
@@ -62,7 +62,7 @@ class Api::RoutesController < ApplicationController
     end
 
     def route_params
-        # debugger
+        
         params.require(:route).permit(:route_name, :user_id, :description, :activity, :road_type, :distance, :estimated_duration, :elevation, :route_data)
     end
 

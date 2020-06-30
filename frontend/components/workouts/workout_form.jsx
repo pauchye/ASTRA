@@ -19,22 +19,18 @@ class WorkoutForm extends React.Component {
     constructor(props){
         super(props);
         this.state = props.workout;
-        console.log(this.state);
-        // this.setState({durHours: Math.floor(this.state.duration/60/60)})
+
         this.state.durHours = Math.floor(this.state.duration/60/60);
-        // this.setState({durMinutes: Math.floor(this.state.duration/60%60)})
+
         this.state.durMinutes = Math.floor(this.state.duration/60%60);
         this.state.user_id = this.props.userId;
         this.state.val = 'mi';
         this.state.distance = (this.state.distance/100).toString()
 
-        debugger
+        
         this.handleChange = this.handleChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
-        // this.handleMin = this.handleMin.bind(this)
-        // this.handleHour = this.handleHour.bind(this)
-        // this.handleDist = this.handleDist.bind(this)
-        // this.handleDate = this.handleDate.bind(this)
+
     }
 
     handleChange(input){
@@ -49,6 +45,7 @@ class WorkoutForm extends React.Component {
         let inputObject = Object.assign({}, this.state);
         //distance
         let dist = this.state.distance.split(".")
+        if(!dist[1]) dist[1]='00'
         if(dist[1].length < 2) dist[1] +='0'
         if(dist[1].length > 2) dist[1] = dist[1].split('').slice(0,2).join("")
         let distNum = parseInt(dist[0], 10)*100 + parseInt(dist[1], 10);
@@ -58,7 +55,7 @@ class WorkoutForm extends React.Component {
         inputObject.distance = distNum;
         // duration
         inputObject.duration = this.state.durHours*60*60 + this.state.durMinutes*60;
-        debugger
+        
         this.props.action(inputObject)
             .then(res => {location.hash = '/workouts'})  
     }
@@ -72,7 +69,7 @@ class WorkoutForm extends React.Component {
         } else {
             tagVal = 'Treadmill'
         }
-        debugger
+        
         return(
             <div className="work-form-main"> 
             

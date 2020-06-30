@@ -8,7 +8,6 @@ export default ({currentUser, logout}) => {
   const showSignup = currentRoute !== '/signup';
   const showDemo = currentRoute !== '/'
   const noNewRoute = currentRoute === '/routes/new'
-  // console.log(currentUser);
  
   const display = currentUser ? (
     <div className ='header-greeting'>

@@ -5,13 +5,13 @@ import React from 'react';
 
 class EditWorkoutForm extends React.Component {
     componentDidMount(){
-        // debugger
+        
         this.props.fetchWorkout(this.props.match.params.workoutId)
     }
 
     render() {
         const { postType, userId, workout, routes, action} = this.props;
-        // debugger
+        
         if(!workout) return null;
         return(
           <WorkoutForm
@@ -29,7 +29,7 @@ class EditWorkoutForm extends React.Component {
 const mapStateToProps = (state, ownProps) => {
     const userId = state.session.id;
     const routes = Object.values(state.entities.routes).filter(route => route.user_id === userId)
-    debugger
+    
     return ({
         postType: 'Update Workout',
         userId,

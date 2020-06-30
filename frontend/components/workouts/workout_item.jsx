@@ -13,7 +13,7 @@ class WorkoutItem extends React.Component{
 
 
     render(){
-        debugger
+        
         if(!this.props.workout) return null;
         let pic 
         if(this.props.workout.sport === 'running'){
@@ -30,7 +30,6 @@ class WorkoutItem extends React.Component{
             showDuration = Math.floor((this.props.workout.duration/60)).toString() + ' min';
         }
 
-        console.log('distMi:', this.props.workout.distance)
         let distMi = (this.props.workout.distance/100).toString() + ' mi';
         
         let pace = ((this.props.workout.duration/60)/(this.props.workout.distance/100)).toFixed(2).toString() + ' min/mi'

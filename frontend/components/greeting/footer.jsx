@@ -7,7 +7,6 @@ export default ({currentUser, logout}) => {
   const showLogin = currentRoute !== '/login';
   const showSignup = currentRoute !== '/signup';
   const noNewRoute = currentRoute !== '/routes/new'
-  // console.log(currentUser);
  
   const display = showLogin && showSignup && noNewRoute ? (
     <div className ='footer-greeting'>

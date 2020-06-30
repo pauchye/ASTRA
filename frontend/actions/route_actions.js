@@ -10,7 +10,7 @@ export const receiveRoutes = routes => ({
 });
 
 export const receiveRoute = route => {
-  // debugger
+  
   return {
     type: RECEIVE_ROUTE,
     route 
@@ -30,25 +30,25 @@ export const fetchRoutes = () => dispatch => (
 );
 
 export const fetchUsersRoutes = (userId) => dispatch => {
-  // debugger
+  
     return APIUtil.fetchUsersRoutes(userId).then(routes => { 
-      // debugger
+      
       return dispatch(receiveRoutes(routes))
     })
 };
 
 export const fetchRoute = (routeId) => dispatch => {
-    // debugger
+    
     return APIUtil.fetchRoute(routeId).then(route => { 
-      // debugger
+      
       return dispatch(receiveRoute(route))
     })
 };
 
 export const createRoute = (route) => dispatch => {
-    // debugger
+    
     return APIUtil.createRoute(route).then(res => { 
-      // debuggers
+      
       return dispatch(receiveRoute(res))
     })
   };
@@ -60,9 +60,9 @@ export const updateRoute = (route) => dispatch => (
 );
 
 export const deleteRoute = (routeId) => dispatch => {
-  // debugger
+  
     return APIUtil.deleteRoute(routeId).then(() => { 
-      // debugger
+      
       return dispatch(removeRoute(routeId))
     })
     };

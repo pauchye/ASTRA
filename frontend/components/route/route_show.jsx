@@ -4,14 +4,14 @@ import RouteShowMap from './route_show_map';
 
 class RouteShow extends React.Component{
     constructor(props){
-        // debugger
+        
         super(props);
         // this.handleClick = this.handleClick.bind(this)
         this.deleteRoute = this.deleteRoute.bind(this)
     }
 
     componentDidMount(){
-        // debugger
+        
         this.props.fetchRoute(this.props.match.params.routeId)
     }
 
@@ -20,7 +20,7 @@ class RouteShow extends React.Component{
     }
 
     render(){
-        // debugger
+        
         const { route } = this.props;
         if (!route) return null;
         let createddata = route.created_at.split("T")[0];

@@ -3,7 +3,7 @@ import React from 'react';
 class SaveRoute extends React.Component{
     constructor(props){
         super(props);
-        console.log(props);
+
         this.state = {
             distance: this.props.routeInfo.distance,
             estimated_duration: this.props.routeInfo.estimated_duration,
@@ -15,8 +15,7 @@ class SaveRoute extends React.Component{
             id: this.props.routeInfo.id
         }
 
-        console.log(this.state)
-        // debugger
+        
         this.handleSubmit = this.handleSubmit.bind(this)        
     }
 
@@ -28,12 +27,15 @@ class SaveRoute extends React.Component{
 
     handleSubmit(e){
         e.preventDefault();
-        // debugger
+        
         this.props.action(this.state)
         .then(res => {
             this.props.closeAndSaveModal();
             return res;
-        }).then(res => {location.hash = '/routes'})       
+        }).then(res => {
+            
+            return location.hash = `/routes/${res.route.id}`
+        })          
         
     }
 

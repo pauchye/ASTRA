@@ -4,7 +4,7 @@ import { Link, useLocation } from 'react-router-dom';
 
 class RouteForm extends React.Component{
     constructor(props){
-        // debugger
+        
         super(props);
         this.state = this.props.route;
         this.routeData = JSON.parse(props.route.route_data);
@@ -24,7 +24,6 @@ class RouteForm extends React.Component{
             elevation: this.props.route.elevation,
             id: this.props.route.id
         }
-        console.log('route form constructor', this.routeInfo);
         this.calculateAndDisplayRoute = this.calculateAndDisplayRoute.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.updateMapFilter = this.updateMapFilter.bind(this);
@@ -37,7 +36,7 @@ class RouteForm extends React.Component{
         this.dist = 0;
         this.dur = 0;
         if(this.markers.length > 1) {
-            // debugger
+            
             directionsService.route({
                 origin: this.markers[0].position,
                 waypoints: wayPoints,
@@ -64,12 +63,7 @@ class RouteForm extends React.Component{
                         showDuration = Math.floor((this.dur/60)).toString() + ' m';
                     }
                     this.setState({estimated_duration: showDuration})
-                    // console.log("this.dist", this.dist)
-                    // console.log("this.routeInfo.distance", this.routeInfo.distance)
-                    // console.log("this.state.distance", this.state.distance)
-                    // console.log("this.dur", this.dur )
-                    // console.log("this.routeInfo.estimated_duration", this.routeInfo.estimated_duration )
-                    // console.log("this.state.estimated_duration", this.state.estimated_duration )
+
                     if(this.routeData.path.length === 0){
                         this.routeData.path.push(start);
                         this.routeData.path.push(end);
@@ -79,8 +73,7 @@ class RouteForm extends React.Component{
                         this.routeData.path.push(end);
                     }
 
-                    console.log('ri:', this.routeInfo);
-                    console.log('rd:', this.routeData);
+
                 } else {
                     window.alert('Directions request failed due to ' + status);
                 }
@@ -110,7 +103,7 @@ class RouteForm extends React.Component{
         // arr.forEach 
         // 
         this.routeData.path.forEach(location => {
-            debugger
+            
             this.placeMarker(location);
             this.calculateAndDisplayRoute(this.directionsService, this.directionsDisplay); 
         })
@@ -142,15 +135,14 @@ class RouteForm extends React.Component{
              position: location, 
              map: this.map
          });
-        //  debugger
+
          this.markers.push(marker)
 
-        //  console.log(marker)
     }
 
     handleSubmit(e) {
         e.preventDefault();    
-        // console.log(this.props.modalWord)
+
         this.props.openModal(this.props.modalWord)
     }
 
@@ -160,21 +152,21 @@ class RouteForm extends React.Component{
         this.custTravelMode = input;
         if(input === 'WALKING'){
           this.routeInfo.activity = 'running';
-        //   this.custTravelMode = 'WALKING';        
+      
         } else {
           this.routeInfo.activity = 'biking'
-        //   this.custTravelMode = 'BICYCLING';
+
         }
         
     }
 
     updateMapFilter(event) {
-        // debugger
+        
          this.map.setMapTypeId(event.target.value);
     }
 
     hideSidebar() {
-        // debugger;
+        ;
         return e => {
           let element = document.getElementById("routeform-tohide");
           element.classList.toggle('hidden')

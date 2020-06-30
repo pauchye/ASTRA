@@ -3,7 +3,7 @@ class Api::SessionsController < ApplicationController
       # Find user by credentials
       @user = User.find_by_credentials(params[:user][:email], params[:user][:password])
       if @user.nil?
-        # debugger
+        
         render json: ['Invalid username or password :)'], status: 401
       else
         login!(@user)
@@ -12,9 +12,9 @@ class Api::SessionsController < ApplicationController
     end
   
     def destroy
-      # debugger
+      
       if current_user
-        # debugger
+        
         logout!
         render json: { }
       else

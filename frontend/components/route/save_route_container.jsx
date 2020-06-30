@@ -4,7 +4,7 @@ import { createRoute } from '../../actions/route_actions'
 import { openModal, closeModal, closeAndSaveModal } from '../../actions/modal_actions'
 
 const mapStateToProps = state => {
-    // debugger
+    
     const userId = state.session.id;
     return {
       userId,
@@ -13,7 +13,7 @@ const mapStateToProps = state => {
   }
   
 const mapDispatchToProps = dispatch => {
-    // debugger
+    
     return {
         action: route => dispatch(createRoute(route)),
         closeModal: () => dispatch(closeModal()),

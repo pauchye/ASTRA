@@ -60,7 +60,7 @@ class RouteShowMap extends React.Component{
     }
 
     render(){
-        // console.log(this.routeData)
+
         return(
             <div > 
                 <div className='routeshow-container' ref='mapNode'></div>

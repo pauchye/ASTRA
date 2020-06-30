@@ -5,21 +5,21 @@ export const RECEIVE_WORKOUT = 'RECEIVE_WORKOUT';
 export const REMOVE_WORKOUT = 'REMOVE_WORKOUT';
 // ----- pojo actions
 export const receiveWorkouts = workouts => {
-    // debugger
+    
     return {
     type: RECEIVE_WORKOUTS,
     workouts //{ route.id: {description: ..., :id}, route.id: {description: ..., :id} }
 }};
 
 export const receiveWorkout = workout => {
-  // debugger
+  
   return {
     type: RECEIVE_WORKOUT,
     workout 
 }};
 
 export const removeWorkout = workoutId => {
-  // debugger
+  
     return {
         type: REMOVE_WORKOUT,
         workoutId
@@ -33,41 +33,41 @@ export const fetchWorkouts = () => dispatch => (
 );
 
 export const fetchUsersWorkouts = (userId) => dispatch => {
-//   debugger
+//   
     return APIUtil.fetchUsersWorkouts(userId).then(workouts => { 
-    //   debugger
+    //   
       return dispatch(receiveWorkouts(workouts))
     })
 };
 
 export const fetchWorkout = (workoutId) => dispatch => {
-    // debugger
+    
     return APIUtil.fetchWorkout(workoutId).then(workout => { 
-      // debugger
+      
       return dispatch(receiveWorkout(workout))
     })
 };
 
 export const createWorkout = (workout) => dispatch => {
-    // debugger
+    
     return APIUtil.createWorkout(workout).then(res => { 
-      // debuggers
+      s
       return dispatch(receiveWorkout(res))
     })
   };
 
 export const updateWorkout = (workout) => dispatch => {
-  // debugger
+  
     return APIUtil.updateWorkout(workout).then(res => {
-      // debugger
+      
       dispatch(receiveWorkout(res))
     }) 
 };
 
 export const deleteWorkout = (workoutId) => dispatch => {
-  // debugger
+  
     return APIUtil.deleteWorkout(workoutId).then(() => { 
-      // debugger
+      
       return dispatch(removeWorkout(workoutId))
     })
 };

@@ -44,13 +44,31 @@
 .work-ind-search {
     /* background-color: lightgreen; */
     margin: 10px 0px;
-    width: 40%;
+    width: calc(80% - 40px);
     padding: 20px;
     padding-top: 12px;
     padding-bottom: 26px;
     border: 1px solid lightgray;
     border-radius: 4px;
+    display: flex;
 
+}
+.work-ind-search-left {
+    width: 50%;
+    margin-right: 30px;
+}
+
+.work-ind-search-select{
+    width: 180px;
+    margin: 0px;
+    font-size: 14px;
+    line-height: 1.3em;
+    color: #000;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #dfdfe8;
+    border-radius: 4px;
+    height: 40px;
 }
 
 .work-ind-search input {
@@ -89,7 +107,7 @@
 }
 .work-ind-line {
     display: grid;
-    grid-template-columns: 10% 15% 20% 10% 10% 15% 10% 10%;
+    grid-template-columns: 8% 15% 20% 8% 8% 13% 12% 8% 8%;
     padding-bottom: 10px;
     padding-top: 10px;
     border: 1 solid lightgrey;
@@ -130,8 +148,6 @@
 
 .work-ind-7 {
     grid-column: 7;
-    text-decoration: underline;
-    cursor: pointer;
 }
 
 .work-ind-8 {
@@ -140,6 +156,38 @@
     cursor: pointer;
 }
 
+.work-ind-9 {
+    grid-column: 9;
+    text-decoration: underline;
+    cursor: pointer;
+    color: blue;
+}
+
+.tooltip {
+    position: relative;
+    display: block;
+  }
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 180px;
+    background-color: rgb(255, 255, 255);
+    color: rgb(134, 134, 134);
+    text-align: center;
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid rgb(209, 209, 209);
+    position: absolute;
+    z-index: 1;
+}
+  
+  /* Show the tooltip text when you mouse over the tooltip container */
+  .tooltip:hover .tooltiptext {
+      position: absolute;
+      bottom: 30px;
+      left: -20px;
+    visibility: visible;
+  }
 
 @media (max-width: 768px) {
     .work-ind-main{

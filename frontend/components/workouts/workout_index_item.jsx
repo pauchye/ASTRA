@@ -11,13 +11,14 @@ class WorkoutIndexItem extends React.Component{
 
     // }
     deleteWorkout(){
-        debugger
+        
             this.props.deleteWorkout(this.props.workout.id)  
     }        
 
     render(){
-        // debugger
-        let data = this.props.workout.created_at.split("T")[0]// 2020-06-04T15:37:57.143Z
+        
+        // let data = this.props.workout.created_at.split("T")[0]// 2020-06-04T15:37:57.143Z
+        let data = this.props.workout.date;
         let showDuration;
         if(this.props.workout.duration/60 > 60){
             showDuration = (Math.floor(this.props.workout.duration/60/60).toString()) + ' h ' + Math.floor((this.props.workout.duration/60%60)).toString() + ' m'
@@ -28,6 +29,7 @@ class WorkoutIndexItem extends React.Component{
         let distMi = (this.props.workout.distance/100).toString() + ' mi';
         
         let pace = ((this.props.workout.duration/60)/(this.props.workout.distance/100)).toFixed(2).toString() + ' min/mi'
+        let effort = (1/(((this.props.workout.duration/60)/(this.props.workout.distance/100))/this.props.effort)).toFixed(1);
         
         return(
             <li className="work-ind-line">
@@ -37,8 +39,9 @@ class WorkoutIndexItem extends React.Component{
                 <div className="work-ind-4">{showDuration}</div>
                 <div className="work-ind-5">{distMi}</div>
                 <div className="work-ind-6">{pace} </div>
-                <Link className="work-ind-7" to={`/workouts/${this.props.workout.id}/edit`}>Edit</Link>
-                <div className='work-ind-8' onClick={this.deleteWorkout}>Delete</div>                
+                <div className="work-ind-7">{effort} </div>
+                <Link className="work-ind-8" to={`/workouts/${this.props.workout.id}/edit`}>Edit</Link>
+                <div className='work-ind-9' onClick={this.deleteWorkout}>Delete</div>                
             </li>           
         )
     }

@@ -12,14 +12,14 @@ export const receiveCurrentUser = (currentUser) => {
 }
 
 export const logoutCurrentUser = () => {
-    debugger
+    
     return{
         type: LOGOUT_CURRENT_USER,
     }
 }
 
 export const receiveSessionError = (errors) => {
-    // debugger
+    
     return{
         type: RECEIVE_SESSION_ERRORS,
         errors
@@ -33,17 +33,15 @@ export const signup = formUser => dispatch => (
 )
 
 export const login = formUser => dispatch => {
-    // debugger
-    // console.log(logIn(formUser))
     return logIn(formUser).then(user => dispatch(receiveCurrentUser(user)), 
     error => dispatch(receiveSessionError(error.responseJSON))
     )
 }
     
 export const logout = () => dispatch => {
-    // debugger
+    
     return logOut().then(user => {
-        // debugger
+        
         return dispatch(logoutCurrentUser())
     },  
     error => dispatch(receiveSessionError(error.responseJSON))

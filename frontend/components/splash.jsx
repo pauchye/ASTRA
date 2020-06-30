@@ -15,7 +15,7 @@ class Splash extends React.Component {
     }
 
     loginDemo(e) {
-      // debugger
+      
         this.props.processForm(this.demoUser)
         // .then(() => this.props.history.push('/dashboard'))
     }

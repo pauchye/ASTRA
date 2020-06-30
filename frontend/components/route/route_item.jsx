@@ -64,13 +64,13 @@ class RouteItem extends React.Component{
     }
 
     handleClick(e){
-        // debugger
+        
         e.preventDefault();
         location.hash = `/routes/${this.props.route.id}`
     }
 
     render(){
-        // debugger
+        
         let data = this.props.route.created_at.split("T")[0]// 2020-06-04T15:37:57.143Z
         let showDuration;
         if(this.props.route.estimated_duration/60 > 60){

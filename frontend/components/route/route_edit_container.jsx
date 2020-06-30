@@ -11,7 +11,7 @@ class EditRouteForm extends React.Component {
 
     render(){
         const { postType, userId, route, fetchRoute, action, closeModal, closeAndSaveModal, openModal, modalWord} = this.props;
-        // debugger
+        
         if(!route) return null;
         return (
             < RouteForm
@@ -30,7 +30,7 @@ class EditRouteForm extends React.Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-    // debugger
+    
     const userId = state.session.id;
     return {
       postType: 'Update Route',
@@ -41,7 +41,7 @@ const mapStateToProps = (state, ownProps) => {
   }
   
 const mapDispatchToProps = dispatch => {
-    // debugger
+    
     return {
         fetchRoute: routeId => dispatch(fetchRoute(routeId)),
         action: route => dispatch(updateRoute(route)),

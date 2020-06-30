@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 
 class RouteIndex extends React.Component {
     constructor(props) {
-      // debugger
+      
         super(props);
         this.user_id = props.session.id;
         this.state = {routeActivity: 'biking', ...this.props.routes};
@@ -12,12 +12,12 @@ class RouteIndex extends React.Component {
 
     componentDidMount() {
       // request benches from your API here
-      // debugger
+      
       this.props.fetchUsersRoutes(this.user_id);
     }
 
     updateFilter(input) {
-      // debugger;
+      ;
       return e => {
         this.setState({routeActivity: input})
         let biking = document.getElementById("css-b");
@@ -29,13 +29,11 @@ class RouteIndex extends React.Component {
     }
   
     render() {
-        // debugger;
+ 
       const { routes } = this.props;
-    //   debugger
+ 
       let filteredRoute = routes.filter(route => route.activity === this.state.routeActivity)
-      console.log(routes);
-      console.log(this.state.routeActivity);
-      console.log(filteredRoute);
+
       return (
         <div className="route-ind-container">
           <div className="route-ind-1">
@@ -53,12 +51,6 @@ class RouteIndex extends React.Component {
           </div>
           <div className="route-ind-2">
 
-          {/* <label for="biking-css" onClick={this.updateFilter('biking')} className="route-ind-but"> Biking 
-           <input type="checkbox" id="biking-css" />
-          </label>
-          <label for="running-css" onClick={this.updateFilter('running')}className="route-ind-but"> Running 
-            <input type="checkbox" id="running-css" />
-          </label> */}
           <button onClick={this.updateFilter('biking')} className="route-ind-but route-ind-toggle" id="css-b"> Biking </button>
           <button onClick={this.updateFilter('running')} className="route-ind-but" id="css-w"> Running </button>
 

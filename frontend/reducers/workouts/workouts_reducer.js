@@ -5,11 +5,11 @@ const workoutsReducer = (state = {}, action) => {
     switch (action.type) {
         case RECEIVE_WORKOUTS:
         //   return Object.assign({}, state, { [action.routes.id]: action.routes })
-        // debugger
+        
           return action.workouts
           // return Object.assign({}, state, action.workouts)
         case RECEIVE_WORKOUT:
-          // debugger
+          
           return Object.assign({}, { [action.workout.id]: action.workout })
         case REMOVE_WORKOUT:
             let newState = Object.assign({}, state);
