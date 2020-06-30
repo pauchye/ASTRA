@@ -20,6 +20,7 @@ Api:
 - Editing an existing route,
 - Removing marker on click,
 - Dynamicaly calculating distance adding or removing a marker.
+![Routes](https://github.com/pauchye/ASTRA/blob/master/app/assets/images/chrome-capture.gif)
 ```
 calculateAndDisplayRoute(directionsService, directionsDisplay) {
         let wayPoints = this.markers.slice(1, this.markers.length - 1 ).map(marker => ({location: marker.position, stopover: false})) || [];
@@ -65,6 +66,7 @@ calculateAndDisplayRoute(directionsService, directionsDisplay) {
  ```
 ## Workouts 
 - Filter workouts by a key word with debounsing,
+![Workouts](https://github.com/pauchye/ASTRA/blob/master/app/assets/images/chrome-capture3.gif)
 ```
 function debounce(fn, time) {
     let timeoutHandle = null;
