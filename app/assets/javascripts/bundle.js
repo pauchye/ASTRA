@@ -355,9 +355,7 @@ var fetchWorkouts = function fetchWorkouts() {
 };
 var fetchUsersWorkouts = function fetchUsersWorkouts(userId) {
   return function (dispatch) {
-    //   
     return _util_workouts_api_utils__WEBPACK_IMPORTED_MODULE_0__["fetchUsersWorkouts"](userId).then(function (workouts) {
-      //   
       return dispatch(receiveWorkouts(workouts));
     });
   };
@@ -372,7 +370,6 @@ var fetchWorkout = function fetchWorkout(workoutId) {
 var createWorkout = function createWorkout(workout) {
   return function (dispatch) {
     return _util_workouts_api_utils__WEBPACK_IMPORTED_MODULE_0__["createWorkout"](workout).then(function (res) {
-      s;
       return dispatch(receiveWorkout(res));
     });
   };
@@ -661,7 +658,33 @@ var Dashboard = /*#__PURE__*/function (_React$Component) {
           workout: workout,
           currentUser: _this3.props.currentUser
         });
-      })));
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "dash-right"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "dash-right-div"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+        className: "fab fa-github fa-2x quick-fix",
+        href: "https://github.com/pauchye"
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+        className: "quick-fix",
+        href: "https://github.com/pauchye"
+      }, " Check out my Git for other projects ")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "dash-right-div"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+        className: "fab fa-linkedin fa-2x quick-fix",
+        href: "https://www.linkedin.com/in/olga-smirnova-17b73b41/"
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+        className: "quick-fix",
+        href: "https://www.linkedin.com/in/olga-smirnova-17b73b41/"
+      }, " Say 'Hi' on LinkedIn")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "dash-right-div"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+        className: "fa fa-rocket fa-2x quick-fix",
+        href: "https://pauchye.github.io/"
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+        className: "quick-fix",
+        href: "https://pauchye.github.io/"
+      }, " Check out my portfolio and resume "))));
     }
   }]);
 
@@ -742,11 +765,11 @@ __webpack_require__.r(__webpack_exports__);
   }), " "))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "greeting-right"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-    className: "fab fa-github",
+    className: "fab fa-github fa-lg quick-fix",
     href: "https://github.com/pauchye"
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-    className: "fab fa-linkedin",
-    href: "https://www.linkedin.com/in/olga-smirnova-assoc-aia-17b73b41/"
+    className: "fab fa-linkedin fa-lg quick-fix",
+    href: "https://www.linkedin.com/in/olga-smirnova-17b73b41/"
   }))) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, display);
 });
@@ -1514,11 +1537,11 @@ var RouteForm = /*#__PURE__*/function (_React$Component) {
       }, "Estimated duration"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "routeform-res"
       }, this.state.estimated_duration)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-        className: "fab fa-github",
+        className: "fab fa-github fa-lg quick-fix",
         href: "https://github.com/pauchye"
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-        className: "fab fa-linkedin",
-        href: "https://www.linkedin.com/in/olga-smirnova-assoc-aia-17b73b41/"
+        className: "fab fa-linkedin fa-lg quick-fix",
+        href: "https://www.linkedin.com/in/olga-smirnova-17b73b41/"
       })));
     }
   }]);
@@ -3253,7 +3276,7 @@ var WorkoutIndex = /*#__PURE__*/function (_React$Component) {
       }
 
       if (this.state.filter) {
-        filteredWorkouts = workouts.filter(function (workout) {
+        filteredWorkouts = filteredWorkouts.filter(function (workout) {
           return workout.title.split(" ").map(function (el) {
             return el.toUpperCase();
           }).includes(_this4.state.filter.toUpperCase());

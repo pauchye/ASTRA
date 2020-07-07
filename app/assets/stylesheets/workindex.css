@@ -111,15 +111,20 @@
     padding-bottom: 10px;
     padding-top: 10px;
     border: 1 solid lightgrey;
+    padding-left: 10px;
+    font-weight: 400;
 }
 
 .work-ind-list .work-ind-line:nth-child(odd) {
-    background-color: lightgrey;
+    background-color: #f7f7fa;
+    border-top: 1px solid #f0efef;
+    border-bottom: 1px solid #f0efef;
 }
 
 .work-ind-list .work-ind-line:first-child {
-    background-color: rgb(187, 185, 185);
+    background-color: #f7f7fa;
     box-shadow: 0 2px 2px #888888;
+    font-weight: 600;
 }
 
 .work-ind-1 {
@@ -152,15 +157,20 @@
 
 .work-ind-8 {
     grid-column: 8;
-    text-decoration: underline;
+    text-decoration: none;
     cursor: pointer;
+    color: #007FB6;
 }
 
 .work-ind-9 {
     grid-column: 9;
-    text-decoration: underline;
+    text-decoration: none;
     cursor: pointer;
-    color: blue;
+    color: #007FB6;
+}
+
+.work-ind-8:hover .work-ind-9:hover{
+    text-decoration: underline;
 }
 
 .tooltip {
@@ -179,6 +189,7 @@
     border: 1px solid rgb(209, 209, 209);
     position: absolute;
     z-index: 1;
+    font-weight: 500;
 }
   
   /* Show the tooltip text when you mouse over the tooltip container */

@@ -33,9 +33,9 @@ export const fetchWorkouts = () => dispatch => (
 );
 
 export const fetchUsersWorkouts = (userId) => dispatch => {
-//   
+
     return APIUtil.fetchUsersWorkouts(userId).then(workouts => { 
-    //   
+ 
       return dispatch(receiveWorkouts(workouts))
     })
 };
@@ -51,7 +51,7 @@ export const fetchWorkout = (workoutId) => dispatch => {
 export const createWorkout = (workout) => dispatch => {
     
     return APIUtil.createWorkout(workout).then(res => { 
-      s
+ 
       return dispatch(receiveWorkout(res))
     })
   };

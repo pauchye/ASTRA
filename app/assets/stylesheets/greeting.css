@@ -47,6 +47,7 @@
 .greeting-logo{
     height: 40px;
     padding-left: 100px;
+    padding-top: 4px;
 }
 
 .greeting-right{

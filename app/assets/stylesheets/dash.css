@@ -74,6 +74,28 @@
     max-width: 592px;
 }
 
+.dash-right {
+    margin-top: 48px;
+    padding-inline-start: 20px;
+
+}
+
+.quick-fix {
+    text-decoration: none;
+    color: gray;
+    padding: 10px;
+}
+
+.dash-right-div {
+    display: flex;
+    align-items: center;
+    /* border: 1px solid gray; */
+    border-radius: 6px;
+    background-color: white;
+    margin-top: 10px;
+    font-size: 14px;
+}
+
 .dash-item {
     margin-top: 20px;
     margin-bottom: 20px;

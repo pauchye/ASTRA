@@ -230,8 +230,8 @@ class RouteForm extends React.Component{
                             <div className ='routeform-res'>{this.state.estimated_duration}</div>
                         </div>
                   
-                        <a className="fab fa-github" href="https://github.com/pauchye"></a>
-                        <a className="fab fa-linkedin" href="https://www.linkedin.com/in/olga-smirnova-assoc-aia-17b73b41/"></a>
+                        <a className="fab fa-github fa-lg quick-fix" href="https://github.com/pauchye"></a>
+                        <a className="fab fa-linkedin fa-lg quick-fix" href="https://www.linkedin.com/in/olga-smirnova-17b73b41/"></a>
                       
                 </div>
                 

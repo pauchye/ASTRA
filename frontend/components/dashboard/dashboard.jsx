@@ -69,6 +69,21 @@ class Dashboard extends React.Component {
                 )
                 }
           </ul>
+
+          <div className = "dash-right">
+            <div className = "dash-right-div">
+                <a className="fab fa-github fa-2x quick-fix" href="https://github.com/pauchye"></a>
+                <a className="quick-fix" href="https://github.com/pauchye"> Check out my Git for other projects </a>
+            </div>
+            <div className = "dash-right-div">
+                <a className="fab fa-linkedin fa-2x quick-fix" href="https://www.linkedin.com/in/olga-smirnova-17b73b41/"></a>
+                <a className="quick-fix" href="https://www.linkedin.com/in/olga-smirnova-17b73b41/"> Say 'Hi' on LinkedIn</a>
+            </div>
+            <div className = "dash-right-div">
+                <a className="fa fa-rocket fa-2x quick-fix" href="https://pauchye.github.io/"></a>
+                <a className="quick-fix" href="https://pauchye.github.io/"> Check out my portfolio and resume </a>
+            </div>
+          </div>
             </div>
         )
     }

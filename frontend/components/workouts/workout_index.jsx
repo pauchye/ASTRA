@@ -45,8 +45,9 @@ class WorkoutIndex extends React.Component {
     }
 
     updateSport(event) {
+   
         event.persist();
-            this.setState({filtSport: event.target.value})
+        this.setState({filtSport: event.target.value})
     }
 
     render() {
@@ -61,13 +62,14 @@ class WorkoutIndex extends React.Component {
             if(this.state.filtSport==="All"){
                 filteredWorkouts = workouts
             } else {
+            
                filteredWorkouts = filteredWorkouts.filter(workout => {
                 return workout.sport === this.state.filtSport;
             }); 
             }
         }
         if(this.state.filter){
-            filteredWorkouts = workouts.filter(workout => {
+            filteredWorkouts = filteredWorkouts.filter(workout => {
                 return workout.title.split(" ").map((el) => { return el.toUpperCase()}).includes(this.state.filter.toUpperCase())
             });
         }
@@ -116,7 +118,6 @@ class WorkoutIndex extends React.Component {
                         <div className="work-ind-4">Time</div> 
                         <div className="work-ind-5">Distance</div> 
                         <div className="work-ind-6">Pace</div> 
-
                         <div className="work-ind-7 tooltip">Relative effort
                         <span className="tooltiptext">Relative effort shows this workout pace comparing to avarage pace</span>
                         </div> 
