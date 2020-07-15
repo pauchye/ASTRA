@@ -1336,8 +1336,7 @@ var RouteForm = /*#__PURE__*/function (_React$Component) {
 
             _this2.setState({
               distance: _this2.routeInfo.distance
-            }); //this.setState({ word: event.currentTarget.value });
-
+            });
 
             _this2.dur += response.routes[0].legs[0].duration.value;
             _this2.routeInfo.estimated_duration = _this2.dur;
@@ -1351,18 +1350,15 @@ var RouteForm = /*#__PURE__*/function (_React$Component) {
 
             _this2.setState({
               estimated_duration: showDuration
-            });
+            }); // if(this.routeData.path.length === 0){
+            //     this.routeData.path.push(start);
+            //     this.routeData.path.push(end);
+            //     this.routeData.lat = start.lat();
+            //     this.routeData.lng = start.lng();
+            // } else {
+            //     this.routeData.path.push(end);
+            // }
 
-            if (_this2.routeData.path.length === 0) {
-              _this2.routeData.path.push(start);
-
-              _this2.routeData.path.push(end);
-
-              _this2.routeData.lat = start.lat();
-              _this2.routeData.lng = start.lng();
-            } else {
-              _this2.routeData.path.push(end);
-            }
           } else {
             window.alert('Directions request failed due to ' + status);
           }
@@ -1374,8 +1370,19 @@ var RouteForm = /*#__PURE__*/function (_React$Component) {
     value: function componentDidMount() {
       var _this3 = this;
 
-      var maplat = parseFloat(this.routeData.lat, 10) || 40.779914;
-      var maplng = parseFloat(this.routeData.lng, 10) || -73.970519;
+      // getting center of the map
+      var maplat;
+      var maplng;
+
+      if (this.routeData.path[0] === undefined) {
+        maplat = 40.779914;
+        maplng = -73.970519;
+      } else {
+        maplat = parseFloat(this.routeData.path[0].lat, 10);
+        maplng = parseFloat(this.routeData.path[0].lng, 10);
+      } // data to pass to google maps
+
+
       var mapOptions = {
         center: {
           lat: maplat,
@@ -1383,7 +1390,8 @@ var RouteForm = /*#__PURE__*/function (_React$Component) {
         },
         zoom: 13,
         mapTypeId: 'roadmap'
-      };
+      }; // creating directions
+
       this.directionsService = new google.maps.DirectionsService();
       this.directionsDisplay = new google.maps.DirectionsRenderer({
         suppressMarkers: true,
@@ -1391,29 +1399,34 @@ var RouteForm = /*#__PURE__*/function (_React$Component) {
           strokeColor: "#FC4C02"
         },
         preserveViewport: true
-      });
-      this.map = new google.maps.Map(this.refs.mapNode, mapOptions);
-      this.directionsDisplay.setMap(this.map);
-      window.googleMap = this.map; // arr.forEach 
-      // 
+      }); // creating a map 
+
+      this.map = new google.maps.Map(this.refs.mapNode, mapOptions); // connecting directions and map
+
+      this.directionsDisplay.setMap(this.map); // bootstraping map
+
+      window.googleMap = this.map; // existing marker and dirs from db
 
       this.routeData.path.forEach(function (location) {
-        _this3.placeMarker(location);
+        _this3.placeOldMarker(location);
 
         _this3.calculateAndDisplayRoute(_this3.directionsService, _this3.directionsDisplay);
-      });
+      }); // marker and dirs on click
+
       google.maps.event.addListener(this.map, 'click', function (event) {
         _this3.placeMarker(event.latLng);
 
         _this3.calculateAndDisplayRoute(_this3.directionsService, _this3.directionsDisplay);
       });
-    }
+    } // removing marker from map and db. redrawing directions
+
   }, {
     key: "removeMarker",
     value: function removeMarker() {
       if (this.markers === []) return;
       this.markers[this.markers.length - 1].setMap(null);
       this.markers.pop();
+      this.routeData.path.pop();
 
       if (this.markers.length === 1) {
         directionsDisplay.setMap(null);
@@ -1422,10 +1435,27 @@ var RouteForm = /*#__PURE__*/function (_React$Component) {
 
       ;
       this.calculateAndDisplayRoute(this.directionsService, this.directionsDisplay);
-    }
+    } // placing new markers and adding coord to db
+
   }, {
     key: "placeMarker",
     value: function placeMarker(location) {
+      var marker = new google.maps.Marker({
+        position: location,
+        map: this.map
+      });
+      var markerLat = marker.getPosition().lat();
+      var markerLng = marker.getPosition().lng();
+      this.routeData.path.push({
+        lat: markerLat,
+        lng: markerLng
+      });
+      this.markers.push(marker);
+    } // placing existing markers
+
+  }, {
+    key: "placeOldMarker",
+    value: function placeOldMarker(location) {
       var marker = new google.maps.Marker({
         position: location,
         map: this.map
@@ -1458,7 +1488,6 @@ var RouteForm = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "hideSidebar",
     value: function hideSidebar() {
-      ;
       return function (e) {
         var element = document.getElementById("routeform-tohide");
         element.classList.toggle('hidden');
@@ -1792,8 +1821,8 @@ var RouteItem = /*#__PURE__*/function (_React$Component) {
 
       var mapOptions = {
         center: {
-          lat: parseFloat(this.routeData.lat, 10),
-          lng: parseFloat(this.routeData.lng, 10)
+          lat: parseFloat(this.routeData.path[0].lat, 10),
+          lng: parseFloat(this.routeData.path[0].lng, 10)
         },
         zoom: parseFloat(this.routeData.zoom, 10),
         gestureHandling: 'none',
@@ -2112,8 +2141,8 @@ var RouteShowMap = /*#__PURE__*/function (_React$Component) {
 
       var mapOptions = {
         center: {
-          lat: parseFloat(this.routeData.lat, 10),
-          lng: parseFloat(this.routeData.lng, 10)
+          lat: parseFloat(this.routeData.path[0].lat, 10),
+          lng: parseFloat(this.routeData.path[0].lng, 10)
         },
         zoom: parseFloat(this.routeData.zoom, 10)
       };

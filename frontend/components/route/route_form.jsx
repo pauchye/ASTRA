@@ -52,7 +52,6 @@ class RouteForm extends React.Component{
                     this.dist += response.routes[0].legs[0].distance.value;
                     this.routeInfo.distance = (Math.round((this.dist*0.000621371)*100)/100).toString() + ' mi'; //Math.round(num * 100) / 100
                     this.setState({distance: this.routeInfo.distance})
-                    //this.setState({ word: event.currentTarget.value });
 
                     this.dur += response.routes[0].legs[0].duration.value;
                     this.routeInfo.estimated_duration = this.dur;
@@ -64,14 +63,14 @@ class RouteForm extends React.Component{
                     }
                     this.setState({estimated_duration: showDuration})
 
-                    if(this.routeData.path.length === 0){
-                        this.routeData.path.push(start);
-                        this.routeData.path.push(end);
-                        this.routeData.lat = start.lat();
-                        this.routeData.lng = start.lng();
-                    } else {
-                        this.routeData.path.push(end);
-                    }
+                    // if(this.routeData.path.length === 0){
+                    //     this.routeData.path.push(start);
+                    //     this.routeData.path.push(end);
+                    //     this.routeData.lat = start.lat();
+                    //     this.routeData.lng = start.lng();
+                    // } else {
+                    //     this.routeData.path.push(end);
+                    // }
 
 
                 } else {
@@ -82,46 +81,52 @@ class RouteForm extends React.Component{
     }
 
     componentDidMount() {
-        let maplat = parseFloat(this.routeData.lat, 10) || 40.779914;
-        let maplng= parseFloat(this.routeData.lng, 10) || -73.970519;
+        // getting center of the map
+        let maplat;
+        let maplng;
+        if(this.routeData.path[0] === undefined){
+            maplat = 40.779914;
+            maplng = -73.970519;
+        } else {
+            maplat = parseFloat(this.routeData.path[0].lat, 10);
+            maplng = parseFloat(this.routeData.path[0].lng, 10);
+        }
+// data to pass to google maps
         const mapOptions = {
           center: { lat: maplat, lng: maplng }, 
           zoom: 13,
           mapTypeId: 'roadmap'
         };
-
+// creating directions
         this.directionsService = new google.maps.DirectionsService(); 
         this.directionsDisplay = new google.maps.DirectionsRenderer(
             {suppressMarkers: true,
              polylineOptions: { strokeColor: "#FC4C02" } ,
              preserveViewport: true }
             ); 
-
+// creating a map 
         this.map = new google.maps.Map(this.refs.mapNode, mapOptions);
+// connecting directions and map
         this.directionsDisplay.setMap(this.map);
+// bootstraping map
         window.googleMap = this.map;
-        // arr.forEach 
-        // 
-        this.routeData.path.forEach(location => {
-            
-            this.placeMarker(location);
+// existing marker and dirs from db
+        this.routeData.path.forEach(location => {           
+            this.placeOldMarker(location);
             this.calculateAndDisplayRoute(this.directionsService, this.directionsDisplay); 
         })
-
+// marker and dirs on click
         google.maps.event.addListener(this.map, 'click', (event) => {
- 
             this.placeMarker(event.latLng);
-            this.calculateAndDisplayRoute(this.directionsService, this.directionsDisplay);
-  
-        });
-
-        
+            this.calculateAndDisplayRoute(this.directionsService, this.directionsDisplay);  
+        });  
     }
-
+// removing marker from map and db. redrawing directions
     removeMarker(){
         if(this.markers === []) return;
         this.markers[this.markers.length - 1].setMap(null);
         this.markers.pop();
+        this.routeData.path.pop();
         if(this.markers.length === 1){
             directionsDisplay.setMap(null);
             directionsDisplay = null;
@@ -129,48 +134,49 @@ class RouteForm extends React.Component{
         
         this.calculateAndDisplayRoute(this.directionsService, this.directionsDisplay);
     }
-
+// placing new markers and adding coord to db
      placeMarker(location) {
          let marker = new google.maps.Marker({
              position: location, 
              map: this.map
          });
-
+         let markerLat = marker.getPosition().lat();
+         let markerLng = marker.getPosition().lng();
+         this.routeData.path.push({lat: markerLat, lng: markerLng})
          this.markers.push(marker)
-
     }
+// placing existing markers
+    placeOldMarker(location) {
+        let marker = new google.maps.Marker({
+            position: location, 
+            map: this.map
+        });
+        this.markers.push(marker)
+   }
 
     handleSubmit(e) {
         e.preventDefault();    
-
         this.props.openModal(this.props.modalWord)
     }
 
     updateFilter(event) {
-        let input = event.target.value;
-        
+        let input = event.target.value;       
         this.custTravelMode = input;
         if(input === 'WALKING'){
-          this.routeInfo.activity = 'running';
-      
+          this.routeInfo.activity = 'running'; 
         } else {
           this.routeInfo.activity = 'biking'
-
-        }
-        
+        }       
     }
 
-    updateMapFilter(event) {
-        
+    updateMapFilter(event) {    
          this.map.setMapTypeId(event.target.value);
     }
 
     hideSidebar() {
-        ;
         return e => {
           let element = document.getElementById("routeform-tohide");
-          element.classList.toggle('hidden')
-  
+          element.classList.toggle('hidden')  
         }
       }
 
