@@ -24,8 +24,11 @@ class RouteShowMap extends React.Component{
         this.directionsDisplay.setMap(this.map);
 
         this.routeData.path.forEach(location => {
-            this.placeMarker(location);
-            this.calculateAndDisplayRoute(this.directionsService, this.directionsDisplay); 
+            this.delayFactor++  
+            setTimeout( () => {
+                this.placeMarker(location);
+                this.calculateAndDisplayRoute(this.directionsService, this.directionsDisplay); 
+            }, this.delayFactor*350) 
         })
 
     }

@@ -13,6 +13,7 @@ class RouteForm extends React.Component{
         this.dist = 0;
         this.dur = 0;
         this.custTravelMode = 'BICYCLING';
+        this.delayFactor = 1;
  
         this.routeInfo = {
             route_name: this.props.route.route_name, 
@@ -111,14 +112,20 @@ class RouteForm extends React.Component{
 // bootstraping map
         window.googleMap = this.map;
 // existing marker and dirs from db
-        this.routeData.path.forEach(location => {           
-            this.placeOldMarker(location);
-            this.calculateAndDisplayRoute(this.directionsService, this.directionsDisplay); 
+        this.routeData.path.forEach(location => {  
+            this.delayFactor++  
+            setTimeout( () => {
+             this.placeOldMarker(location);
+            this.calculateAndDisplayRoute(this.directionsService, this.directionsDisplay);        
+            }, this.delayFactor*350)       
         })
 // marker and dirs on click
         google.maps.event.addListener(this.map, 'click', (event) => {
-            this.placeMarker(event.latLng);
-            this.calculateAndDisplayRoute(this.directionsService, this.directionsDisplay);  
+            this.delayFactor++  
+            setTimeout( () => {
+                this.placeMarker(event.latLng);
+                this.calculateAndDisplayRoute(this.directionsService, this.directionsDisplay);  
+            }, this.delayFactor*350)   
         });  
     }
 // removing marker from map and db. redrawing directions
